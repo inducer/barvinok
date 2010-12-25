@@ -1385,7 +1385,6 @@ order_sign partial_order::compare(const indicator_term *a, const indicator_term 
 {
     unsigned dim = a->den.NumCols();
     order_sign sign = order_eq;
-    EDomain *D = ind->D;
     unsigned MaxRays = ind->options->verify->barvinok->MaxRays;
     bool rational = a->sign == 0 || b->sign == 0;
 
@@ -1429,12 +1428,11 @@ order_sign partial_order::compare(const indicator_term *a, const indicator_term 
 	if (term.size())
 	    tdiff = diff = ediff(term[0]->vertex[k], term[1]->vertex[k]);
 	order_sign diff_sign;
-	if (!D)
-	    diff_sign = order_undefined;
-	else if (eequal(a->vertex[k], b->vertex[k]))
+	if (eequal(a->vertex[k], b->vertex[k]))
 	    diff_sign = order_eq;
 	else
-	    diff_sign = evalue_sign(diff, D, ind->options->verify->barvinok);
+	    diff_sign = evalue_sign(diff, ind->D,
+					ind->options->verify->barvinok);
 
 	if (diff_sign == order_undefined) {
 	    assert(sign == order_le || sign == order_ge);
@@ -1459,8 +1457,7 @@ order_sign partial_order::compare(const indicator_term *a, const indicator_term 
 	    break;
 	}
 	if (diff_sign == order_eq) {
-	    if (D == ind->D && term.size() == 0 && !rational &&
-		    !EVALUE_IS_ZERO(*diff))
+	    if (term.size() == 0 && !rational && !EVALUE_IS_ZERO(*diff))
 		ind->add_substitution(diff);
 	    continue;
 	}
@@ -1484,9 +1481,6 @@ order_sign partial_order::compare(const indicator_term *a, const indicator_term 
 	cache.add(cache_el, sign);
     else
 	cache_el.free();
-
-    if (D && D != ind->D)
-	delete D;
 
     if (term.size()) {
 	delete term[0];
