@@ -670,6 +670,9 @@ struct isc_named_bin_op named_bin_ops[] = {
 	{ "cross",	{ -1,	isl_obj_union_map,	isl_obj_union_map,
 		isl_obj_union_map,
 		(isc_bin_op_fn) &isl_union_map_product } },
+	{ "cross_range",	{ -1,	isl_obj_union_map,
+		isl_obj_union_map, isl_obj_union_map,
+		(isc_bin_op_fn) &isl_union_map_range_product } },
 	NULL
 };
 
