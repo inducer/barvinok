@@ -2225,52 +2225,6 @@ ostream & operator<< (ostream & os, const vector<int> & v)
     return os;
 }
 
-static bool isTranslation(Matrix *M)
-{
-    unsigned i, j;
-    if (M->NbRows != M->NbColumns)
-	return False;
-
-    for (i = 0;i < M->NbRows; i ++)
-	for (j = 0; j < M->NbColumns-1; j ++)
-	    if (i == j) {
-		if(value_notone_p(M->p[i][j]))
-		    return False;
-	    } else {
-		if(value_notzero_p(M->p[i][j]))
-		    return False;
-	    }
-    return value_one_p(M->p[M->NbRows-1][M->NbColumns-1]);
-}
-
-static Matrix *compress_parameters(Polyhedron **P, Polyhedron **C,
-				   unsigned nparam, unsigned MaxRays)
-{
-    Matrix *M, *T, *CP;
-
-    /* compress_parms doesn't like equalities that only involve parameters */
-    for (int i = 0; i < (*P)->NbEq; ++i)
-	assert(First_Non_Zero((*P)->Constraint[i]+1, (*P)->Dimension-nparam) != -1);
-
-    M = Matrix_Alloc((*P)->NbEq, (*P)->Dimension+2);
-    Vector_Copy((*P)->Constraint[0], M->p[0], (*P)->NbEq * ((*P)->Dimension+2));
-    CP = compress_parms(M, nparam);
-    Matrix_Free(M);
-
-    if (isTranslation(CP)) {
-	Matrix_Free(CP);
-	return NULL;
-    }
-
-    T = align_matrix(CP, (*P)->Dimension+1);
-    *P = Polyhedron_Preimage(*P, T, MaxRays);
-    Matrix_Free(T);
-
-    *C = Polyhedron_Preimage(*C, CP, MaxRays);
-
-    return CP;
-}
-
 void construct_rational_vertices(Param_Polyhedron *PP, Matrix *T, unsigned dim, 
 				 int nparam, vector<indicator_term *>& vertices)
 {
