@@ -88,3 +88,8 @@ more memory.
 
 For bug reports, feature requests and questions,
 contact http://groups.google.com/group/isl-development
+
+Whenever you report a bug, please mention the exact version of barvinok
+that you are using (output of "./iscc --version").  If you are unable
+to compile barvinok, then report the git version (output of "git describe")
+or the version included in the name of the tarball.
