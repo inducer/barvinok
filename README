@@ -47,6 +47,11 @@ Also note that if you have previously installed a shared library of an older
 version of barvinok, and you do not install one for this version, then the
 linker may pick up the old shared library rather than the new static library.
 
+By default, barvinok will use the included copy of isl.
+If you want it to use a pre-installed version of isl instead, then
+configure with the --with-isl=system option.  Use the --with-isl-prefix
+option to specify the installation prefix of isl, if needed.
+
 If you want to compile and use the included pet library, then
 you need the following packages:
 - libyaml (http://pyyaml.org/wiki/LibYAML)
