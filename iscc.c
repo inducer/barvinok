@@ -2648,10 +2648,6 @@ static __isl_give isl_printer *read_line(struct isl_stream *s,
 
 	obj = read_expr(s, table);
 	ctx = isl_stream_get_ctx(s);
-	if (isl_ctx_last_error(ctx) == isl_error_abort) {
-		fprintf(stderr, "Interrupted\n");
-		isl_ctx_reset_error(ctx);
-	}
 	if (isl_stream_eat(s, ';'))
 		goto error;
 
@@ -2808,9 +2804,19 @@ int main(int argc, char **argv)
 
 	install_signal_handler(ctx);
 
-	while (p && !isl_stream_is_empty(s)) {
-		isl_ctx_resume(ctx);
-		p = read_line(s, table, p, tty);
+	while (p) {
+		int empty;
+
+		empty = isl_stream_is_empty(s);
+		if (empty && isl_ctx_last_error(ctx) != isl_error_abort)
+			break;
+		if (!empty)
+			p = read_line(s, table, p, tty);
+		if (isl_ctx_last_error(ctx) == isl_error_abort) {
+			fprintf(stderr, "Interrupted\n");
+			isl_ctx_resume(ctx);
+			isl_ctx_reset_error(ctx);
+		}
 	}
 
 	remove_signal_handler(ctx);
