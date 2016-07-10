@@ -2105,7 +2105,8 @@ static __isl_give isl_printer *codegen(struct isl_stream *s,
 		tree = get_ast_from_union_map(schedule, options);
 	}
 
-	p = print_ast(p, tree);
+	if (tree)
+		p = print_ast(p, tree);
 
 	isl_stream_eat(s, ';');
 
