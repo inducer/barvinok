@@ -19,7 +19,7 @@ extern "C" {
 #endif
 
 __isl_give isl_basic_map *isl_basic_map_new_from_polylib(Polyhedron *P,
-			__isl_take isl_space *dim);
+	__isl_take isl_space *space);
 Polyhedron *isl_basic_map_to_polylib(__isl_keep isl_basic_map *bmap);
 Polyhedron *isl_map_to_polylib(__isl_keep isl_map *map);
 

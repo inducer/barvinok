@@ -100,26 +100,26 @@ struct isl_basic_set *isl_basic_set_new_from_polylib(Polyhedron *P,
 }
 
 __isl_give isl_basic_map *isl_basic_map_new_from_polylib(Polyhedron *P,
-	__isl_take isl_space *dim)
+	__isl_take isl_space *space)
 {
 	isl_ctx *ctx;
 	struct isl_basic_map *bmap;
 	unsigned n_out;
 	unsigned extra;
 
-	if (!dim)
+	if (!space)
 		return NULL;
 
-	ctx = isl_space_get_ctx(dim);
+	ctx = isl_space_get_ctx(space);
 	isl_assert(ctx, P, goto error);
-	isl_assert(ctx, P->Dimension >= isl_space_dim(dim, isl_dim_all),
+	isl_assert(ctx, P->Dimension >= isl_space_dim(space, isl_dim_all),
 		    goto error);
 
-	n_out = isl_space_dim(dim, isl_dim_out);
-	extra = P->Dimension - isl_space_dim(dim, isl_dim_all);
-	dim = isl_space_from_domain(isl_space_wrap(dim));
-	dim = isl_space_add_dims(dim, isl_dim_out, extra);
-	bmap = isl_basic_map_universe(dim);
+	n_out = isl_space_dim(space, isl_dim_out);
+	extra = P->Dimension - isl_space_dim(space, isl_dim_all);
+	space = isl_space_from_domain(isl_space_wrap(space));
+	space = isl_space_add_dims(space, isl_dim_out, extra);
+	bmap = isl_basic_map_universe(space);
 	if (!bmap)
 		return NULL;
 
@@ -128,7 +128,7 @@ __isl_give isl_basic_map *isl_basic_map_new_from_polylib(Polyhedron *P,
 
 	return bmap;
 error:
-	isl_space_free(dim);
+	isl_space_free(space);
 	return NULL;
 }
 
