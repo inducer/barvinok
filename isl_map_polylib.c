@@ -16,75 +16,6 @@
 #include "isl_set_polylib.h"
 #include "isl_map_polylib.h"
 
-static __isl_give isl_constraint *copy_constraint_from(
-	__isl_take isl_constraint *dst, Value *src)
-{
-	int i, j, k;
-	isl_ctx *ctx = isl_constraint_get_ctx(dst);
-	isl_val *v;
-	enum isl_dim_type types[] = { isl_dim_in, isl_dim_out, isl_dim_param };
-
-	k = 1;
-	for (i = 0; i < 3; ++i) {
-		int n = isl_constraint_dim(dst, types[i]);
-		for (j = 0; j < n; ++j, ++k) {
-			v = isl_val_int_from_gmp(ctx, src[k]);
-			dst = isl_constraint_set_coefficient_val(dst, types[i],
-								j, v);
-		}
-	}
-
-	v = isl_val_int_from_gmp(ctx, src[k]);
-	dst = isl_constraint_set_constant_val(dst, v);
-
-	return dst;
-}
-
-static __isl_give isl_basic_map *add_equality(__isl_take isl_basic_map *bmap,
-			 Value *constraint)
-{
-	isl_constraint *c;
-
-	c = isl_constraint_alloc_equality(isl_basic_map_get_local_space(bmap));
-
-	c = copy_constraint_from(c, constraint);
-
-	bmap = isl_basic_map_add_constraint(bmap, c);
-
-	return bmap;
-}
-
-static __isl_give isl_basic_map *add_inequality(__isl_take isl_basic_map *bmap,
-			 Value *constraint)
-{
-	isl_local_space *ls;
-	isl_constraint *c;
-
-	ls = isl_basic_map_get_local_space(bmap);
-	c = isl_constraint_alloc_inequality(ls);
-
-	copy_constraint_from(c, constraint);
-
-	bmap = isl_basic_map_add_constraint(bmap, c);
-
-	return bmap;
-}
-
-static __isl_give isl_basic_map *copy_constraints(
-			__isl_take isl_basic_map *bmap, Polyhedron *P)
-{
-	int i;
-
-	for (i = 0; i < P->NbConstraints; ++i) {
-		if (value_zero_p(P->Constraint[i][0]))
-			bmap = add_equality(bmap, P->Constraint[i]);
-		else
-			bmap = add_inequality(bmap, P->Constraint[i]);
-	}
-
-	return bmap;
-}
-
 struct isl_basic_set *isl_basic_set_new_from_polylib(Polyhedron *P,
 			struct isl_space *dim)
 {
@@ -99,13 +30,86 @@ struct isl_basic_set *isl_basic_set_new_from_polylib(Polyhedron *P,
 		isl_basic_map_new_from_polylib(P, dim);
 }
 
+/* Return the number of equality constraints in the polyhedron description "P".
+ * The equality constraints have a zero in the first column.
+ * They also appear before the inequality constraints, but this code
+ * does not rely on this order.
+ */
+static int polyhedron_n_eq(Polyhedron *P)
+{
+	int i, n = 0;
+
+	for (i = 0; i < P->NbConstraints; ++i)
+		if (value_zero_p(P->Constraint[i][0]))
+			++n;
+
+	return n;
+}
+
+/* Set the row "row" of "dst" to the values in array "src".
+ */
+static __isl_give isl_mat *set_row(__isl_take isl_mat *dst, int row,
+	Value *src)
+{
+	int i, n;
+	isl_ctx *ctx;
+
+	ctx = isl_mat_get_ctx(dst);
+	n = isl_mat_cols(dst);
+	for (i = 0; i < n; ++i) {
+		isl_val *v;
+
+		v = isl_val_int_from_gmp(ctx, src[i]);
+		dst = isl_mat_set_element_val(dst, row, i, v);
+	}
+
+	return dst;
+}
+
+/* Extract the "n_eq" equality constraints from "P", dropping the column
+ * that identifies equality constraints.
+ */
+static __isl_give isl_mat *extract_equalities(isl_ctx *ctx, Polyhedron *P,
+	int n_eq)
+{
+	int i, j;
+	isl_mat *eq;
+
+	eq = isl_mat_alloc(ctx, n_eq, P->Dimension + 1);
+	for (i = 0, j = 0; i < P->NbConstraints; ++i) {
+		if (!value_zero_p(P->Constraint[i][0]))
+			continue;
+		eq = set_row(eq, j++, P->Constraint[i] + 1);
+	}
+
+	return eq;
+}
+
+/* Extract the "n_ineq" inequality constraints from "P", dropping the column
+ * that identifies equality constraints.
+ */
+static __isl_give isl_mat *extract_inequalities(isl_ctx *ctx, Polyhedron *P,
+	int n_ineq)
+{
+	int i, j;
+	isl_mat *ineq;
+
+	ineq = isl_mat_alloc(ctx, n_ineq, P->Dimension + 1);
+	for (i = 0, j = 0; i < P->NbConstraints; ++i) {
+		if (value_zero_p(P->Constraint[i][0]))
+			continue;
+		ineq = set_row(ineq, j++, P->Constraint[i] + 1);
+	}
+
+	return ineq;
+}
+
 __isl_give isl_basic_map *isl_basic_map_new_from_polylib(Polyhedron *P,
 	__isl_take isl_space *space)
 {
 	isl_ctx *ctx;
-	struct isl_basic_map *bmap;
-	unsigned n_out;
-	unsigned extra;
+	isl_mat *eq, *ineq;
+	unsigned n_eq, n_ineq;
 
 	if (!space)
 		return NULL;
@@ -115,18 +119,13 @@ __isl_give isl_basic_map *isl_basic_map_new_from_polylib(Polyhedron *P,
 	isl_assert(ctx, P->Dimension >= isl_space_dim(space, isl_dim_all),
 		    goto error);
 
-	n_out = isl_space_dim(space, isl_dim_out);
-	extra = P->Dimension - isl_space_dim(space, isl_dim_all);
-	space = isl_space_from_domain(isl_space_wrap(space));
-	space = isl_space_add_dims(space, isl_dim_out, extra);
-	bmap = isl_basic_map_universe(space);
-	if (!bmap)
-		return NULL;
+	n_eq = polyhedron_n_eq(P);
+	n_ineq = P->NbConstraints - n_eq;
+	eq = extract_equalities(ctx, P, n_eq);
+	ineq = extract_inequalities(ctx, P, n_ineq);
 
-	bmap = copy_constraints(bmap, P);
-	bmap = isl_basic_set_unwrap(isl_basic_map_domain(bmap));
-
-	return bmap;
+	return isl_basic_map_from_constraint_matrices(space, eq, ineq,
+	    isl_dim_in, isl_dim_out, isl_dim_div, isl_dim_param, isl_dim_cst);
 error:
 	isl_space_free(space);
 	return NULL;
