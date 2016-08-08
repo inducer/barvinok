@@ -40,7 +40,7 @@ static isl_stat verify_point(__isl_take isl_point *pnt, void *user)
 	isl_pw_qpolynomial *pwqp;
 	const char *minmax;
 	int sign;
-	int ok;
+	isl_bool ok;
 	int cst;
 	FILE *out = vpb->vpd.options->print_all ? stdout : stderr;
 
@@ -132,13 +132,17 @@ error:
 	isl_val_free(q);
 	isl_val_free(v);
 
-	if (!ok)
+	if (ok < 0 || !ok)
 		vpb->vpd.error = 1;
 
 	if (vpb->vpd.options->continue_on_error)
-		ok = 1;
+		ok = isl_bool_true;
 
-	return (vpb->vpd.n >= 1 && ok) ? isl_stat_ok : isl_stat_error;
+	if (vpb->vpd.n < 1)
+		return isl_stat_error;
+	if (ok != isl_bool_true)
+		return isl_stat_error;
+	return isl_stat_ok;
 }
 
 static int verify(__isl_keep isl_pw_qpolynomial_fold *pwf,
