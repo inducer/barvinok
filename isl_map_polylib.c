@@ -99,8 +99,8 @@ struct isl_basic_set *isl_basic_set_new_from_polylib(Polyhedron *P,
 		isl_basic_map_new_from_polylib(P, dim);
 }
 
-struct isl_basic_map *isl_basic_map_new_from_polylib(Polyhedron *P,
-			struct isl_space *dim)
+__isl_give isl_basic_map *isl_basic_map_new_from_polylib(Polyhedron *P,
+	__isl_take isl_space *dim)
 {
 	isl_ctx *ctx;
 	struct isl_basic_map *bmap;
