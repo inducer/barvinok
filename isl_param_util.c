@@ -102,10 +102,10 @@ Param_Polyhedron *ISL_P2PP(Polyhedron *P, Polyhedron *C,
 
 	space = isl_space_set_alloc(ctx, nparam, nvar);
 	bset = isl_basic_set_new_from_polylib(P, space);
-	space = isl_space_set_alloc(ctx, nparam, 0);
+	space = isl_space_params_alloc(ctx, nparam);
 	context = isl_basic_set_new_from_polylib(C, space);
 
-	bset = isl_basic_set_intersect(bset, context);
+	bset = isl_basic_set_intersect_params(bset, context);
 
 	vertices = isl_basic_set_compute_vertices(bset);
 	isl_basic_set_free(bset);
