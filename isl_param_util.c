@@ -91,7 +91,7 @@ Param_Polyhedron *ISL_P2PP(Polyhedron *P, Polyhedron *C,
 {
 	int i, j;
 	isl_ctx *ctx = isl_ctx_alloc();
-	isl_space *dim;
+	isl_space *space;
 	isl_basic_set *bset, *context;
 	isl_vertices *vertices;
 	unsigned nparam = C->Dimension;
@@ -100,10 +100,10 @@ Param_Polyhedron *ISL_P2PP(Polyhedron *P, Polyhedron *C,
 	Param_Vertices **next_V;
 	struct bv_add_chamber_data data;
 
-	dim = isl_space_set_alloc(ctx, nparam, nvar);
-	bset = isl_basic_set_new_from_polylib(P, dim);
-	dim = isl_space_set_alloc(ctx, nparam, 0);
-	context = isl_basic_set_new_from_polylib(C, dim);
+	space = isl_space_set_alloc(ctx, nparam, nvar);
+	bset = isl_basic_set_new_from_polylib(P, space);
+	space = isl_space_set_alloc(ctx, nparam, 0);
+	context = isl_basic_set_new_from_polylib(C, space);
 
 	bset = isl_basic_set_intersect(bset, context);
 
