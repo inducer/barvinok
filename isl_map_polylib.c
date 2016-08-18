@@ -157,58 +157,49 @@ error:
 	return NULL;
 }
 
-static isl_stat count_constraints(__isl_take isl_constraint *c, void *user)
+/* Store the elements of "c" in the rows of "M" starting at "pos",
+ * adding an extra initial column identifying equality constraints.
+ * In particular, add 0 if "eq" is set and 1 otherwise.
+ */
+static Matrix *add_constraints(Matrix *M, __isl_keep isl_mat *c, int eq,
+	int pos)
 {
-	int *n = (int *)user;
-	(*n)++;
-	isl_constraint_free(c);
-	return isl_stat_ok;
-}
+	int i, j, n;
 
-struct isl_poly_copy {
-	int n;
-	Matrix *M;
-};
+	if (!M)
+		return NULL;
 
-static isl_stat copy_constraint_to(__isl_take isl_constraint *c, void *user)
-{
-	int i, j, k;
-	enum isl_dim_type types[] = { isl_dim_in, isl_dim_out,
-					isl_dim_div, isl_dim_param };
-	struct isl_poly_copy *data = (struct isl_poly_copy *)user;
-	isl_val *v;
+	n = isl_mat_rows(c);
+	for (i = 0; i < n; ++i) {
+		if (eq)
+			value_set_si(M->p[pos + i][0], 0);
+		else
+			value_set_si(M->p[pos + i][0], 1);
 
-	if (isl_constraint_is_equality(c))
-		value_set_si(data->M->p[data->n][0], 0);
-	else
-		value_set_si(data->M->p[data->n][0], 1);
-	k = 1;
-	for (i = 0; i < 4; ++i) {
-		int n = isl_constraint_dim(c, types[i]);
-		for (j = 0; j < n; ++j, ++k) {
-			v = isl_constraint_get_coefficient_val(c, types[i], j);
-			isl_val_get_num_gmp(v, data->M->p[data->n][k]);
+		for (j = 0; 1 + j < M->NbColumns; ++j) {
+			isl_val *v;
+			v = isl_mat_get_element_val(c, i, j);
+			isl_val_get_num_gmp(v, M->p[pos + i][1 + j]);
 			isl_val_free(v);
+			if (!v)
+				goto error;
 		}
 	}
-	v = isl_constraint_get_constant_val(c);
-	isl_val_get_num_gmp(v, data->M->p[data->n][k]);
-	isl_val_free(v);
-	isl_constraint_free(c);
-	data->n++;
-	return isl_stat_ok;
+
+	return M;
+error:
+	Matrix_Free(M);
+	return NULL;
 }
 
 Polyhedron *isl_basic_map_to_polylib(__isl_keep isl_basic_map *bmap)
 {
+	Matrix *M;
 	Polyhedron *P;
-	unsigned nparam;
-	unsigned n_in;
-	unsigned n_out;
 	unsigned max_rays;
-	unsigned n_div;
-	int n = 0;
-	struct isl_poly_copy data;
+	isl_mat *eq, *ineq;
+	int n_eq, n_ineq;
+	int n_col;
 
 	if (!bmap)
 		return NULL;
@@ -218,22 +209,29 @@ Polyhedron *isl_basic_map_to_polylib(__isl_keep isl_basic_map *bmap)
 	else
 		max_rays = POL_NO_DUAL | POL_INTEGER;
 
-	if (isl_basic_map_foreach_constraint(bmap, &count_constraints, &n) < 0)
+	ineq = isl_basic_map_inequalities_matrix(bmap,
+	    isl_dim_in, isl_dim_out, isl_dim_div, isl_dim_param, isl_dim_cst);
+	eq = isl_basic_map_equalities_matrix(bmap,
+	    isl_dim_in, isl_dim_out, isl_dim_div, isl_dim_param, isl_dim_cst);
+	n_eq = isl_mat_rows(eq);
+	n_ineq = isl_mat_rows(ineq);
+	n_col = isl_mat_cols(eq);
+
+	M = NULL;
+	if (n_eq >= 0 && n_ineq >= 0 && n_col >= 0) {
+		M = Matrix_Alloc(n_eq + n_ineq, 1 + n_col);
+		M = add_constraints(M, eq, 1, 0);
+		M = add_constraints(M, ineq, 0, n_eq);
+	}
+
+	isl_mat_free(ineq);
+	isl_mat_free(eq);
+
+	if (!M)
 		return NULL;
 
-	nparam = isl_basic_map_n_param(bmap);
-	n_in = isl_basic_map_n_in(bmap);
-	n_out = isl_basic_map_n_out(bmap);
-	n_div = isl_basic_map_dim(bmap, isl_dim_div);
-	data.M = Matrix_Alloc(n, 1 + n_in + n_out + n_div + nparam + 1);
-	data.n = 0;
-	if (isl_basic_map_foreach_constraint(bmap,
-					    &copy_constraint_to, &data) < 0) {
-		Matrix_Free(data.M);
-		return NULL;
-	}
-	P = Constraints2Polyhedron(data.M, max_rays);
-	Matrix_Free(data.M);
+	P = Constraints2Polyhedron(M, max_rays);
+	Matrix_Free(M);
 
 	return P;
 }
