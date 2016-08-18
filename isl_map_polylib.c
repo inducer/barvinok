@@ -199,7 +199,7 @@ static isl_stat copy_constraint_to(__isl_take isl_constraint *c, void *user)
 	return isl_stat_ok;
 }
 
-Polyhedron *isl_basic_map_to_polylib(struct isl_basic_map *bmap)
+Polyhedron *isl_basic_map_to_polylib(__isl_keep isl_basic_map *bmap)
 {
 	Polyhedron *P;
 	unsigned nparam;
