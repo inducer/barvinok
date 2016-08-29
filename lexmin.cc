@@ -85,7 +85,7 @@ struct indicator_term {
 	unsigned dim = den.NumCols();
 	vertex = new evalue* [dim];
 	for (int i = 0; i < dim; ++i) {
-	    vertex[i] = new evalue();
+	    vertex[i] = ALLOC(evalue);
 	    value_init(vertex[i]->d);
 	    evalue_copy(vertex[i], src.vertex[i]);
 	}
