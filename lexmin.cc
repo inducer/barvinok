@@ -2653,10 +2653,15 @@ static void verify_results(Polyhedron *A, Polyhedron *C,
 			   vector<max_term*>& maxima,
 			   struct verify_options *options);
 
+/* Turn the set dimensions of "context" into parameters and return
+ * the corresponding parameter domain.
+ */
 static struct isl_basic_set *to_parameter_domain(struct isl_basic_set *context)
 {
-	return isl_basic_set_move_dims(context, isl_dim_param, 0, isl_dim_set, 0,
-				       isl_basic_set_dim(context, isl_dim_set));
+	context = isl_basic_set_move_dims(context, isl_dim_param, 0,
+		    isl_dim_set, 0, isl_basic_set_dim(context, isl_dim_set));
+	context = isl_basic_set_params(context);
+	return context;
 }
 
 int main(int argc, char **argv)
