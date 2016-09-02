@@ -618,14 +618,14 @@ struct order_cache {
 	    le[i].free();
 	for (int i = 0; i < unknown.size(); ++i)
 	    unknown[i].free();
-	le.resize(0);
-	unknown.resize(0);
+	le.clear();
+	unknown.clear();
     }
     ~order_cache() {
 	clear_transients();
 	for (int i = 0; i < lt.size(); ++i)
 	    lt[i].free();
-	lt.resize(0);
+	lt.clear();
     }
     void add(order_cache_el& cache_el, order_sign sign);
     order_sign check_lt(vector<order_cache_el>* list,
