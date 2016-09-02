@@ -418,7 +418,7 @@ void lattice_points_fixed(Value *vertex, Value *vertex_res,
 /* Returns the power of (t+1) in the term of a rational generating function,
  * i.e., the scalar product of the actual lattice point and lambda.
  * The lattice point is the unique lattice point in the fundamental parallelepiped
- * of the unimodual cone i shifted to the parametric vertex W/lcm.
+ * of the unimodular cone i shifted to the parametric vertex W/lcm.
  *
  * The rows of W refer to the coordinates of the vertex
  * The first nparam columns are the coefficients of the parameters
@@ -568,7 +568,7 @@ Matrix *relative_coordinates(Param_Vertices *V, Matrix *basis)
 }
 
 /* returns the unique lattice point in the fundamental parallelepiped
- * of the unimodual cone C shifted to the parametric vertex V.
+ * of the unimodular cone C shifted to the parametric vertex V.
  *
  * The return values num and E_vertex are such that
  * coordinate i of this lattice point is equal to
@@ -695,7 +695,7 @@ static int lattice_point_fixed(Param_Vertices* V, const mat_ZZ& rays,
 /* Returns the power of (t+1) in the term of a rational generating function,
  * i.e., the scalar product of the actual lattice point and lambda.
  * The lattice point is the unique lattice point in the fundamental parallelepiped
- * of the unimodual cone i shifted to the parametric vertex V.
+ * of the unimodular cone i shifted to the parametric vertex V.
  *
  * The result is returned in term.
  */
