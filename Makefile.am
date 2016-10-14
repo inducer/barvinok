@@ -522,15 +522,15 @@ check-enumerate_e: barvinok_enumerate_e$(EXEEXT)
 		./barvinok_enumerate_e$(EXEEXT) --verify --series < $$i || exit; \
 	    fi \
 	done
-check-test: test$(EXEEXT)
+check-test: iscc$(EXEEXT)
 	@failed=0; \
-	for i in $(top_srcdir)/tests/*; do \
+	for i in $(top_srcdir)/tests/iscc/count/*; do \
 	    if test -f $$i; then \
 		for options in '--index=10' '--primal --index=10'; do \
 		    for spec in 'random' 'bf' 'df' 'todd'; do \
 			opt="--specialization=$$spec $$options"; \
 			echo -n $$i $$opt; \
-			./test$(EXEEXT) $$opt < $$i; \
+			./iscc$(EXEEXT) $$opt < $$i; \
 			if test "$$?" -ne "0"; then \
 			    failed=`expr $$failed + 1`; \
 			    echo " NOT ok"; \
