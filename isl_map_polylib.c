@@ -264,7 +264,7 @@ error:
 	return NULL;
 }
 
-Polyhedron *isl_basic_set_to_polylib(struct isl_basic_set *bset)
+Polyhedron *isl_basic_set_to_polylib(__isl_keep isl_basic_set *bset)
 {
 	return isl_basic_map_to_polylib((struct isl_basic_map *)bset);
 }
