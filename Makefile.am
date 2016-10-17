@@ -399,7 +399,7 @@ dist-git: dist
 BEE_TESTDIRS = ehrhart_e ehrhart_e/scarf ehrhart_e/piplib
 
 check: check-testlib check-enumerate check-enumerate_e check-test \
-	check-lexmin check-approx check-pwqp check-euler check-lw check-iscc
+	check-lexmin check-approx check-pwqp check-euler check-iscc
 check-testlib: testlib$(EXEEXT)
 	./testlib$(EXEEXT)
 check-approx: test_approx$(EXEEXT)
@@ -503,24 +503,6 @@ check-test: test$(EXEEXT)
 	    else \
 		echo " ok"; \
 	    fi; \
-	done; \
-	if test $$failed != 0; then \
-		echo "$$failed tests failed"; \
-		exit -1; \
-	fi
-check-lw: test$(EXEEXT)
-	@failed=0; \
-	for i in $(top_srcdir)/tests/lattice_width/*; do \
-	    if test -f $$i; then \
-		echo -n $$i; \
-		./test$(EXEEXT) < $$i; \
-		if test "$$?" -ne "0"; then \
-		    failed=`expr $$failed + 1`; \
-		    echo " NOT ok"; \
-		else \
-		    echo " ok"; \
-		fi; \
-	    fi \
 	done; \
 	if test $$failed != 0; then \
 		echo "$$failed tests failed"; \

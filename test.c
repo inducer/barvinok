@@ -7,7 +7,6 @@
 #include <barvinok/barvinok.h>
 #include <barvinok/sample.h>
 #include "config.h"
-#include "lattice_width.h"
 
 #ifdef HAVE_SYS_TIMES_H
 
@@ -206,23 +205,6 @@ int main(int argc, char **argv)
 	    value_clear(cb);
 	    value_clear(ck);
 	    evalue_free(EP);
-	    break;
-	}
-	case 11: {
-	    isl_space *dim;
-	    isl_basic_set *bset;
-	    isl_pw_qpolynomial *expected, *computed;
-	    unsigned nparam;
-
-	    expected = isl_pw_qpolynomial_read_from_file(ctx, stdin);
-	    nparam = isl_pw_qpolynomial_dim(expected, isl_dim_param);
-	    dim = isl_space_set_alloc(ctx, nparam, A->Dimension - nparam);
-	    bset = isl_basic_set_new_from_polylib(A, dim);
-	    computed = isl_basic_set_lattice_width(bset);
-	    computed = isl_pw_qpolynomial_sub(computed, expected);
-	    if (!isl_pw_qpolynomial_is_zero(computed))
-		return -1;
-	    isl_pw_qpolynomial_free(computed);
 	    break;
 	}
 	case 12: {
