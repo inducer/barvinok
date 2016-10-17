@@ -541,16 +541,6 @@ check-test: iscc$(EXEEXT)
 		done \
 	    fi \
 	done; \
-	for i in $(top_srcdir)/tests/sample/*; do \
-	    echo -n $$i; \
-	    ./test$(EXEEXT) < $$i; \
-	    if test "$$?" -ne "0"; then \
-		failed=`expr $$failed + 1`; \
-		echo " NOT ok"; \
-	    else \
-		echo " ok"; \
-	    fi; \
-	done; \
 	if test $$failed != 0; then \
 		echo "$$failed tests failed"; \
 		exit -1; \
