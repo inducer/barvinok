@@ -427,6 +427,24 @@ check-euler: barvinok_summate$(EXEEXT)
 		done \
 	    fi \
 	done
+	@for t in dull EML_p EML-product EML line square square_p square \
+		square_p3 triangle triangle2 triangle_p; do \
+	    i=$(top_srcdir)/tests/euler/$$t.pwqp; \
+	    if test -f $$i; then \
+		opt="--summation=box"; \
+		echo $$i $$opt; \
+		./barvinok_summate$(EXEEXT) -T $$opt < $$i || exit; \
+	    fi \
+	done
+	@for t in dull dull_p EML line square square_p square \
+		square_p3 triangle triangle2 triangle_p; do \
+	    i=$(top_srcdir)/tests/euler/$$t.pwqp; \
+	    if test -f $$i; then \
+		opt="--summation=bernoulli"; \
+		echo $$i $$opt; \
+		./barvinok_summate$(EXEEXT) -T $$opt < $$i || exit; \
+	    fi \
+	done
 if HAVE_TOPCOM
     TOPCOM_CD = '--chamber-decomposition=topcom'
 endif
