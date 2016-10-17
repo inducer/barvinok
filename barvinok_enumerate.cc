@@ -8,7 +8,6 @@
 #include <barvinok/barvinok.h>
 #include "barvinok_enumerate_options.h"
 #include "verify.h"
-#include "verif_ehrhart.h"
 #include "verify_series.h"
 #include "remove_equalities.h"
 #include "evalue_convert.h"
@@ -185,15 +184,9 @@ static int verify(Polyhedron *P, Polyhedron *C, evalue *EP, skewed_gen_fun *gf,
 
     /******* CHECK NOW *********/
     if (S) {
-	if (!options->series || options->function) {
-	    if (!check_poly_EP(S, CS, EP, 0, C->Dimension, 0, p->p,
-				options->verify))
-		result = -1;
-	} else {
-	    if (!check_poly_gf(S, CS, gf, 0, C->Dimension, 0, p->p,
-				options->verify))
-		result = -1;
-	}
+	if (!check_poly_gf(S, CS, gf, 0, C->Dimension, 0, p->p,
+			    options->verify))
+	    result = -1;
 	Domain_Free(S);
     }
 

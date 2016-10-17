@@ -250,8 +250,6 @@ barvinok_enumerate_SOURCES = \
 	skewed_genfun.h \
 	verify.h \
 	verify.c \
-	verif_ehrhart.h \
-	verif_ehrhart.c \
 	verify_series.h \
 	verify_series.cc
 EXTRA_barvinok_enumerate_SOURCES = fdstream.cc fdstream.h
