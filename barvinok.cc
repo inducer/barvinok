@@ -1430,6 +1430,7 @@ evalue *Param_Polyhedron_Enumerate(Param_Polyhedron *PP, Polyhedron *P,
     int nd;
     for (nd = 0, D=PP->D; D; ++nd, D=D->next);
     evalue_section *s = new evalue_section[nd];
+    Polyhedron *TC = true_context(P, C, options->MaxRays);
 
     enumerator_base *et = NULL;
 try_again:
@@ -1438,7 +1439,6 @@ try_again:
 
     et = enumerator_base::create(P, dim, PP, options);
 
-    Polyhedron *TC = true_context(P, C, options->MaxRays);
     FORALL_REDUCED_DOMAIN(PP, TC, nd, options, i, D, rVD)
 	Param_Vertices *V;
 
