@@ -8,7 +8,6 @@
 #include "config.h"
 #ifdef HAVE_OMEGA
 #include "omega_interface/convert.h"
-#include "omega_interface/count.h"
 #endif
 #include "skewed_genfun.h"
 #include "verify.h"
@@ -44,14 +43,6 @@ Polyhedron *Omega_simplify(Polyhedron *P,
 			    unsigned MaxRays)
 {
     return P;
-}
-
-evalue *barvinok_enumerate_parker(Polyhedron *P,
-					unsigned exist, unsigned nparam,
-					unsigned MaxRays)
-{
-    assert(0);
-    return NULL;
 }
 #endif
 
@@ -138,10 +129,7 @@ int main(int argc, char **argv)
 		print_evalue(stdout, EP, param_name);
 	}
     } else {
-	if (options->parker)
-	    EP = barvinok_enumerate_parker(A, A->Dimension-nparam-exist, nparam,
-					    options->verify->barvinok->MaxRays);
-	else if (exist == 2 && options->scarf)
+	if (exist == 2 && options->scarf)
 	    EP = barvinok_enumerate_scarf(A, exist, nparam,
 						options->verify->barvinok);
 	else if (options->isl && exist > 0)

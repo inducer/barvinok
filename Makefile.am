@@ -20,13 +20,10 @@ endif
 if USE_ZSOLVE
     MAYBE_ZSOLVE = zsolve
 endif
-if USE_PARKER
-    MAYBE_PARKER = parker
-endif
 SUBDIRS = $(MAYBE_POLYLIB) $(MAYBE_ISL) $(MAYBE_PET) \
-		$(MAYBE_ZSOLVE) $(MAYBE_PARKER) . doc
+		$(MAYBE_ZSOLVE) . doc
 DIST_SUBDIRS = $(MAYBE_POLYLIB) $(MAYBE_ISL) $(MAYBE_PET) \
-		zsolve parker doc
+		zsolve doc
 
 FORCE:
 polylib/libpolylibgmp.la: FORCE
@@ -37,8 +34,6 @@ pet/libpet.la: $(LOCAL_ISL_LA) FORCE
 	cd pet; $(MAKE) $(AM_MAKEFLAGS) libpet.la
 zsolve/libzsolve.la: FORCE
 	cd zsolve; $(MAKE) $(AM_MAKEFLAGS) libzsolve.la
-parker/libparker.la: FORCE
-	cd parker; $(MAKE) $(AM_MAKEFLAGS) libparker.la
 
 AM_CPPFLAGS = @POLYLIB_CPPFLAGS@ \
 	      @ISL_CFLAGS@ @NTL_CPPFLAGS@
@@ -225,9 +220,7 @@ if HAVE_OMEGA
 BEEO_SOURCES = \
 	omega_interface/Exit.cc \
 	omega_interface/convert.h \
-	omega_interface/convert.cc \
-	omega_interface/count.h \
-	omega_interface/count.cc
+	omega_interface/convert.cc
 else
 BEEO_SOURCES = 
 endif
@@ -267,17 +260,11 @@ barvinok_enumerate_e_SOURCES = \
 	verify_series.cc \
 	$(BEEO_SOURCES)
 EXTRA_barvinok_enumerate_e_SOURCES = fdstream.cc fdstream.h
-if USE_PARKER
-    MONA_LIBS = -ldfa -lbdd -lmem
-    PARKER_LA = parker/libparker.la
-    PARKERLDFLAGS = -L$(MONAPATH)/DFA -L$(MONAPATH)/BDD -L$(MONAPATH)/Mem
-    PARKERCPPFLAGS = -I$(MONAPATH)/Mem -I$(MONAPATH)/DFA -I$(MONAPATH)/BDD
-endif
 barvinok_enumerate_e_CPPFLAGS = \
-	$(PARKERCPPFLAGS) @OMEGA_CPPFLAGS@ $(AM_CPPFLAGS)
-barvinok_enumerate_e_LDFLAGS = $(PARKERLDFLAGS) @OMEGA_LDFLAGS@ @LDFLAGS@
+	@OMEGA_CPPFLAGS@ $(AM_CPPFLAGS)
+barvinok_enumerate_e_LDFLAGS = @OMEGA_LDFLAGS@ @LDFLAGS@
 barvinok_enumerate_e_LDADD = \
-	$(PARKER_LA) $(MONA_LIBS) @OMEGA_LIBS@ libbarvinok.la \
+	@OMEGA_LIBS@ libbarvinok.la \
 	$(LIB_ISL) $(LIB_POLYLIB)
 barvinok_bound_SOURCES = \
 	bound.c \

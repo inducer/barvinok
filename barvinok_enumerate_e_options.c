@@ -10,9 +10,6 @@ ISL_ARG_BOOL(struct enumerate_e_options, isl, 'i', "isl", 0, NULL)
 #ifdef HAVE_OMEGA
 ISL_ARG_BOOL(struct enumerate_e_options, omega, 'o', "omega", 0, NULL)
 #endif
-#ifdef USE_PARKER
-ISL_ARG_BOOL(struct enumerate_e_options, parker, 'P', "parker", 0, NULL)
-#endif
 ISL_ARG_BOOL(struct enumerate_e_options, scarf, 'S', "scarf", 0, NULL)
 ISL_ARG_BOOL(struct enumerate_e_options, series, 's', "series", 0,
 	"compute rational generating function")

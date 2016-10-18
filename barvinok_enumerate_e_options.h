@@ -11,7 +11,6 @@ struct enumerate_e_options {
 	struct convert_options   *convert;
 	int isl;
 	int omega;
-	int parker;
 	int scarf;
 	int series;
 	int function;
