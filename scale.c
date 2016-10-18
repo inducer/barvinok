@@ -612,8 +612,11 @@ static Param_Polyhedron *Param_Polyhedron_Domain(Param_Polyhedron *PP,
 	V2->Vertex = Matrix_Copy(V->Vertex);
 	V2->Domain = NULL;
 	V2->next = NULL;
-	V2->Facets = ALLOCN(unsigned, facet_len);
-	memcpy(V2->Facets, V->Facets, facet_len * sizeof(unsigned));
+	V2->Facets = NULL;
+	if (V->Facets) {
+	    V2->Facets = ALLOCN(unsigned, facet_len);
+	    memcpy(V2->Facets, V->Facets, facet_len * sizeof(unsigned));
+	}
 	*next = V2;
 	next = &V2->next;
 	PP_D->D->F[ix] |= bx;
