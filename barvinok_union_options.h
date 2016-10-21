@@ -7,6 +7,7 @@ extern "C" {
 
 struct union_options {
 	int series;
+	int check;
 	struct barvinok_options *barvinok;
 };
 
