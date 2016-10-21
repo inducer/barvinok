@@ -399,7 +399,8 @@ dist-git: dist
 BEE_TESTDIRS = ehrhart_e ehrhart_e/scarf ehrhart_e/piplib
 
 check: check-testlib check-enumerate check-enumerate_e check-test \
-	check-lexmin check-approx check-pwqp check-euler check-iscc
+	check-lexmin check-approx check-pwqp check-euler check-iscc \
+	check-union
 check-testlib: testlib$(EXEEXT)
 	./testlib$(EXEEXT)
 check-approx: test_approx$(EXEEXT)
@@ -545,6 +546,16 @@ check-iscc: iscc$(EXEEXT)
 			echo $$i; \
 			./iscc$(EXEEXT) < $$i || exit; \
 		fi \
+	done
+check-union: barvinok_union$(EXEEXT)
+	@for i in $(top_srcdir)/tests/ehrhart_union/*; do \
+	    if test -f $$i; then \
+		for spec in 'random' 'bf' 'df'; do \
+		    opt="--specialization=$$spec $$options"; \
+		    echo $$i $$opt; \
+		    ./barvinok_union$(EXEEXT) -c $$opt < $$i || exit; \
+		done \
+	    fi \
 	done
 
 version.h: @GIT_HEAD@
