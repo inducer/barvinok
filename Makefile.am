@@ -56,7 +56,6 @@ noinst_PROGRAMS = test testlib randomtest \
 		  barvinok_summate verify_lexsmaller \
 		  4coins lexmin \
 		  @bv_cone_hilbert_basis@ cone_integer_hull \
-		  polytope_lattice_width \
 		  polyhedron_integer_hull vector_partition_chambers \
 		  semigroup_holes \
 		  barvinok_bound test_bound
