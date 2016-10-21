@@ -38,8 +38,6 @@ enum lp_result cdd_constraints_opt(Matrix *C, Value *obj, Value denom,
 				enum lp_dir dir, Value *opt);
 enum lp_result cddf_constraints_opt(Matrix *C, Value *obj, Value denom,
 				enum lp_dir dir, Value *opt);
-enum lp_result pip_constraints_opt(Matrix *C, Value *obj, Value denom,
-				enum lp_dir dir, Value *opt);
 enum lp_result isl_constraints_opt(Matrix *C, Value *obj, Value denom,
 				enum lp_dir dir, Value *opt);
 
