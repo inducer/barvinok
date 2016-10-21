@@ -73,10 +73,8 @@ struct barvinok_options {
     int			    try_Delaunay_triangulation;
 
     /* basis reduction options */
-    #define	BV_GBR_PIP	0
     #define	BV_GBR_GLPK	1
     #define	BV_GBR_CDD	2
-    #define	BV_GBR_PIP_DUAL	3
     #define	BV_GBR_ISL	4
     int		gbr_lp_solver;
 

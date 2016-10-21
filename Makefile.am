@@ -154,7 +154,6 @@ libbarvinok_la_SOURCES = \
     param_util.h \
     $(POLYSIGN_CDD) \
     $(POLYSIGN_GLPK) \
-    $(POLYSIGN_PIP) \
     polysign.c \
     polysign_isl.c \
     polysign_polylib.c \
@@ -186,8 +185,7 @@ libbarvinok_la_SOURCES = \
     barvinok.cc \
     barvinok_e.cc \
     $(BR_CDD) \
-    $(BR_GLPK) \
-    $(BR_PIP)
+    $(BR_GLPK)
 EXTRA_libbarvinok_la_SOURCES = \
     basis_reduction_cdd.cc \
     basis_reduction_glpk.c \
