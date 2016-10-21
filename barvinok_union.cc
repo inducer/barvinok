@@ -67,7 +67,6 @@ int main(int argc, char **argv)
     int i, npol;
     const char **param_name;
     char s[128];
-    int c, ind = 0;
     int check;
     int r = EXIT_SUCCESS;
     struct union_options *options = union_options_new_with_defaults();
