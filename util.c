@@ -80,10 +80,13 @@ Polyhedron *Polyhedron_Read(unsigned MaxRays)
  */
 void Polyhedron_Polarize(Polyhedron *P)
 {
-    unsigned NbRows = P->NbConstraints + P->NbRays;
+    unsigned NbRows;
     int i;
     Value **q;
 
+    POL_ENSURE_FACETS(P);
+    POL_ENSURE_VERTICES(P);
+    NbRows = P->NbConstraints + P->NbRays;
     q = (Value **)malloc(NbRows * sizeof(Value *));
     assert(q);
     for (i = 0; i < P->NbRays; ++i)
