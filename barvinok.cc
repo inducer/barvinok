@@ -983,7 +983,7 @@ struct bfenumerator : public vertex_decomposer, public bf_base,
 		      public ienumerator_base {
     evalue *factor;
 
-    bfenumerator(Polyhedron *P, unsigned dim, Param_Polyhedron *PP) :
+    bfenumerator(unsigned dim, Param_Polyhedron *PP) :
 		    vertex_decomposer(PP, *this),
 		    bf_base(dim), ienumerator_base(dim, this) {
 	lower = 0;
@@ -1087,7 +1087,7 @@ enumerator_base *enumerator_base::create(Polyhedron *P, unsigned dim,
     enumerator_base *eb;
 
     if (options->incremental_specialization == BV_SPECIALIZATION_BF)
-	eb = new bfenumerator(P, dim, PP);
+	eb = new bfenumerator(dim, PP);
     else if (options->incremental_specialization == BV_SPECIALIZATION_DF)
 	eb = new ienumerator(P, dim, PP);
     else
