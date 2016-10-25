@@ -53,7 +53,7 @@ bin_PROGRAMS = barvinok_count barvinok_enumerate barvinok_enumerate_e \
 		  barvinok_ehrhart iscc
 noinst_PROGRAMS = test testlib randomtest \
 		  barvinok_union polytope_volume test_approx \
-		  barvinok_summate verify_lexsmaller \
+		  barvinok_summate \
 		  4coins lexmin \
 		  @bv_cone_hilbert_basis@ cone_integer_hull \
 		  polyhedron_integer_hull vector_partition_chambers \
