@@ -695,6 +695,7 @@ void summator_2d::integrate(Param_Polyhedron *PP, unsigned *facets,
     Vector *s = Vector_Alloc(1+nparam+2);
     for (i = 0, ix = 0, bx = MSB; i < PP->Constraints->NbRows; ++i) {
 	Param_Domain *FD;
+	Param_Vertices *V;
 	int nbV = 0;
 	Param_Vertices *vertex[2];
 
