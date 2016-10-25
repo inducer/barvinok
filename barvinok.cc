@@ -1484,7 +1484,7 @@ static __isl_give isl_pw_qpolynomial *basic_set_card(
 	__isl_take isl_basic_set *bset)
 {
 	isl_ctx *ctx;
-	isl_space *dim;
+	isl_space *space;
 	isl_pw_qpolynomial *pwqp;
 	unsigned nparam = isl_basic_set_dim(bset, isl_dim_param);
 	Polyhedron *U = Universe_Polyhedron(nparam);
@@ -1500,13 +1500,13 @@ static __isl_give isl_pw_qpolynomial *basic_set_card(
 		options_allocated = 1;
 	}
 
-	dim = isl_basic_set_get_space(bset);
-	dim = isl_space_domain(dim);
+	space = isl_basic_set_get_space(bset);
+	space = isl_space_domain(space);
 
 	P = isl_basic_set_to_polylib(bset);
 	E = enumerate(P, U, options);
 
-	pwqp = isl_pw_qpolynomial_from_evalue(dim, E);
+	pwqp = isl_pw_qpolynomial_from_evalue(space, E);
 	isl_basic_set_free(bset);
 
 	evalue_free(E);
