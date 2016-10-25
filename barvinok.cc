@@ -771,7 +771,7 @@ struct ienumerator : public signed_cone_consumer, public vertex_decomposer,
     mpq_t tcount;
     Value tz;
 
-    ienumerator(Polyhedron *P, unsigned dim, Param_Polyhedron *PP) :
+    ienumerator(unsigned dim, Param_Polyhedron *PP) :
 		vertex_decomposer(PP, *this), ienumerator_base(dim, this) {
 	vertex.SetDims(1, dim);
 
@@ -1089,7 +1089,7 @@ enumerator_base *enumerator_base::create(Polyhedron *P, unsigned dim,
     if (options->incremental_specialization == BV_SPECIALIZATION_BF)
 	eb = new bfenumerator(dim, PP);
     else if (options->incremental_specialization == BV_SPECIALIZATION_DF)
-	eb = new ienumerator(P, dim, PP);
+	eb = new ienumerator(dim, PP);
     else
 	eb = new enumerator(P, dim, PP);
 
