@@ -187,18 +187,6 @@ esac
 AM_CONDITIONAL(BUNDLED_PET, test $with_pet = bundled)
 AM_CONDITIONAL(BUILD_PET, test $with_pet = build)
 
-AC_MSG_CHECKING(if the fractional representation should be used)
-AC_ARG_ENABLE(fractional, [AS_HELP_STRING([--disable-fractional],
-					  [Don't use fractional representation])],
-	    [bv_cv_fractional=$enableval], [bv_cv_fractional="yes"])
-AC_ARG_ENABLE(modulo, [AS_HELP_STRING([--disable-modulo],
-				      [Don't use fractional representation])],
-	    [bv_cv_modulo=$enableval], [bv_cv_modulo="$bv_cv_fractional"])
-AC_MSG_RESULT($bv_cv_modulo)
-if test "x$bv_cv_modulo" != "xno" ; then
-        AC_DEFINE(USE_MODULO,[], [Use fractional representation])
-fi
-
 AC_MSG_CHECKING(whether to use incremental algorithm)
 AC_ARG_ENABLE(incremental,
 	[AS_HELP_STRING([--enable-incremental@<:@=bf|df@:>@],

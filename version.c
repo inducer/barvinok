@@ -6,11 +6,6 @@ const char *barvinok_version(void)
 {
     return 
 	GIT_HEAD_ID"\n"
-#ifdef USE_MODULO
-	" +MODULO"
-#else
-	" -MODULO"
-#endif
 #ifdef USE_INCREMENTAL_BF
 	" INCREMENTAL=BF"
 #elif defined USE_INCREMENTAL_DF
