@@ -11,7 +11,7 @@ struct ehrhart_options {
 	struct convert_options  *convert;
 };
 
-ISL_ARG_DECL(ehrhart_options, struct ehrhart_options, ehrhart_options_arg)
+ISL_ARG_DECL(ehrhart_options, struct ehrhart_options, ehrhart_options_args)
 
 #if defined(__cplusplus)
 }
