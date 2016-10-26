@@ -123,7 +123,7 @@ int main(int argc, char **argv)
 	exist = A->Dimension - nvar - nparam;
     }
     if (options->series) {
-	if (options->scarf)
+	if (exist == 2 && options->scarf)
 	    gf = barvinok_enumerate_scarf_series(A, exist, nparam,
 						    options->verify->barvinok);
 	else
@@ -142,7 +142,7 @@ int main(int argc, char **argv)
 	if (options->parker)
 	    EP = barvinok_enumerate_parker(A, A->Dimension-nparam-exist, nparam,
 					    options->verify->barvinok->MaxRays);
-	else if (options->scarf)
+	else if (exist == 2 && options->scarf)
 	    EP = barvinok_enumerate_scarf(A, exist, nparam,
 						options->verify->barvinok);
 	else if (options->isl && exist > 0)
