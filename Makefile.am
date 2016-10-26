@@ -286,12 +286,10 @@ barvinok_bound_SOURCES = \
 	bound.c \
 	verify.h \
 	verify.c
-EXTRA_barvinok_bound_SOURCES = fdstream.cc fdstream.h
 barvinok_summate_SOURCES = \
 	barvinok_summate.c \
 	verify.h \
 	verify.c
-EXTRA_barvinok_summate_SOURCES = fdstream.cc fdstream.h
 4coins_SOURCES = 4coins.cc
 semigroup_holes_SOURCES = semigroup_holes.cc
 lexmin_SOURCES = \
@@ -312,7 +310,6 @@ test_bound_SOURCES = \
 	test_bound.c \
 	verify.h \
 	verify.c
-EXTRA_test_bound_SOURCES = fdstream.cc fdstream.h
 iscc_SOURCES =	\
 	isl_obj_list.h \
 	isl_obj_list.c \
