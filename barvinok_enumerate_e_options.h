@@ -17,7 +17,7 @@ struct enumerate_e_options {
 	int function;
 };
 
-ISL_ARG_DECL(enumerate_e_options, struct enumerate_e_options, enumerate_e_options_arg)
+ISL_ARG_DECL(enumerate_e_options, struct enumerate_e_options, enumerate_e_options_args)
 
 #if defined(__cplusplus)
 }
