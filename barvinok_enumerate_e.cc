@@ -102,8 +102,6 @@ int main(int argc, char **argv)
 	    break;
     assert(nparam >= 0);
 
-    /******* Read the options: initialize Min and Max ********/
-
     if (options->verify->verify) {
 	verify_options_set_range(options->verify, A->Dimension);
 	if (!options->verify->barvinok->verbose)
