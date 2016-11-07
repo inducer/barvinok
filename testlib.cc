@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <stdlib.h>
 #include <sstream>
 #include <barvinok/barvinok.h>
 #include <barvinok/set.h>
@@ -802,4 +803,6 @@ int main(int argc, char **argv)
     test_laurent(options);
     test_basis_reduction(options);
     barvinok_options_free(options);
+
+    return EXIT_SUCCESS;
 }
