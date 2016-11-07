@@ -6,9 +6,6 @@
 #include <barvinok/util.h>
 #include <barvinok/barvinok.h>
 #include "config.h"
-#ifdef HAVE_OMEGA
-#include "omega_interface/convert.h"
-#endif
 #include "skewed_genfun.h"
 #include "verify.h"
 #include "verif_ehrhart.h"
@@ -24,27 +21,6 @@
  * These two lines are (optionally) followed by the names of the parameters.
  * The polytope is in PolyLib notation.
  */
-
-#ifdef HAVE_OMEGA
-
-Polyhedron *Omega_simplify(Polyhedron *P, 
-			    unsigned exist, unsigned nparam, const char **parms,
-			    unsigned MaxRays)
-{
-    varvector varv;
-    varvector paramv;
-    Relation r = Polyhedron2relation(P, exist, nparam, parms);
-    Polyhedron_Free(P);
-    return relation2Domain(r, varv, paramv, MaxRays);
-}
-#else
-Polyhedron *Omega_simplify(Polyhedron *P, 
-			    unsigned exist, unsigned nparam, const char **parms,
-			    unsigned MaxRays)
-{
-    return P;
-}
-#endif
 
 static void verify_results(Polyhedron *P, evalue *EP, gen_fun *gf,
 			   int exist, int nparam,
@@ -69,7 +45,7 @@ int main(int argc, char **argv)
     Polyhedron *A;
     Matrix *MA;
     const char **param_name;
-    int exist, nparam, nvar;
+    int exist, nparam;
     char s[128];
     evalue *EP = NULL;
     gen_fun *gf = NULL;
@@ -105,13 +81,6 @@ int main(int argc, char **argv)
 	printf("exist: %d, nparam: %d\n", exist, nparam);
     }
     param_name = Read_ParamNames(stdin, nparam);
-    nvar = A->Dimension - exist - nparam;
-    if (options->omega) {
-	A = Omega_simplify(A, exist, nparam, param_name,
-				options->verify->barvinok->MaxRays);
-	assert(!A->next);
-	exist = A->Dimension - nvar - nparam;
-    }
     if (options->series) {
 	if (exist == 2 && options->scarf)
 	    gf = barvinok_enumerate_scarf_series(A, exist, nparam,

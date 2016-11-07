@@ -11,11 +11,6 @@ const char *barvinok_version(void)
 #else
 	" -PET"
 #endif
-#ifdef HAVE_OMEGA
-	" +OMEGA"
-#else
-	" -OMEGA"
-#endif
 #ifdef HAVE_LIBCDDGMP
 	" +CDDLIB"
 #else

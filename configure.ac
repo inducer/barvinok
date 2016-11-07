@@ -320,50 +320,6 @@ if test "$with_zsolve" != "no"; then
 fi
 AM_CONDITIONAL(USE_ZSOLVE, test x$use_zsolve = xtrue)
 
-AX_SUBMODULE(omega,no|system,no)
-
-AC_SUBST(OMEGA_CPPFLAGS)
-AC_SUBST(OMEGA_LDFLAGS)
-AC_SUBST(OMEGA_LIBS)
-AC_SUBST(OMEGA_CODEGEN_LIBS)
-have_omega=false
-have_codegen=false
-case "$with_omega" in
-system)
-    if test "x$with_omega_prefix" != "xyes"; then
-	OMEGA_CPPFLAGS="-I$with_omega_prefix/include/omega"
-	OMEGA_LDFLAGS="-L$with_omega_prefix/lib"
-    else
-	for i in /usr/include /usr/local/include; do
-	    if test -f $i/omega/omega.h; then
-		OMEGA_CPPFLAGS="-I$i/omega"
-	    fi
-	done
-    fi
-
-    AC_LANG_PUSH(C++)
-    SAVE_CPPFLAGS="$CPPFLAGS"
-    SAVE_LDFLAGS="$LDFLAGS"
-    CPPFLAGS="$OMEGA_CPPFLAGS $CPPFLAGS"
-    LDFLAGS="$OMEGA_LDFLAGS $LDFLAGS"
-    AC_CHECK_HEADERS([omega.h],[
-	OMEGA_LIBS="-lomega"
-	AC_CHECK_LIB(code_gen,main,[
-		OMEGA_CODEGEN_LIBS="-lcode_gen -lomega"
-		have_codegen=true
-	])
-	have_omega=true
-    ],[AC_MSG_WARN(Omega not found)])
-    CPPFLAGS="$SAVE_CPPFLAGS"
-    LDFLAGS="$SAVE_LDFLAGS"
-    AC_LANG_POP
-    ;;
-esac
-if test "$have_omega" = true; then
-	AC_DEFINE(HAVE_OMEGA,[],[use omega])
-fi
-AM_CONDITIONAL(HAVE_OMEGA, test x$have_omega = xtrue)
-
 AC_MSG_CHECKING(whether to use cddlib)
 AC_ARG_WITH(cddlib, [AS_HELP_STRING([--with-cddlib=DIR],[DIR Location of cddlib])],
             [ cddlib_package=$withval],  [ cddlib_package=yes ])

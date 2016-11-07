@@ -10,7 +10,6 @@ struct enumerate_e_options {
 	struct verify_options    *verify;
 	struct convert_options   *convert;
 	int isl;
-	int omega;
 	int scarf;
 	int series;
 	int function;

@@ -216,14 +216,6 @@ barvinok_union_SOURCES = \
 	barvinok_union_options.c \
 	barvinok_union_options.h \
 	barvinok_union.cc
-if HAVE_OMEGA
-BEEO_SOURCES = \
-	omega_interface/Exit.cc \
-	omega_interface/convert.h \
-	omega_interface/convert.cc
-else
-BEEO_SOURCES = 
-endif
 if USE_FDSTREAM
 FDSTREAM = fdstream.cc fdstream.h
 endif
@@ -257,15 +249,8 @@ barvinok_enumerate_e_SOURCES = \
 	verif_ehrhart.h \
 	verif_ehrhart.c \
 	verify_series.h \
-	verify_series.cc \
-	$(BEEO_SOURCES)
+	verify_series.cc
 EXTRA_barvinok_enumerate_e_SOURCES = fdstream.cc fdstream.h
-barvinok_enumerate_e_CPPFLAGS = \
-	@OMEGA_CPPFLAGS@ $(AM_CPPFLAGS)
-barvinok_enumerate_e_LDFLAGS = @OMEGA_LDFLAGS@ @LDFLAGS@
-barvinok_enumerate_e_LDADD = \
-	@OMEGA_LIBS@ libbarvinok.la \
-	$(LIB_ISL) $(LIB_POLYLIB)
 barvinok_bound_SOURCES = \
 	bound.c \
 	verify.h \
@@ -478,14 +463,11 @@ check-enumerate: barvinok_enumerate$(EXEEXT)
 		./barvinok_enumerate$(EXEEXT) --verify $$opt < $$i || exit; \
 	    fi \
 	done
-if HAVE_OMEGA
-    SPEC_OMEGA = '--isl --omega'
-endif
 check-enumerate_e: barvinok_enumerate_e$(EXEEXT)
 	@for dir in $(BEE_TESTDIRS); do \
 	    for i in $(top_srcdir)/tests/$$dir/*; do \
 		if test -f $$i; then \
-		    for options in '' $(SPEC_OMEGA) '--isl'; do \
+		    for options in '' '--isl'; do \
 			for spec in 'random' 'bf' 'df'; do \
 			    opt="--specialization=$$spec $$options"; \
 			    echo $$i $$opt; \

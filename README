@@ -17,7 +17,6 @@ If you have cloned the git repository, you need to run
 to get the submodules and create the configure scripts.
 
 Additionally, the following packages can optionally be used
-- Omega+ (http://chunchen.info/omega/)
 - GLPK (http://www.gnu.org/software/glpk/)
 
 NTL needs to have been compiled with GMP support.

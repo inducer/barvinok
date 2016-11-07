@@ -7,9 +7,6 @@ ISL_ARG_CHILD(struct enumerate_e_options, verify, NULL,
 ISL_ARG_CHILD(struct enumerate_e_options, convert, NULL,
 	&convert_options_args, "output conversion")
 ISL_ARG_BOOL(struct enumerate_e_options, isl, 'i', "isl", 0, NULL)
-#ifdef HAVE_OMEGA
-ISL_ARG_BOOL(struct enumerate_e_options, omega, 'o', "omega", 0, NULL)
-#endif
 ISL_ARG_BOOL(struct enumerate_e_options, scarf, 'S', "scarf", 0, NULL)
 ISL_ARG_BOOL(struct enumerate_e_options, series, 's', "series", 0,
 	"compute rational generating function")
