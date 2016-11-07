@@ -808,8 +808,7 @@ static isl_stat add_basic_guarded_qp(__isl_take isl_basic_set *bset, void *user)
 		return isl_stat_ok;
 	}
 
-	space = isl_basic_set_get_space(bset);
-	space = isl_space_domain(isl_space_from_range(space));
+	space = isl_space_params(isl_basic_set_get_space(bset));
 
 	P = isl_basic_set_to_polylib(bset);
 	tmp = barvinok_sum_over_polytope(P, data->e, nvar,
