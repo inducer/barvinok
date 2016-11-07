@@ -793,7 +793,7 @@ static isl_stat add_basic_guarded_qp(__isl_take isl_basic_set *bset, void *user)
 	isl_pw_qpolynomial *pwqp;
 	int bounded;
 	unsigned nvar = isl_basic_set_dim(bset, isl_dim_set);
-	isl_space *dim;
+	isl_space *space;
 
 	if (!bset)
 		return isl_stat_error;
@@ -808,15 +808,15 @@ static isl_stat add_basic_guarded_qp(__isl_take isl_basic_set *bset, void *user)
 		return isl_stat_ok;
 	}
 
-	dim = isl_basic_set_get_space(bset);
-	dim = isl_space_domain(isl_space_from_range(dim));
+	space = isl_basic_set_get_space(bset);
+	space = isl_space_domain(isl_space_from_range(space));
 
 	P = isl_basic_set_to_polylib(bset);
 	tmp = barvinok_sum_over_polytope(P, data->e, nvar,
 					 &data->sections, data->options);
 	Polyhedron_Free(P);
 	assert(tmp);
-	pwqp = isl_pw_qpolynomial_from_evalue(dim, tmp);
+	pwqp = isl_pw_qpolynomial_from_evalue(space, tmp);
 	evalue_free(tmp);
 	pwqp = isl_pw_qpolynomial_reset_domain_space(pwqp,
 				    isl_space_domain(isl_space_copy(data->dim)));
