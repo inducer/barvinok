@@ -8,22 +8,6 @@
 using std::cerr;
 using std::endl;
 
-/* Check whether all rays point in the positive directions
- * for the parameters
- */
-static bool Polyhedron_has_positive_rays(Polyhedron *P, unsigned nparam)
-{
-    int r;
-    for (r = 0; r < P->NbRays; ++r)
-	if (value_zero_p(P->Ray[r][P->Dimension+1])) {
-	    int i;
-	    for (i = P->Dimension - nparam; i < P->Dimension; ++i)
-		if (value_neg_p(P->Ray[r][i+1]))
-		    return false;
-	}
-    return true;
-}
-
 static gen_fun *enumerate_series(Polyhedron *P, unsigned nparam,
 				    barvinok_options *options)
 {
@@ -107,55 +91,10 @@ gen_fun * barvinok_series(Polyhedron *P, Polyhedron* C, unsigned MaxRays)
     return gf;
 }
 
-static Polyhedron *skew_into_positive_orthant(Polyhedron *D, unsigned nparam, 
-					      unsigned MaxRays)
-{
-    Matrix *M = NULL;
-    Value tmp;
-    value_init(tmp);
-    for (Polyhedron *P = D; P; P = P->next) {
-	POL_ENSURE_VERTICES(P);
-	assert(!Polyhedron_is_unbounded(P, nparam, MaxRays));
-	assert(P->NbBid == 0);
-	assert(Polyhedron_has_positive_rays(P, nparam));
-
-	for (int r = 0; r < P->NbRays; ++r) {
-	    if (value_notzero_p(P->Ray[r][P->Dimension+1]))
-		continue;
-	    for (int i = 0; i < nparam; ++i) {
-		int j;
-		if (value_posz_p(P->Ray[r][i+1]))
-		    continue;
-		if (!M) {
-		    M = Matrix_Alloc(D->Dimension+1, D->Dimension+1);
-		    for (int i = 0; i < D->Dimension+1; ++i)
-			value_set_si(M->p[i][i], 1);
-		} else {
-		    Inner_Product(P->Ray[r]+1, M->p[i], D->Dimension+1, &tmp);
-		    if (value_posz_p(tmp))
-			continue;
-		}
-		for (j = P->Dimension - nparam; j < P->Dimension; ++j)
-		    if (value_pos_p(P->Ray[r][j+1]))
-			break;
-		assert(j < P->Dimension);
-		value_pdivision(tmp, P->Ray[r][j+1], P->Ray[r][i+1]);
-		value_subtract(M->p[i][j], M->p[i][j], tmp);
-	    }
-	}
-    }
-    value_clear(tmp);
-    if (M) {
-	D = DomainImage(D, M, MaxRays);
-	Matrix_Free(M);
-    }
-    return D;
-}
-
 gen_fun* barvinok_enumerate_union_series_with_options(Polyhedron *D, Polyhedron* C, 
 						      barvinok_options *options)
 {
-    Polyhedron *conv, *D2;
+    Polyhedron *conv;
     Polyhedron *CA;
     gen_fun *gf = NULL, *gf2;
     unsigned nparam = C->Dimension;
@@ -167,9 +106,8 @@ gen_fun* barvinok_enumerate_union_series_with_options(Polyhedron *D, Polyhedron*
     D = DomainIntersection(D, CA, options->MaxRays);
     Polyhedron_Free(CA);
 
-    D2 = skew_into_positive_orthant(D, nparam, options->MaxRays);
-    for (Polyhedron *P = D2; P; P = P->next) {
-	assert(P->Dimension == D2->Dimension);
+    for (Polyhedron *P = D; P; P = P->next) {
+	assert(P->Dimension == D->Dimension);
 	gen_fun *P_gf;
 
 	P_gf = barvinok_enumerate_series(P, P->Dimension, options);
@@ -185,13 +123,11 @@ gen_fun* barvinok_enumerate_union_series_with_options(Polyhedron *D, Polyhedron*
      * the combined space
      */
     Polyhedron_Free(gf->context);
-    gf->context = DomainConvex(D2, options->MaxRays);
+    gf->context = DomainConvex(D, options->MaxRays);
 
-    gf2 = gf->summate(D2->Dimension - nparam, options);
+    gf2 = gf->summate(D->Dimension - nparam, options);
 
     delete gf;
-    if (D != D2)
-	Domain_Free(D2);
     Domain_Free(D);
     return gf2;
 }
