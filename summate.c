@@ -773,7 +773,7 @@ error:
 
 struct barvinok_summate_data {
 	isl_space *dim;
-	__isl_take isl_qpolynomial *qp;
+	isl_qpolynomial *qp;
 	isl_pw_qpolynomial *sum;
 	int n_in;
 	int wrapping;
