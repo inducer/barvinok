@@ -428,7 +428,7 @@ check-euler: barvinok_summate$(EXEEXT)
 	    fi \
 	done
 	@for t in dull EML_p EML-product EML line square square_p square \
-		square_p3 triangle triangle2 triangle_p; do \
+		square_p3 triangle triangle2 triangle_p quasi; do \
 	    i=$(top_srcdir)/tests/euler/$$t.pwqp; \
 	    if test -f $$i; then \
 		opt="--summation=box"; \
