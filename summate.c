@@ -5,6 +5,7 @@
 #include <isl/union_map.h>
 #include <isl/polynomial.h>
 #include <isl_set_polylib.h>
+#include <barvinok/isl.h>
 #include <barvinok/polylib.h>
 #include <barvinok/options.h>
 #include <barvinok/util.h>
