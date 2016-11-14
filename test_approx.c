@@ -181,6 +181,7 @@ static isl_stat test_approx(__isl_take isl_point *pnt, void *user)
     for (i = 1; i < nr_methods; ++i) {
 	double error;
 	approx = eval(ta_data->pwqp[i], pnt, methods[i].sign);
+	assert(approx);
 	if (methods[i].sign == BV_APPROX_SIGN_LOWER)
 	    assert(isl_val_le(approx, exact));
 	if (methods[i].sign == BV_APPROX_SIGN_UPPER)
