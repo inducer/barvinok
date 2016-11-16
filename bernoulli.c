@@ -219,7 +219,7 @@ static evalue *power_sums(struct poly_list *faulhaber, const evalue *poly,
     return sum;
 }
 
-/* Given a constraint (cst_affine) a x + b y + c >= 0, compate a constraint (c)
+/* Given a constraint (cst_affine) a x + b y + c >= 0, compute a constraint (c)
  * +- (b y + c) +- a >=,> 0
  * ^            ^      ^
  * |            |      strict
@@ -820,7 +820,7 @@ static evalue *sum_over_polytope_base(Polyhedron *P, evalue *E, unsigned nvar,
 }
 
 /* Splinter P into period slices along the first variable x = period y + c,
- * 0 <= c < perdiod, * ensuring no fractional part contains the first variable,
+ * 0 <= c < period, ensuring no fractional part contains the first variable,
  * and sum over all slices.
  */
 static evalue *sum_over_polytope_slices(Polyhedron *P, evalue *E,
