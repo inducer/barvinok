@@ -50,7 +50,7 @@ LIB_POLYLIB = $(POLYLIB_LA) @POLYLIB_LIBS@
 
 lib_LTLIBRARIES = libbarvinok.la
 bin_PROGRAMS = barvinok_count barvinok_enumerate barvinok_enumerate_e \
-		  barvinok_ehrhart polytope_scan iscc
+		  barvinok_ehrhart iscc
 noinst_PROGRAMS = test testlib randomtest \
 		  barvinok_union polytope_volume test_approx \
 		  barvinok_summate verify_lexsmaller \
