@@ -776,7 +776,7 @@ error:
 }
 
 struct barvinok_summate_data {
-	isl_space *dim;
+	isl_space *space;
 	isl_qpolynomial *qp;
 	isl_pw_qpolynomial *sum;
 	int n_in;
@@ -819,7 +819,7 @@ static isl_stat add_basic_guarded_qp(__isl_take isl_basic_set *bset, void *user)
 	pwqp = isl_pw_qpolynomial_from_evalue(space, tmp);
 	evalue_free(tmp);
 	pwqp = isl_pw_qpolynomial_reset_domain_space(pwqp,
-				    isl_space_domain(isl_space_copy(data->dim)));
+				isl_space_domain(isl_space_copy(data->space)));
 	data->sum = isl_pw_qpolynomial_add(data->sum, pwqp);
 
 	isl_basic_set_free(bset);
@@ -884,7 +884,7 @@ __isl_give isl_pw_qpolynomial *isl_pw_qpolynomial_sum(
 	int options_allocated = 0;
 	int nvar;
 
-	data.dim = NULL;
+	data.space = NULL;
 	data.options = NULL;
 	data.sum = NULL;
 
@@ -893,27 +893,27 @@ __isl_give isl_pw_qpolynomial *isl_pw_qpolynomial_sum(
 
 	nvar = isl_pw_qpolynomial_dim(pwqp, isl_dim_set);
 
-	data.dim = isl_pw_qpolynomial_get_domain_space(pwqp);
-	if (!data.dim)
+	data.space = isl_pw_qpolynomial_get_domain_space(pwqp);
+	if (!data.space)
 		goto error;
-	if (isl_space_is_params(data.dim))
+	if (isl_space_is_params(data.space))
 		isl_die(isl_pw_qpolynomial_get_ctx(pwqp), isl_error_invalid,
 			"input polynomial has no domain", goto error);
-	data.wrapping = isl_space_is_wrapping(data.dim);
+	data.wrapping = isl_space_is_wrapping(data.space);
 	if (data.wrapping) {
-		data.dim = isl_space_unwrap(data.dim);
-		data.n_in = isl_space_dim(data.dim, isl_dim_in);
-		nvar = isl_space_dim(data.dim, isl_dim_out);
+		data.space = isl_space_unwrap(data.space);
+		data.n_in = isl_space_dim(data.space, isl_dim_in);
+		nvar = isl_space_dim(data.space, isl_dim_out);
 	} else
 		data.n_in = 0;
 
-	data.dim = isl_space_domain(data.dim);
+	data.space = isl_space_domain(data.space);
 	if (nvar == 0)
-		return isl_pw_qpolynomial_reset_domain_space(pwqp, data.dim);
+		return isl_pw_qpolynomial_reset_domain_space(pwqp, data.space);
 
-	data.dim = isl_space_from_domain(data.dim);
-	data.dim = isl_space_add_dims(data.dim, isl_dim_out, 1);
-	data.sum = isl_pw_qpolynomial_zero(isl_space_copy(data.dim));
+	data.space = isl_space_from_domain(data.space);
+	data.space = isl_space_add_dims(data.space, isl_dim_out, 1);
+	data.sum = isl_pw_qpolynomial_zero(isl_space_copy(data.space));
 
 	ctx = isl_pw_qpolynomial_get_ctx(pwqp);
 	data.options = isl_ctx_peek_barvinok_options(ctx);
@@ -929,7 +929,7 @@ __isl_give isl_pw_qpolynomial *isl_pw_qpolynomial_sum(
 	if (options_allocated)
 		barvinok_options_free(data.options);
 
-	isl_space_free(data.dim);
+	isl_space_free(data.space);
 
 	isl_pw_qpolynomial_free(pwqp);
 
@@ -938,7 +938,7 @@ error:
 	if (options_allocated)
 		barvinok_options_free(data.options);
 	isl_pw_qpolynomial_free(pwqp);
-	isl_space_free(data.dim);
+	isl_space_free(data.space);
 	isl_pw_qpolynomial_free(data.sum);
 	return NULL;
 }
