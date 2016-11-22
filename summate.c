@@ -752,15 +752,16 @@ static __isl_give isl_pw_qpolynomial *add_unbounded_guarded_qp(
 		goto error;
 
 	if (!zero) {
-		isl_space *dim;
+		isl_space *space;
 		isl_set *set;
 		isl_pw_qpolynomial *pwqp;
 
-		dim = isl_pw_qpolynomial_get_domain_space(sum);
+		space = isl_pw_qpolynomial_get_domain_space(sum);
 		set = isl_set_from_basic_set(isl_basic_set_copy(bset));
 		set = isl_map_domain(isl_map_from_range(set));
-		set = isl_set_reset_space(set, isl_space_copy(dim));
-		pwqp = isl_pw_qpolynomial_alloc(set, isl_qpolynomial_nan_on_domain(dim));
+		set = isl_set_reset_space(set, isl_space_copy(space));
+		pwqp = isl_pw_qpolynomial_alloc(set,
+					isl_qpolynomial_nan_on_domain(space));
 		sum = isl_pw_qpolynomial_add(sum, pwqp);
 	}
 
