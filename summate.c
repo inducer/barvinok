@@ -789,7 +789,6 @@ static isl_stat add_basic_guarded_qp(__isl_take isl_basic_set *bset, void *user)
 	evalue *tmp;
 	isl_pw_qpolynomial *pwqp;
 	int bounded;
-	unsigned nparam = isl_basic_set_dim(bset, isl_dim_param);
 	unsigned nvar = isl_basic_set_dim(bset, isl_dim_set);
 	isl_space *dim;
 
