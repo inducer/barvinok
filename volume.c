@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <barvinok/polylib.h>
 #include <barvinok/barvinok.h>
+#include <barvinok/evalue.h>
 #include <barvinok/options.h>
 #include <barvinok/util.h>
 #include "reduce_domain.h"
