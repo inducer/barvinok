@@ -1,8 +1,15 @@
 #include <assert.h>
 #include <limits.h>
 #include <math.h>
+#include <string.h>
+#include <isl/ctx.h>
 #include <isl/stream.h>
 #include <isl/options.h>
+#include <isl/val.h>
+#include <isl/point.h>
+#include <isl/set.h>
+#include <isl/polynomial.h>
+#include <isl/printer.h>
 #include <barvinok/options.h>
 #include <barvinok/util.h>
 #include "verify.h"
