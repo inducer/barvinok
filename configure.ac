@@ -39,6 +39,8 @@ if test "x$bv_cv_shared_barvinok" != "xyes" ; then
 	BV_LDFLAGS="$BV_LDFLAGS -static"
 fi
 
+AX_CXX_COMPILE_STDCXX_11([], [optional])
+AX_UNORDERED_MAP
 AC_CXX_GNUCXX_HASHMAP
 
 AC_ARG_WITH(default-prefix,

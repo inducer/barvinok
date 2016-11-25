@@ -17,7 +17,27 @@ using std::ostream;
 using std::endl;
 using std::vector;
 
-#ifdef HAVE_GNUCXX_HASHMAP
+#if defined HAVE_UNORDERED_MAP
+
+#include <unordered_map>
+
+#define HASH_MAP std::unordered_map
+
+namespace std
+{
+        template<> struct hash< std::vector<int> >
+        {
+                size_t operator()( const std::vector<int>& x ) const
+                {
+			unsigned long __h = 0;
+			for (int i = 0; i < x.size(); ++i)
+			    __h = 5 * __h + x[i];
+                        return size_t(__h);
+                }
+        };
+}
+
+#elif defined HAVE_GNUCXX_HASHMAP
 
 #include <ext/hash_map>
 
