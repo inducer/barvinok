@@ -459,8 +459,7 @@ struct indicator_constructor : public signed_cone_consumer,
     int pos;
     int n;
 
-    indicator_constructor(Polyhedron *P, unsigned dim, Param_Polyhedron *PP,
-			  Matrix *T) :
+    indicator_constructor(unsigned dim, Param_Polyhedron *PP, Matrix *T) :
 		vertex_decomposer(PP, *this), T(T), nbV(PP->nbV) {
 	vertex.SetLength(dim);
 	terms = new vector<indicator_term*>[PP->nbV];
@@ -2490,7 +2489,7 @@ static void lexmin_base(Polyhedron *P, Polyhedron *C,
 
     int nd = -1;
 
-    indicator_constructor ic(P, dim, PP, T);
+    indicator_constructor ic(dim, PP, T);
 
     vector<indicator_term *> all_vertices;
     construct_rational_vertices(PP, T, T ? T->NbRows-nparam-1 : dim,
