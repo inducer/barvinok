@@ -54,7 +54,7 @@ bin_PROGRAMS = barvinok_count barvinok_enumerate barvinok_enumerate_e \
 noinst_PROGRAMS = test testlib randomtest \
 		  barvinok_union polytope_volume test_approx \
 		  barvinok_summate verify_lexsmaller \
-		  polyhedron_sample 4coins lexmin \
+		  4coins lexmin \
 		  @bv_cone_hilbert_basis@ cone_integer_hull \
 		  polytope_lattice_width \
 		  polyhedron_integer_hull vector_partition_chambers \
