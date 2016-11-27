@@ -497,16 +497,6 @@ static void barvinok_count_f(Polyhedron *P, Value* result,
     delete cnt;
 }
 
-static void uni_polynom(int param, Vector *c, evalue *EP)
-{ 
-    unsigned dim = c->Size-2;
-    value_init(EP->d);
-    value_set_si(EP->d,0);
-    EP->x.p = new_enode(polynomial, dim+1, param+1);
-    for (int j = 0; j <= dim; ++j)
-	evalue_set(&EP->x.p->arr[j], c->p[j], c->p[dim+1]);
-}
-
 typedef evalue * evalue_p;
 
 struct enumerator_base {
