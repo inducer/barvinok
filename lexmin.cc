@@ -471,7 +471,6 @@ struct indicator_constructor : public signed_cone_consumer,
 		delete terms[i][j];
 	delete [] terms;
     }
-    void substitute(Matrix *T);
     void normalize();
     void print(ostream& os, char **p);
 
