@@ -471,7 +471,6 @@ struct indicator_constructor : public signed_cone_consumer,
 		delete terms[i][j];
 	delete [] terms;
     }
-    void normalize();
     void print(ostream& os, char **p);
 
     virtual void handle(const signed_cone& sc, barvinok_options *options);
@@ -539,31 +538,6 @@ void indicator_constructor::print(ostream& os, char **p)
 	    os << "i: " << i << ", j: " << j << endl;
 	    terms[i][j]->print(os, p);
 	    os << endl;
-	}
-}
-
-void indicator_constructor::normalize()
-{
-    for (int i = 0; i < PP->nbV; ++i)
-	for (int j = 0; j < terms[i].size(); ++j) {
-	    vec_ZZ vertex;
-	    vertex.SetLength(terms[i][j]->den.NumCols());
-	    for (int r = 0; r < terms[i][j]->den.NumRows(); ++r) {
-		for (int k = 0; k < terms[i][j]->den.NumCols(); ++k) {
-		    if (terms[i][j]->den[r][k] == 0)
-			continue;
-		    if (terms[i][j]->den[r][k] > 0)
-			break;
-		    terms[i][j]->sign = -terms[i][j]->sign;
-		    terms[i][j]->den[r] = -terms[i][j]->den[r];
-		    vertex += terms[i][j]->den[r];
-		    break;
-		}
-	    }
-	    lex_order_rows(terms[i][j]->den);
-	    for (int k = 0; k < vertex.length(); ++k)
-		if (vertex[k] != 0)
-		    evalue_add_constant(terms[i][j]->vertex[k], vertex[k]);
 	}
 }
 
