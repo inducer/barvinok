@@ -300,7 +300,7 @@ compute_width_directions(Param_Polyhedron *PP, struct barvinok_options *options)
  * First, we compute the parametric vertices.
  * Then, for each pair of vertices, we construct a (rational) cone
  * of directions for which one vertex attains the minimal value
- * and the other vertex attians the maximal value.
+ * and the other vertex attains the maximal value.
  * The candidate directions are the elements of the integer hulls
  * of these cones.
  * The minimal direction is then obtained by computing the
