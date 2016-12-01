@@ -177,14 +177,6 @@ static int wd_width_lex_cmp(const void *va, const void *vb)
     return Vector_Compare(a->width->p, b->width->p, a->width->Size);
 }
 
-static int wd_dir_lex_cmp(const void *va, const void *vb)
-{
-    const struct width_direction *a = (const struct width_direction *)va;
-    const struct width_direction *b = (const struct width_direction *)vb;
-
-    return Vector_Compare(a->dir->p, b->dir->p, a->dir->Size);
-}
-
 static int add_vertex(Matrix *M, int n, Value *v)
 {
     if (n >= M->NbRows)
@@ -248,7 +240,6 @@ compute_width_directions(Param_Polyhedron *PP, struct barvinok_options *options)
 	    Polyhedron *C;
 	    unsigned V_max_n = vertex_dirs[V_max_i]->NbRows;
 	    unsigned V_min_n = vertex_dirs[V_min_i]->NbRows;
-	    int sorted_n;
 	    int n_valid;
 
 	    if (options->verbose)
@@ -271,12 +262,7 @@ compute_width_directions(Param_Polyhedron *PP, struct barvinok_options *options)
 	    n_valid = valid_vertices(C, all_vertices, n_vertices);
 	    basis = Cone_Integer_Hull(C, all_vertices, n_valid, options);
 	    grow_width_direction_array(width_dirs, basis->NbRows);
-	    qsort(width_dirs->wd, width_dirs->n, sizeof(struct width_direction),
-		    wd_dir_lex_cmp);
-	    sorted_n = width_dirs->n;
 	    for (i = 0; i < basis->NbRows; ++i) {
-		Vector v;
-		struct width_direction wd;
 		Matrix *VM_min, *VM_max;
 		int pos;
 
@@ -288,14 +274,6 @@ compute_width_directions(Param_Polyhedron *PP, struct barvinok_options *options)
 		    VM_min = V_max->Vertex;
 		    VM_max = V_min->Vertex;
 		}
-
-		v.Size = nvar;
-		v.p = basis->p[i];
-		wd.dir = &v;
-		if (bsearch(&wd, width_dirs->wd, sorted_n,
-			    sizeof(struct width_direction),
-			    wd_dir_lex_cmp))
-		    continue;
 
 		n_vertices = add_vertex(all_vertices, n_vertices, basis->p[i]);
 		compute_width_direction(VM_min, VM_max, basis->p[i],
