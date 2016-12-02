@@ -429,7 +429,7 @@ evalue *Polyhedron_Lattice_Width(Polyhedron *P, Polyhedron *C,
     return width;
 }
 
-__isl_give isl_pw_qpolynomial *isl_basic_set_lattice_width(
+static __isl_give isl_pw_qpolynomial *basic_set_lattice_width(
 	__isl_take isl_basic_set *bset)
 {
 	isl_ctx *ctx;
@@ -490,7 +490,7 @@ __isl_give isl_pw_qpolynomial *isl_set_lattice_width(__isl_take isl_set *set)
 		isl_die(isl_set_get_ctx(set), isl_error_unsupported,
 			"unions not supported (yet)", goto error);
 
-	return isl_basic_set_lattice_width(isl_set_simple_hull(set));
+	return basic_set_lattice_width(isl_set_simple_hull(set));
 error:
 	isl_set_free(set);
 	return NULL;
