@@ -590,9 +590,6 @@ void lattice_point(Param_Vertices *V, const mat_ZZ& rays, vec_ZZ& num,
     vec_ZZ vertex;
     vertex.SetLength(nparam+1);
 
-    Value tmp;
-    value_init(tmp);
-
     assert(V->Vertex->NbRows > 0);
     Param_Vertex_Common_Denominator(V);
 
@@ -645,10 +642,8 @@ void lattice_point(Param_Vertices *V, const mat_ZZ& rays, vec_ZZ& num,
 	free_evalue_refs(&f); 
 
 	Matrix_Free(T);
-	value_clear(tmp);
 	return;
     }
-    value_clear(tmp);
 
     for (int i = 0; i < V->Vertex->NbRows; ++i) {
 	/* fixed value */
