@@ -95,21 +95,6 @@ public:
     }
 };
 
-static void add_rays(mat_ZZ& rays, Polyhedron *i, int *r, int nvar = -1, 
-		     bool all = false)
-{
-    unsigned dim = i->Dimension;
-    if (nvar == -1)
-	nvar = dim;
-    for (int k = 0; k < i->NbRays; ++k) {
-	if (!value_zero_p(i->Ray[k][dim+1]))
-	    continue;
-	if (!all && nvar != dim && First_Non_Zero(i->Ray[k]+1, nvar) == -1)
-	    continue;
-	values2zz(i->Ray[k]+1, rays[(*r)++], nvar);
-    }
-}
-
 struct bfe_term : public bfc_term_base {
     vector<evalue *> factors;
 
