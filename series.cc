@@ -98,9 +98,6 @@ gen_fun* barvinok_enumerate_union_series_with_options(Polyhedron *D, Polyhedron*
     Polyhedron *CA;
     gen_fun *gf = NULL, *gf2;
     unsigned nparam = C->Dimension;
-    ZZ one, mone;
-    one = 1;
-    mone = -1;
 
     CA = align_context(C, D->Dimension, options->MaxRays);
     D = DomainIntersection(D, CA, options->MaxRays);
