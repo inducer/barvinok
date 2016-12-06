@@ -442,6 +442,9 @@ check-enumerate: barvinok_enumerate$(EXEEXT)
 			./barvinok_enumerate$(EXEEXT) --verify $$opt < $$i || exit; \
 		    done \
 		done; \
+		opt="--index=4"; \
+		echo "        $$opt"; \
+		./barvinok_enumerate$(EXEEXT) --verify $$opt < $$i || exit; \
 		opt="--summation=bernoulli"; \
 		echo "        $$opt"; \
 		./barvinok_enumerate$(EXEEXT) --verify $$opt < $$i || exit; \
