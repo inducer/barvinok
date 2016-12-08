@@ -3,6 +3,15 @@
 #include <limits.h>
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
+#include <isl/ctx.h>
+#include <isl/val.h>
+#include <isl/space.h>
+#include <isl/set.h>
+#include <isl/polynomial.h>
+#include <barvinok/polylib.h>
+#include <barvinok/isl.h>
+#include <barvinok/options.h>
 #include <barvinok/barvinok.h>
 #include "verify.h"
 #include "config.h"
