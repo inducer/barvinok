@@ -1,6 +1,12 @@
 #include <assert.h>
+#include <isl/ctx.h>
+#include <isl/val.h>
 #include <isl/val_gmp.h>
+#include <isl/space.h>
+#include <isl/point.h>
+#include <isl/set.h>
 #include <isl_set_polylib.h>
+#include <barvinok/polylib.h>
 #include <barvinok/sample.h>
 
 Vector *Polyhedron_Sample(Polyhedron *P, struct barvinok_options *options)
