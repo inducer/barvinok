@@ -1,5 +1,13 @@
 #include <assert.h>
+#include <isl/ctx.h>
+#include <isl/val.h>
+#include <isl/space.h>
+#include <isl/point.h>
+#include <isl/set.h>
+#include <isl/polynomial.h>
 #include <isl/stream.h>
+#include <isl/printer.h>
+#include <barvinok/isl.h>
 #include <barvinok/barvinok.h>
 #include <barvinok/options.h>
 #include <barvinok/util.h>
