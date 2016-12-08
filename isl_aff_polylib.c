@@ -9,7 +9,9 @@
  * and Ecole Normale Superieure, 45 rue d'Ulm, 75230 Paris, France
  */
 
+#include <isl/val.h>
 #include <isl/val_gmp.h>
+#include <isl/aff.h>
 #include "isl_aff_polylib.h"
 
 /* Fill in row "row" of "M" from "aff".
