@@ -1,7 +1,13 @@
+#include <isl/ctx.h>
 #include <isl/aff.h>
 #include <isl_set_polylib.h>
 #include <isl/constraint.h>
+#include <isl/val.h>
 #include <isl/val_gmp.h>
+#include <isl/space.h>
+#include <isl/set.h>
+#include <isl/polynomial.h>
+#include <barvinok/polylib.h>
 #include <barvinok/evalue.h>
 
 static __isl_give isl_qpolynomial *extract_base(__isl_take isl_space *dim,
