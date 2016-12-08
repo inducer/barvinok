@@ -7,7 +7,9 @@
  * Computerwetenschappen, Celestijnenlaan 200A, B-3001 Leuven, Belgium
  */
 
+#include <isl/val.h>
 #include <isl/val_gmp.h>
+#include <isl/space.h>
 #include <isl/set.h>
 #include <isl/map.h>
 #include <isl/constraint.h>
