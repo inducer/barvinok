@@ -1,5 +1,10 @@
 #include <assert.h>
+#include <limits.h>
 #include <stdlib.h>
+#include <isl/val.h>
+#include <isl/point.h>
+#include <isl/set.h>
+#include <barvinok/polylib.h>
 #include <barvinok/isl.h>
 #include <barvinok/options.h>
 #include <barvinok/util.h>
