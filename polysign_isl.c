@@ -1,7 +1,12 @@
 #include <assert.h>
+#include <isl/mat.h>
+#include <isl/val.h>
 #include <isl/val_gmp.h>
+#include <isl/space.h>
+#include <isl/aff.h>
 #include <isl/lp.h>
 #include <isl_set_polylib.h>
+#include <barvinok/polylib.h>
 #include "polysign.h"
 
 static __isl_give isl_mat *extract_equalities(isl_ctx *ctx, Matrix *M)
