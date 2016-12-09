@@ -156,29 +156,6 @@ error:
 	return NULL;
 }
 
-struct isl_map *isl_map_new_from_polylib(Polyhedron *D, struct isl_space *dim)
-{
-	struct isl_map *map = NULL;
-	Polyhedron *P;
-
-	if (!dim)
-		return NULL;
-
-	map = isl_map_empty(isl_space_copy(dim));
-	if (!map)
-		goto error;
-
-	for (P = D; P; P = P->next)
-		map = isl_map_union_disjoint(map,
-		    isl_map_from_basic_map(
-		    isl_basic_map_new_from_polylib(P, isl_space_copy(dim))));
-	isl_space_free(dim);
-	return map;
-error:
-	isl_space_free(dim);
-	return NULL;
-}
-
 static isl_stat count_constraints(__isl_take isl_constraint *c, void *user)
 {
 	int *n = (int *)user;
