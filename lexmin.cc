@@ -15,7 +15,6 @@
 #include <isl/set.h>
 #include <isl_set_polylib.h>
 #include <barvinok/polylib.h>
-#include <barvinok/barvinok.h>
 #include <barvinok/evalue.h>
 #include <barvinok/options.h>
 #include <barvinok/util.h>
