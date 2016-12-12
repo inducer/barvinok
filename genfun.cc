@@ -965,6 +965,7 @@ void gen_fun::coefficient(Value* params, Value* c) const
 
 gen_fun *gen_fun::summate(int nvar, barvinok_options *options) const
 {
+    int n_try;
     int dim = context->Dimension;
     int nparam = dim - nvar;
     reducer *red;
@@ -985,8 +986,8 @@ gen_fun *gen_fun::summate(int nvar, barvinok_options *options) const
     	red = new partial_ireducer(Polyhedron_Project(context, nparam), dim, nparam);
     } else
     	red = new partial_reducer(Polyhedron_Project(context, nparam), dim, nparam);
+    n_try = 0;
     for (;;) {
-	int n_try = 0;
 	try {
 	    red->init(context, n_try);
 	    for (short_rat_list::iterator i = term.begin(); i != term.end(); ++i)
