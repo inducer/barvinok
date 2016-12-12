@@ -12,7 +12,6 @@
 #include <barvinok/polylib.h>
 #include <barvinok/isl.h>
 #include <barvinok/options.h>
-#include <barvinok/barvinok.h>
 #include "verify.h"
 #include "config.h"
 
