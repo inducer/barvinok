@@ -2,7 +2,8 @@
 #define SKEWED_GENFUN_H
 
 #include <assert.h>
-#include <barvinok/barvinok.h>
+#include <barvinok/genfun.h>
+#include <barvinok/options.h>
 
 struct skewed_gen_fun {
     gen_fun *gf;
