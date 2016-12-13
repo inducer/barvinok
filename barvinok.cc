@@ -793,7 +793,6 @@ void ie_cum::add_term(const vector<int>& powers, evalue *f2)
 
 struct ienumerator : public signed_cone_consumer, public vertex_decomposer,
 		     public ienumerator_base {
-    //Polyhedron *pVD;
     mat_ZZ den;
     mat_ZZ vertex;
     mpq_t tcount;
