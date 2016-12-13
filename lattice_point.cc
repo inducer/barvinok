@@ -1,7 +1,8 @@
 #include <assert.h>
 #include <NTL/mat_ZZ.h>
 #include <NTL/vec_ZZ.h>
-#include <barvinok/barvinok.h>
+#include <barvinok/polylib.h>
+#include <barvinok/options.h>
 #include <barvinok/evalue.h>
 #include <barvinok/util.h>
 #include "config.h"
