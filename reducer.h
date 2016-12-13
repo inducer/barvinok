@@ -17,12 +17,10 @@ extern struct OrthogonalException {} Orthogonal;
 /* base for non-parametric counting */
 struct np_base : public signed_cone_consumer {
     unsigned dim;
-    ZZ one;
 
     np_base(unsigned dim) {
 	assert(dim > 0);
 	this->dim = dim;
-	one = 1;
     }
 
     virtual void handle(const mat_ZZ& rays, Value *vertex, const QQ& c,
