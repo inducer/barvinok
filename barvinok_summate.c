@@ -8,7 +8,6 @@
 #include <isl/stream.h>
 #include <isl/printer.h>
 #include <barvinok/isl.h>
-#include <barvinok/barvinok.h>
 #include <barvinok/options.h>
 #include <barvinok/util.h>
 #include "verify.h"
