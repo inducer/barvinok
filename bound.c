@@ -10,7 +10,6 @@
 #include <barvinok/options.h>
 #include <barvinok/util.h>
 #include <barvinok/isl.h>
-#include <barvinok/barvinok.h>
 #include "verify.h"
 
 struct options {
