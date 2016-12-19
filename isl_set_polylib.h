@@ -11,7 +11,7 @@
 #define ISL_SET_POLYLIB_H
 
 #include <isl/set.h>
-#include <isl_polylib.h>
+#include <barvinok/polylib.h>
 
 #if defined(__cplusplus)
 extern "C" {

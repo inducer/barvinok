@@ -12,7 +12,7 @@
 
 #include <isl/space.h>
 #include <isl/map.h>
-#include <isl_polylib.h>
+#include <barvinok/polylib.h>
 
 #if defined(__cplusplus)
 extern "C" {

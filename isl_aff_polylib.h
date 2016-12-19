@@ -2,7 +2,7 @@
 #define ISL_AFF_POLYLIB_H
 
 #include <isl/aff.h>
-#include <isl_polylib.h>
+#include <barvinok/polylib.h>
 
 #if defined(__cplusplus)
 extern "C" {
