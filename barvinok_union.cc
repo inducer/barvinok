@@ -2,6 +2,8 @@
 #include <isl/ctx.h>
 #include <isl/space.h>
 #include <isl/polynomial.h>
+#include <barvinok/polylib.h>
+#include <barvinok/evalue.h>
 #include <barvinok/barvinok.h>
 #include <barvinok/util.h>
 #include "barvinok_union_options.h"
