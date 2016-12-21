@@ -1,7 +1,13 @@
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
+#include <isl/ctx.h>
+#include <isl/val.h>
 #include <isl/val_gmp.h>
+#include <isl/space.h>
+#include <isl/set.h>
 #include <isl_set_polylib.h>
+#include <barvinok/polylib.h>
 #include <barvinok/util.h>
 #include <barvinok/options.h>
 #include <polylib/ranking.h>
