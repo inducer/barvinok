@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <strings.h>
+#include <barvinok/polylib.h>
 #include <barvinok/util.h>
 #include <barvinok/barvinok.h>
 #include "evalue_convert.h"
