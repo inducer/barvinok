@@ -1,4 +1,10 @@
+#include <iostream>
+#include <ostream>
 #include <vector>
+#include <NTL/ZZ.h>
+#include <NTL/vec_ZZ.h>
+#include <NTL/mat_ZZ.h>
+#include <barvinok/polylib.h>
 #include <barvinok/util.h>
 #include "reducer.h"
 #include "lattice_point.h"
