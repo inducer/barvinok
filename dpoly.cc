@@ -1,6 +1,8 @@
 #include <assert.h>
 #include <iostream>
 #include <vector>
+#include <NTL/ZZ.h>
+#include <barvinok/polylib.h>
 #include "dpoly.h"
 
 using std::cerr;
