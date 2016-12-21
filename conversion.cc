@@ -1,6 +1,9 @@
 #include <assert.h>
 #include <gmp.h>
+#include <NTL/ZZ.h>
+#include <NTL/vec_ZZ.h>
 #include <NTL/mat_ZZ.h>
+#include <barvinok/polylib.h>
 #include <barvinok/util.h>
 #include "conversion.h"
 
