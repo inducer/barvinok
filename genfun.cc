@@ -2,6 +2,10 @@
 #include <iomanip>
 #include <vector>
 #include <assert.h>
+#include <NTL/ZZ.h>
+#include <NTL/vec_ZZ.h>
+#include <NTL/mat_ZZ.h>
+#include <barvinok/polylib.h>
 #include <barvinok/genfun.h>
 #include <barvinok/barvinok.h>
 #include "conversion.h"
