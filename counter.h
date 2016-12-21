@@ -1,3 +1,6 @@
+#include <NTL/vec_ZZ.h>
+#include <NTL/mat_ZZ.h>
+#include <barvinok/polylib.h>
 #include "reducer.h"
 
 struct counter_base: public np_base {
