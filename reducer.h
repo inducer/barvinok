@@ -2,8 +2,11 @@
 #define REDUCER_H
 
 #include <assert.h>
+#include <NTL/ZZ.h>
+#include <NTL/vec_ZZ.h>
 #include <NTL/mat_ZZ.h>
 #include <barvinok/NTL_QQ.h>
+#include <barvinok/polylib.h>
 #include <barvinok/options.h>
 #include "decomposer.h"
 #include "dpoly.h"
