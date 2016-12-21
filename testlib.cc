@@ -1,6 +1,10 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <sstream>
+#include <NTL/vec_ZZ.h>
+#include <NTL/mat_ZZ.h>
+#include <barvinok/NTL_QQ.h>
+#include <barvinok/polylib.h>
 #include <barvinok/barvinok.h>
 #include <barvinok/set.h>
 #include <barvinok/options.h>
