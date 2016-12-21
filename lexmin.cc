@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <strings.h>
 #include <iostream>
 #include <vector>
 #include <map>
@@ -7,9 +8,13 @@
 #include <algorithm>
 #undef partition
 #include <gmp.h>
+#include <NTL/ZZ.h>
 #include <NTL/vec_ZZ.h>
 #include <NTL/mat_ZZ.h>
+#include <isl/ctx.h>
+#include <isl/set.h>
 #include <isl_set_polylib.h>
+#include <barvinok/polylib.h>
 #include <barvinok/barvinok.h>
 #include <barvinok/evalue.h>
 #include <barvinok/options.h>
