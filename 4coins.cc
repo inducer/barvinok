@@ -36,7 +36,7 @@ static Polyhedron *uncone(Polyhedron *C, unsigned MaxRays)
 int main(int argc, char **argv)
 {
     Matrix *M;
-    Polyhedron *P, *C, *B, *Pold;
+    Polyhedron *P, *C, *B;
     Vector *small;
     Matrix *T, *basis;
     gen_fun *S, *S_shift, *hp, *S_divide, *frob;
