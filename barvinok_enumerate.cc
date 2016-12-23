@@ -40,7 +40,6 @@ static isl_stat verify_point(__isl_take isl_point *pnt, void *user)
 	unsigned nparam;
 	isl_val *v, *n, *t;
 	int pa = vpe->vpd.options->barvinok->approx->approximation;
-	int cst;
 	int ok;
 	FILE *out = vpe->vpd.options->print_all ? stdout : stderr;
 
