@@ -289,8 +289,7 @@ static skewed_gen_fun *series(Polyhedron *P, Polyhedron* C,
 
     POL_ENSURE_VERTICES(C2);
     if (C2->NbBid != 0) {
-	Polyhedron *T;
-	Matrix *M, *Minv, *M2;
+	Matrix *M, *Minv;
 	Matrix *CP;
 	if (C2->NbEq || P->NbEq) {
 	    /* We remove all equalities to be sure all lines are unit vectors */
@@ -339,7 +338,6 @@ static skewed_gen_fun *series(Polyhedron *P, Polyhedron* C,
     }
     POL_ENSURE_VERTICES(C2);
     if (!Polyhedron_has_revlex_positive_rays(C2, C2->Dimension)) {
-	Polyhedron *T;
 	Matrix *Constraints;
 	Matrix *H, *Q, *U;
 	Constraints = Matrix_Alloc(C2->NbConstraints, C2->Dimension+1);
