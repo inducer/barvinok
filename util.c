@@ -935,7 +935,7 @@ void for_each_lower_upper_bound(Polyhedron *P,
     unsigned dim = P->Dimension;
     Matrix *M;
     int *pos;
-    int i, j, p, n, z;
+    int i, p, n, z;
     int k, l, k2, l2, q;
     Value g;
 
