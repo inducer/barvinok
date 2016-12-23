@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 {
     isl_ctx *ctx;
     int i, nbPol, nbVec, nbMat, func, j, n;
-    Polyhedron *A, *B, *C, *D, *E, *F, *G;
+    Polyhedron *A, *B, *C, *D;
     char s[128];
     struct barvinok_options *options = barvinok_options_new_with_defaults();
 
