@@ -539,7 +539,6 @@ Polyhedron *remove_equalities(Polyhedron *P, unsigned MaxRays)
     Matrix M;
     Matrix *T;
     Polyhedron *Q = Polyhedron_Copy(P);
-    unsigned dim = P->Dimension;
 
     if (Q->NbEq == 0)
 	return Q;
