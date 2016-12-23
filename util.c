@@ -1034,7 +1034,7 @@ static void PLL_init(unsigned n, void *cb_data)
 static evalue* bv_ceil3(Value *coef, int len, Value d, Polyhedron *P)
 {
     Value t;
-    evalue *EP, *f;
+    evalue *EP;
     Vector *val = Vector_Alloc(len);
 
     value_init(t);
