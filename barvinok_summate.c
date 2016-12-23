@@ -44,7 +44,6 @@ static isl_stat verify_point(__isl_take isl_point *pnt, void *user)
 	unsigned nvar;
 	unsigned nparam;
 	isl_val *v;
-	isl_space *space;
 	isl_set *dom;
 	isl_val *eval;
 	int r;
