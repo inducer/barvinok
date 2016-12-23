@@ -94,7 +94,6 @@ gen_fun * barvinok_series(Polyhedron *P, Polyhedron* C, unsigned MaxRays)
 gen_fun* barvinok_enumerate_union_series_with_options(Polyhedron *D, Polyhedron* C, 
 						      barvinok_options *options)
 {
-    Polyhedron *conv;
     Polyhedron *CA;
     gen_fun *gf = NULL, *gf2;
     unsigned nparam = C->Dimension;
