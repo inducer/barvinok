@@ -1233,7 +1233,6 @@ void partial_order::sanity_check() const
 max_term* indicator::create_max_term(const indicator_term *it)
 {
     int dim = it->den.NumCols();
-    int nparam = ic.PP->Constraints->NbColumns-2 - ic.vertex.length();
     max_term *maximum = new max_term;
     maximum->domain = new EDomain(D);
     for (int j = 0; j < dim; ++j) {
