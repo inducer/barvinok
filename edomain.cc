@@ -309,7 +309,6 @@ ge_constraint *EDomain::compute_ge_constraint(evalue *constraint) const
     int fract = 0;
     for (evalue *e = constraint; value_zero_p(e->d); 
 	 e = &e->x.p->arr[type_offset(e->x.p)]) {
-	int i;
 	if (e->x.p->type != fractional)
 	    continue;
 	if (find_floor(&e->x.p->arr[0]) == -1)
