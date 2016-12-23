@@ -33,26 +33,6 @@ static Polyhedron *uncone(Polyhedron *C, unsigned MaxRays)
     return P;
 }
 
-void static scan(gen_fun *S)
-{
-    Value c;
-    Vector *params;
-    value_init(c);
-    params = Vector_Alloc(2);
-    for (int j = 19; j <= 39; ++j) {
-	value_set_si(params->p[1], j);
-	for (int i = 8; i <= 17; ++i) {
-	    value_set_si(params->p[0], i);
-	    S->coefficient(params->p, &c);
-	    fprintf(stderr, "%d %d: ", i, j);
-	    value_print(stderr, VALUE_FMT, c);
-	    fprintf(stderr, "\n");
-	}
-    }
-    value_clear(c);
-    Vector_Free(params);
-}
-
 int main(int argc, char **argv)
 {
     Matrix *M;
