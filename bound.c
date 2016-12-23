@@ -120,11 +120,6 @@ static isl_stat verify_point(__isl_take isl_point *pnt, void *user)
 		fflush(stdout);
 	}
 
-	if (0) {
-error:
-		ok = 0;
-	}
-
 	isl_point_free(pnt);
 
 	isl_val_free(b);
