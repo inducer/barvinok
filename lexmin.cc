@@ -2787,8 +2787,6 @@ void verify_results(Polyhedron *A, Polyhedron *C, vector<max_term*>& maxima,
     unsigned nparam = C->Dimension;
     unsigned MaxRays = options->barvinok->MaxRays;
     Vector *p;
-    int i;
-    int st;
 
     CS = check_poly_context_scan(A, &C, nparam, options);
 
