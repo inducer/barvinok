@@ -1114,10 +1114,10 @@ struct indicator {
 
     indicator(indicator_constructor& ic, Param_Domain *PD, EDomain *D,
 	      lexmin_options *options) :
-	ic(ic), PD(PD), D(D), order(this), options(options), P(NULL) {}
+	ic(ic), order(this), D(D), P(NULL), PD(PD), options(options) {}
     indicator(const indicator& ind, EDomain *D) :
-	    ic(ind.ic), PD(ind.PD), D(NULL), order(this), options(ind.options),
-	    P(Polyhedron_Copy(ind.P)) {
+	    ic(ind.ic), order(this), D(NULL), P(Polyhedron_Copy(ind.P)),
+	    PD(ind.PD), options(ind.options) {
 	map< const indicator_term *, indicator_term * > old2new;
 	for (int i = 0; i < ind.term.size(); ++i) {
 	    indicator_term *it = new indicator_term(*ind.term[i]);
