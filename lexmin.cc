@@ -2078,7 +2078,6 @@ void max_term::print(ostream& os, char **p, barvinok_options *options) const
 void max_term::substitute(Matrix *T, barvinok_options *options)
 {
     assert(domain->dimension() == T->NbColumns-1);
-    int nexist = domain->D->Dimension - (T->NbColumns-1);
     Matrix *Eq;
     Matrix *inv = left_inverse(T, &Eq);
 
