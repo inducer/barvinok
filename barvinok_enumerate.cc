@@ -289,7 +289,6 @@ static skewed_gen_fun *series(Polyhedron *P, Polyhedron* C,
 
     POL_ENSURE_VERTICES(C2);
     if (C2->NbBid != 0) {
-	Matrix *M, *Minv;
 	Matrix *CP;
 	if (C2->NbEq || P->NbEq) {
 	    /* We remove all equalities to be sure all lines are unit vectors */
