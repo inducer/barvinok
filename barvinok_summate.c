@@ -146,10 +146,8 @@ static int verify(__isl_keep isl_pw_qpolynomial *pwqp,
 
 int main(int argc, char **argv)
 {
-    int i;
     int result = 0;
     isl_ctx *ctx;
-    isl_space *dim;
     isl_pw_qpolynomial *pwqp;
     isl_pw_qpolynomial *sum;
     struct isl_stream *s;
