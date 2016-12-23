@@ -41,7 +41,6 @@ static isl_stat verify_point(__isl_take isl_point *pnt, void *user)
 	const char *minmax;
 	int sign;
 	isl_bool ok;
-	int cst;
 	FILE *out = vpb->vpd.options->print_all ? stdout : stderr;
 
 	vpb->vpd.n--;
