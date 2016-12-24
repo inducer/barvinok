@@ -70,7 +70,6 @@ bfc_term_base* bf_base::find_bfc_term(bfc_vec& v, int *powers, int len)
 void bf_base::reduce(mat_ZZ& factors, bfc_vec& v, barvinok_options *options)
 {
     assert(v.size() > 0);
-    unsigned nf = factors.NumRows();
     unsigned d = factors.NumCols();
 
     if (d == lower)
