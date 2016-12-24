@@ -31,7 +31,7 @@ int main()
 {
     static const int size = 1000;
     static const int loop = 10;
-    int i, j, d, r, c;
+    int i, d, r, c;
     Matrix *M;
     Polyhedron *P;
     Value cm, cb;
