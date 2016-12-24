@@ -859,7 +859,6 @@ static evalue *evalue_read_partition(struct stream *s, struct parameter *p,
 	e->x.p = new_enode(partition, 2*m, *nparam);
 
 	for (j = 0; j < m; ++j) {
-	    int n;
 	    struct section *next = part->next;
 	    constraints = part->constraints;
 	    D = constraints2domain(part->constraints, *nparam, MaxRays);
