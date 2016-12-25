@@ -59,10 +59,7 @@ void np_base::start(Polyhedron *P, barvinok_options *options)
 void normalize(ZZ& sign, vec_ZZ& num_s, mat_ZZ& num_p, vec_ZZ& den_s, vec_ZZ& den_p,
 	       mat_ZZ& f)
 {
-    unsigned dim = f.NumRows();
     unsigned nparam = num_p.NumCols();
-    unsigned nvar = dim - nparam;
-
     int change = 0;
 
     for (int j = 0; j < den_s.length(); ++j) {
