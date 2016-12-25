@@ -1104,8 +1104,8 @@ struct bfe_cum : public cumulator {
 
     bfe_cum(evalue *factor, evalue *v, dpoly_r *r, bf_reducer *bfr, 
 	    bfc_term_base *t, int k, bfenumerator *e) :
-	    cumulator(factor, v, r), told(t), k(k),
-	    bfr(bfr), bfe(e) {
+	    cumulator(factor, v, r), bfe(e), told(t), k(k),
+	    bfr(bfr) {
     }
 
     virtual void add_term(const vector<int>& powers, evalue *f2);
