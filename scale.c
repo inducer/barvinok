@@ -366,7 +366,7 @@ static Polyhedron *flate_narrow2(Polyhedron *P, Lattice *L,
     unsigned nvar = P->Dimension - nparam;
     Matrix *expansion;
     Matrix *C;
-    int i, j;
+    int i;
     Polyhedron *P2;
 
     expansion = Matrix_Alloc(nvar + nparam + 1,  nvar + nparam + 1);
