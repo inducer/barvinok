@@ -101,7 +101,6 @@ Param_Domain *Param_Polyhedron_Facet(Param_Polyhedron *PP, Param_Domain *D,
     memset(FD->F, 0, nv * sizeof(unsigned));
 
     FORALL_PVertex_in_ParamPolyhedron(V, D, PP) /* _i, _ix, _bx internal counters */
-	int n;
 	Param_Inner_Product(constraint, V->Vertex, row->p);
 	if (First_Non_Zero(row->p+1, nparam+1) == -1)
 	    FD->F[_ix] |= _bx;
