@@ -65,7 +65,7 @@ struct laurent_summator : public signed_cone_consumer,
 
 	laurent_summator(const evalue *e, unsigned dim,
 				Param_Polyhedron *PP) :
-			polynomial(e), dim(dim), vertex_decomposer(PP, *this),
+			vertex_decomposer(PP, *this), polynomial(e), dim(dim),
 			vc(dim), poly(e, dim) {
 		max_power = dim + poly.degree();
 		result = NULL;
