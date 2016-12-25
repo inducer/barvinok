@@ -48,8 +48,6 @@ __isl_give isl_str *isl_str_copy(__isl_keep isl_str *str)
 
 void isl_str_free(__isl_take isl_str *str)
 {
-	int i;
-
 	if (!str)
 		return;
 
