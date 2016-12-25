@@ -549,7 +549,6 @@ static evalue **lattice_point(const mat_ZZ& rays, vec_ZZ& lambda,
 
 Matrix *relative_coordinates(Param_Vertices *V, Matrix *basis)
 {
-    unsigned nparam = V->Vertex->NbColumns - 2;
     Matrix *T = Matrix_Copy(basis);
     Matrix *inv = Matrix_Alloc(T->NbRows, T->NbColumns);
     int ok = Matrix_Inverse(T, inv);
