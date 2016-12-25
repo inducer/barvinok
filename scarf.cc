@@ -864,7 +864,6 @@ static void scarf(Polyhedron *P, unsigned exist, unsigned nparam,
     assert(exist == 2);
     int pos[4];
     Polyhedron *U;
-    gen_fun *gf;
     int n;
 
     A = extract_matrix(P, dim);
