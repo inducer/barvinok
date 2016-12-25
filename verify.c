@@ -339,7 +339,6 @@ static int check_EP_on_poly(Polyhedron *P,
     Polyhedron *CS;
     unsigned MaxRays = options->barvinok->MaxRays;
     int ok = 1;
-    const evalue *EP = data->EP;
 
     CS = check_poly_context_scan(NULL, &P, P->Dimension, options);
 
