@@ -2622,7 +2622,6 @@ static __isl_give isl_printer *read_line(struct isl_stream *s,
 	char *lhs = NULL;
 	int assign = 0;
 	int only_print = 0;
-	struct isc_bin_op *op = NULL;
 	char buf[30];
 
 	if (!p)
