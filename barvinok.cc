@@ -361,7 +361,6 @@ static void barvinok_count_f(Polyhedron *P, Value* result,
 void barvinok_count_with_options(Polyhedron *P, Value* result,
 				 struct barvinok_options *options)
 {
-    unsigned dim;
     int allocated = 0;
     Polyhedron *Q;
     bool infinite = false;
