@@ -534,7 +534,7 @@ evalue* Param_Polyhedron_Volume(Polyhedron *P, Polyhedron* C,
     unsigned nvar = P->Dimension - C->Dimension;
     Param_Polyhedron *PP;
     unsigned MaxRays;
-    int i, j;
+    int i;
     Value fact;
     evalue *vol;
     int nd;
