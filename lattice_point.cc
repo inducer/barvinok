@@ -699,7 +699,6 @@ void lattice_point(Param_Vertices* V, const mat_ZZ& rays, vec_ZZ& lambda,
     barvinok_options *options)
 {
     unsigned nparam = V->Vertex->NbColumns - 2;
-    unsigned dim = rays.NumCols();
     mat_ZZ vertex;
     vertex.SetDims(V->Vertex->NbRows, nparam+1);
 
