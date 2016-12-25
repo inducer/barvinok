@@ -209,7 +209,6 @@ static Matrix *gbr_hull_extend(struct integer_hull *hull,
 
     while ((i_min = select_best(hull, Q, &min, &max, options)) != -1) {
 	Polyhedron *R;
-	int i;
 	Vector *opt;
 
 	if (INCLUDE_KNOWN_FACETS_IN_ILP)
