@@ -1688,7 +1688,6 @@ error:
 static struct isl_obj type_of(struct isl_stream *s,
 	struct isl_hash_table *table)
 {
-	isl_ctx *ctx;
 	struct isl_obj obj;
 	const char *type = "unknown";
 
