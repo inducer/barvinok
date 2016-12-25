@@ -89,7 +89,6 @@ static isl_stat add_chamber(__isl_take isl_cell *cell, void *user)
 Param_Polyhedron *ISL_P2PP(Polyhedron *P, Polyhedron *C,
 			  struct barvinok_options *options)
 {
-	int i, j;
 	isl_ctx *ctx = isl_ctx_alloc();
 	isl_space *space;
 	isl_basic_set *bset, *context;
