@@ -186,7 +186,6 @@ Polyhedron *Param_Vertex_Cone(Param_Polyhedron *PP, Param_Vertices *V,
     Matrix *M;
     Polyhedron *C;
     unsigned nvar = V->Vertex->NbRows;
-    unsigned nparam = V->Vertex->NbColumns - 2;
 
     if (!V->Facets)
 	Param_Vertex_Set_Facets(PP, V);
