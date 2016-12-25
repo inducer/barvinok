@@ -51,7 +51,7 @@ static int select_best(struct integer_hull *hull,
 		       Value *min, Value *max,
 		       struct barvinok_options *options)
 {
-    int i, j, k;
+    int i, j;
     Vector *lower = Vector_Alloc(P->NbConstraints);
     Vector *upper = Vector_Alloc(P->NbConstraints);
     Vector *distances = Vector_Alloc(P->NbConstraints);
