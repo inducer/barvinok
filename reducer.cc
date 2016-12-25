@@ -109,7 +109,7 @@ struct dpoly_r_scanner {
     vec_ZZ coeff;
 
     dpoly_r_scanner(const dpoly * const *num, int n, const dpoly_r *rc, int dim)
-		    : num(num), rc(rc), n(n), dim(dim), powers(dim, 0) {
+		    : rc(rc), num(num), n(n), dim(dim), powers(dim, 0) {
 	coeff.SetLength(n);
 	iter = new dpoly_r_term_list::iterator[rc->len];
 	for (int i = 0; i < rc->len; ++i) {
