@@ -503,14 +503,6 @@ struct laurent_summator_old : public signed_cone_consumer,
     virtual void handle(const signed_cone& sc, barvinok_options *options);
 };
 
-static int first_non_zero(const vec_ZZ& row)
-{
-    for (int i = 0; i < row.length(); ++i)
-	if (row[i] != 0)
-	    return i;
-    return -1;
-}
-
 void laurent_summator_old::handle(const signed_cone& sc, barvinok_options *options)
 {
     assert(sc.det == 1);
