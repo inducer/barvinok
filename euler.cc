@@ -224,7 +224,7 @@ struct summator_2d : public signed_cone_consumer, public vertex_decomposer {
 
     summator_2d(evalue *e, Param_Polyhedron *PP, Value *inner,
 		unsigned nparam) :
-		polynomial(e), vertex_decomposer(PP, *this),
+		vertex_decomposer(PP, *this), polynomial(e),
 		inner(inner), nparam(nparam) {
 	sum = evalue_zero();
 
