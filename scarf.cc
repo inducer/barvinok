@@ -405,19 +405,6 @@ void simplex::normalize()
     }
 }
 
-static Matrix *InsertColumn(Matrix *M, int pos)
-{
-    Matrix *R;
-    int i;
-
-    R = Matrix_Alloc(M->NbRows, M->NbColumns+1);
-    for (i = 0; i < M->NbRows; ++i) {
-	Vector_Copy(M->p[i], R->p[i], pos);
-	Vector_Copy(M->p[i]+pos, R->p[i]+pos+1, M->NbColumns-pos);
-    }
-    return R;
-}
-
 Polyhedron *simplex::shrunk_polyhedron(Polyhedron *P, int dim, Matrix *A,
 					unsigned MaxRays)
 {
