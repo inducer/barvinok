@@ -47,7 +47,6 @@ struct bv_add_chamber_data {
 
 static isl_stat add_chamber_vertex(__isl_take isl_vertex *vertex, void *user)
 {
-	int j;
 	struct bv_add_chamber_data *data = (struct bv_add_chamber_data *)user;
 	unsigned v;
 
