@@ -467,7 +467,6 @@ static evalue *sum_factors(Polyhedron *F, Polyhedron *C, evalue *e,
 				     unsigned nvar, unsigned extra,
 				     struct barvinok_options *options)
 {
-    Polyhedron *P = F;
     unsigned nparam = C->Dimension;
     unsigned F_var = F->Dimension - C->Dimension;
     int i, n;
