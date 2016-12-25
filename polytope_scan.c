@@ -61,7 +61,6 @@ int main(int argc, char **argv)
     Value *p;
     int i, j, ok;
     Matrix *basis, *T, *inv;
-    int c, ind = 0;
     struct options *options = options_new_with_defaults();
 
     argc = options_parse(options, argc, argv, ISL_ARG_ALL);
