@@ -575,7 +575,6 @@ struct enumerator : public signed_cone_consumer, public vertex_decomposer,
 void enumerator::handle(const signed_cone& sc, barvinok_options *options)
 {
     int sign = sc.sign;
-    int r = 0;
     assert(sc.rays.NumRows() == dim);
     for (int k = 0; k < dim; ++k) {
 	if (lambda * sc.rays[k] == 0)
