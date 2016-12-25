@@ -12,7 +12,6 @@ struct check_poly_gf_data {
 static int cp_gf(const struct check_poly_data *data, int nparam, Value *z,
 		 const struct verify_options *options)
 {
-    int k;
     Value c, tmp, one;
     struct check_poly_gf_data* gf_data = (struct check_poly_gf_data*) data;
     const skewed_gen_fun *gf = gf_data->gf;
