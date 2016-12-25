@@ -2230,7 +2230,7 @@ error:
 static struct isl_obj write_to_file(struct isl_stream *s,
 	struct isl_hash_table *table)
 {
-	struct isl_obj obj;
+	struct isl_obj obj = { isl_obj_none, NULL };
 	struct isl_token *tok;
 	struct isl_stream *s_file;
 	struct iscc_options *options;
