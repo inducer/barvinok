@@ -614,7 +614,7 @@ void enumerator::handle(const signed_cone& sc, barvinok_options *options)
 	} else {
 	    dpoly_n d(dim);
 	    d.div(n, c, sign);
-	    Value x, sum, acc;
+	    Value x, acc;
 	    value_init(x);
 	    value_init(acc);
 	    for (unsigned long i = 0; i < sc.det; ++i) {
