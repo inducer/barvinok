@@ -86,7 +86,6 @@ static __isl_give isl_printer *isl_obj_str_print(__isl_take isl_printer *p,
 __isl_give isl_str *isl_str_concat(__isl_take isl_str *str1,
 	__isl_take isl_str *str2)
 {
-	int i;
 	isl_str *str = NULL;
 	size_t len1, len2;
 
