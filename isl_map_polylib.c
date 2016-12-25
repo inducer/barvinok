@@ -251,7 +251,6 @@ static isl_stat add_basic_map(__isl_take isl_basic_map *bmap, void *user)
 
 Polyhedron *isl_map_to_polylib(struct isl_map *map)
 {
-	int i;
 	Polyhedron *R = NULL;
 	Polyhedron **next = &R;
 
