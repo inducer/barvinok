@@ -413,7 +413,6 @@ int check_EP(struct check_EP_data *data, unsigned nvar, unsigned nparam,
 	     struct verify_options *options)
 {
     Vector *p;
-    int i;
     int ok = 1;
     Polyhedron *D, *P;
 
