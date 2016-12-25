@@ -178,7 +178,6 @@ void verify_results(Polyhedron *P, evalue *EP, gen_fun *gf,
 		       int exist, int nparam,
 		       enumerate_e_options *options)
 {
-    int i;
     int res = 0;
     Vector *p;
     Value tmp;
