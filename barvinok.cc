@@ -1209,7 +1209,6 @@ static evalue* enumerate(Polyhedron *P, Polyhedron* C,
     Polyhedron *Porig = P;
     Polyhedron *Corig = C;
     Polyhedron *CEq = NULL;
-    int r = 0;
     unsigned nparam = C->Dimension;
     evalue *eres;
     Matrix *CP = NULL;
