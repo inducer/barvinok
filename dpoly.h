@@ -4,7 +4,7 @@
 #include <barvinok/set.h>
 #include <vector>
 #include <gmp.h>
-#include <NTL/vec_ZZ.h>
+#include <NTL/ZZ.h>
 #include <barvinok/polylib.h>
 #include "conversion.h"
 
