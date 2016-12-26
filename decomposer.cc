@@ -99,7 +99,8 @@ public:
     void short_vector(vec_ZZ& v, vec_ZZ& lambda, barvinok_options *options) {
 	ZZ det2;
 	mat_ZZ U;
-	long r = LLL(det2, B, U, options->LLL_a, options->LLL_b);
+
+	LLL(det2, B, U, options->LLL_a, options->LLL_b);
 
 	ZZ min = max(B[0]);
 	int index = 0;
