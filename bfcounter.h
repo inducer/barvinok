@@ -1,6 +1,8 @@
 #include <assert.h>
 #include <vector>
 #include <gmp.h>
+#include <NTL/vec_ZZ.h>
+#include <NTL/mat_ZZ.h>
 #include <barvinok/polylib.h>
 #include <barvinok/NTL_QQ.h>
 #include "reducer.h"
