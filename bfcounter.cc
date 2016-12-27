@@ -358,10 +358,6 @@ void bf_reducer::reduce(barvinok_options *options)
 	    if (no_param + only_param == total_power &&
 		    bf->constant_vertex(d)) {
 		bfc_term_base * t = NULL;
-		vec_ZZ num;
-		num.SetLength(d-1);
-		ZZ cn;
-		ZZ cd;
 		for (int k = 0; k < v[i]->terms.NumRows(); ++k) {
 		    zz2value(v[i]->terms[k][0], tmp);
 		    dpoly n(no_param, tmp);
