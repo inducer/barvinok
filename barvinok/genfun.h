@@ -4,7 +4,10 @@
 #include <barvinok/set.h>
 #include <iostream>
 #include <gmp.h>
+#include <NTL/ZZ.h>
+#include <NTL/vec_ZZ.h>
 #include <NTL/mat_ZZ.h>
+#include <barvinok/polylib.h>
 #include <barvinok/evalue.h>
 #include <barvinok/NTL_QQ.h>
 #include <barvinok/options.h>
