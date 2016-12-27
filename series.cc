@@ -1,4 +1,6 @@
 #include <assert.h>
+#include <NTL/vec_ZZ.h>
+#include <barvinok/polylib.h>
 #include <barvinok/barvinok.h>
 #include <barvinok/util.h>
 #include "genfun_constructor.h"
