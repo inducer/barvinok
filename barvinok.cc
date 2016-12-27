@@ -8,7 +8,6 @@
 #include <NTL/ZZ.h>
 #include <NTL/vec_ZZ.h>
 #include <NTL/mat_ZZ.h>
-#include <NTL/LLL.h>
 #include <isl/val.h>
 #include <isl/space.h>
 #include <isl/set.h>
