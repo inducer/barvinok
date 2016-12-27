@@ -30,7 +30,6 @@ typedef std::vector< bfc_term_base * > bfc_vec;
 struct bf_reducer;
 
 struct bf_base : public np_base {
-    ZZ one;
     mpq_t tcount;
     mpz_t tn;
     mpz_t td;
@@ -40,7 +39,6 @@ struct bf_base : public np_base {
 	mpq_init(tcount);
 	mpz_init(tn);
 	mpz_init(td);
-	one = 1;
     }
 
     ~bf_base() {
