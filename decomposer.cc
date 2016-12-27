@@ -160,7 +160,7 @@ static void decompose(const signed_cone& sc, signed_cone_consumer& scc,
 	return;
     }
     vec_ZZ lambda;
-    vec_ZZ v;;
+    vec_ZZ v;
     while (!nonuni.empty()) {
 	c = nonuni.back();
 	nonuni.pop_back();
