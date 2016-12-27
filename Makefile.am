@@ -346,6 +346,7 @@ EXTRA_DIST = \
     barvinok/NTL.h.normal \
     barvinok/set.h.broken \
     barvinok/set.h.normal \
+    config_post.h \
     doc/isl.tex \
     doc/Internal.tex \
     doc/applications.tex \

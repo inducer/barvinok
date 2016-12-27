@@ -39,6 +39,7 @@ if test "x$bv_cv_shared_barvinok" != "xyes" ; then
 	BV_LDFLAGS="$BV_LDFLAGS -static"
 fi
 
+AX_C___ATTRIBUTE__
 AX_CXX_COMPILE_STDCXX_11([], [optional])
 AX_UNORDERED_MAP
 AC_CXX_GNUCXX_HASHMAP
@@ -505,6 +506,7 @@ PACKAGE_CFLAGS="$PACKAGE_CFLAGS_ISL"
 PACKAGE_LIBS="-lbarvinok $EXTRA_PACKAGE_LIBS -lpolylibgmp -lisl"
 AX_CREATE_PKGCONFIG_INFO
 
+AH_BOTTOM([#include "config_post.h"])
 AC_CONFIG_HEADERS(config.h)
 AC_CONFIG_FILES(Makefile zsolve/Makefile doc/Makefile)
 AC_CONFIG_FILES(parker/Makefile)

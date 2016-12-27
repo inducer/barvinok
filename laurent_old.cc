@@ -69,6 +69,8 @@ namespace __gnu_cxx
 #define ALLOCN(type,n) (type*)malloc((n) * sizeof(type))
 
 static ostream & operator<< (ostream & os, const vector<int> & v)
+	__attribute__((unused));
+static ostream & operator<< (ostream & os, const vector<int> & v)
 {
     os << "[";
     for (int i = 0; i < v.size(); ++i) {

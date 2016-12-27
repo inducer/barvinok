@@ -121,6 +121,8 @@ static void print_int_vector(int *v, int len, const char *name)
 }
 
 static void print_bfc_terms(mat_ZZ& factors, bfc_vec& v)
+	__attribute__((unused));
+static void print_bfc_terms(mat_ZZ& factors, bfc_vec& v)
 {
     cerr << endl;
     cerr << "factors" << endl;
@@ -135,6 +137,8 @@ static void print_bfc_terms(mat_ZZ& factors, bfc_vec& v)
     }
 }
 
+static void print_bfe_terms(mat_ZZ& factors, bfc_vec& v)
+	__attribute__((unused));
 static void print_bfe_terms(mat_ZZ& factors, bfc_vec& v)
 {
     cerr << endl;
