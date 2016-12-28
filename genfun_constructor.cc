@@ -1,3 +1,7 @@
+#include <NTL/vec_ZZ.h>
+#include <NTL/mat_ZZ.h>
+#include <barvinok/NTL_QQ.h>
+#include <barvinok/polylib.h>
 #include "genfun_constructor.h"
 
 gf_base *gf_base::create(Polyhedron *context, unsigned dim, unsigned nparam,
