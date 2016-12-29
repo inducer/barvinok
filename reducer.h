@@ -53,7 +53,6 @@ private:
 struct reducer : public np_base {
     mat_ZZ vertex;
     //vec_ZZ den;
-    ZZ num;
     mpq_t tcount;
     mpz_t tn;
     mpz_t td;
