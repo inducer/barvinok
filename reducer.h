@@ -52,7 +52,6 @@ private:
 
 struct reducer : public np_base {
     mat_ZZ vertex;
-    //vec_ZZ den;
     mpq_t tcount;
     mpz_t tn;
     mpz_t td;
@@ -61,7 +60,6 @@ struct reducer : public np_base {
 
     reducer(unsigned dim) : np_base(dim) {
 	vertex.SetDims(1, dim);
-	//den.SetLength(dim);
 	mpq_init(tcount);
 	mpz_init(tn);
 	mpz_init(td);
