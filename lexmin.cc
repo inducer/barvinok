@@ -1385,7 +1385,6 @@ order_sign partial_order::compare(const indicator_term *a, const indicator_term 
 {
     unsigned dim = a->den.NumCols();
     order_sign sign = order_eq;
-    unsigned MaxRays = ind->options->verify->barvinok->MaxRays;
     bool rational = a->sign == 0 || b->sign == 0;
 
     order_sign cached_sign = order_eq;
@@ -1404,12 +1403,6 @@ order_sign partial_order::compare(const indicator_term *a, const indicator_term 
     if (cached_sign != order_undefined) {
 	cache_el.free();
 	return cached_sign;
-    }
-
-    if (rational && POL_ISSET(MaxRays, POL_INTEGER)) {
-	ind->options->verify->barvinok->MaxRays &= ~POL_INTEGER;
-	if (ind->options->verify->barvinok->MaxRays)
-	    ind->options->verify->barvinok->MaxRays |= POL_HIGH_BIT;
     }
 
     sign = order_eq;
@@ -1487,7 +1480,6 @@ order_sign partial_order::compare(const indicator_term *a, const indicator_term 
 	delete term[1];
     }
 
-    ind->options->verify->barvinok->MaxRays = MaxRays;
     return sign;
 }
 
