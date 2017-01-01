@@ -8,7 +8,6 @@
 #include <isl/set.h>
 #include <isl_set_polylib.h>
 #include <barvinok/polylib.h>
-#include <barvinok/util.h>
 #include <barvinok/options.h>
 #include <polylib/ranking.h>
 #include "config.h"
