@@ -3,7 +3,6 @@
 
 #include <barvinok/set.h>
 #include <iostream>
-#include <gmp.h>
 #include <NTL/ZZ.h>
 #include <NTL/vec_ZZ.h>
 #include <NTL/mat_ZZ.h>
