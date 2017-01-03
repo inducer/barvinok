@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <gmp.h>
 #include <barvinok/evalue.h>
 #include <barvinok/options.h>
 #include "lexmin.h"
