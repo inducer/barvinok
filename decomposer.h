@@ -1,7 +1,6 @@
 #ifndef DECOMPOSER_H
 #define DECOMPOSER_H
 
-#include <gmp.h>
 #include <NTL/mat_ZZ.h>
 #include <barvinok/polylib.h>
 #include <barvinok/options.h>
