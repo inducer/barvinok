@@ -1,6 +1,11 @@
 #include <assert.h>
 #include <isl/options.h>
+#include <isl/ctx.h>
+#include <isl/val.h>
 #include <isl/val_gmp.h>
+#include <isl/space.h>
+#include <isl/set.h>
+#include <isl/mat.h>
 #include <isl_set_polylib.h>
 #include <barvinok/basis_reduction.h>
 #include <barvinok/options.h>
