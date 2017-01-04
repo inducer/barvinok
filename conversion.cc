@@ -9,7 +9,7 @@
 
 /* Access the internal representation of a ZZ.
  * In newer versions of NTL (since 8.0.0), the internal representation
- * is wrapped inside a WrappedPtr, but it has an addess-of operator
+ * is wrapped inside a WrappedPtr, but it has an address-of operator
  * that returns the address of the actual internal representation.
  */
 #define REP(z)	(*&(z).rep)
