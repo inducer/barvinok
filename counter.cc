@@ -3,9 +3,6 @@
 #include "counter.h"
 #include "lattice_point.h"
 
-using std::cerr;
-using std::endl;
-
 /* Computes the integer points in the fundamental parallelepiped and
  * passes them along (in num) to the counter specific (i.e., specialization
  * specific) add_lattice_points.
