@@ -201,7 +201,6 @@ static isl_stat copy_constraint_to(__isl_take isl_constraint *c, void *user)
 Polyhedron *isl_basic_map_to_polylib(struct isl_basic_map *bmap)
 {
 	Polyhedron *P;
-	unsigned off;
 	unsigned nparam;
 	unsigned n_in;
 	unsigned n_out;
