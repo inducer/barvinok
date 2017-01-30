@@ -489,6 +489,7 @@ int verify_point_data_init(struct verify_point_data *vpd,
 	int i;
 
 	context = isl_set_copy(context);
+	context = isl_set_from_params(context);
 	context = isl_set_move_dims(context, isl_dim_set, 0, isl_dim_param, 0,
 					isl_set_dim(context, isl_dim_param));
 	v = isl_pw_qpolynomial_max(isl_set_card(context));
