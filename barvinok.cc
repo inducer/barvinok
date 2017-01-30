@@ -1537,6 +1537,7 @@ static isl_stat basic_map_card(__isl_take isl_basic_map *bmap, void *user)
 	bset = isl_basic_set_lift(bset);
 	pwqp = isl_basic_set_multiplicative_call(bset, &basic_set_card);
 
+	pwqp = isl_pw_qpolynomial_from_range(pwqp);
 	pwqp = isl_pw_qpolynomial_move_dims(pwqp, isl_dim_in, 0,
 						isl_dim_param, nparam, n_in);
 	pwqp = isl_pw_qpolynomial_reset_domain_space(pwqp, target_dim);
