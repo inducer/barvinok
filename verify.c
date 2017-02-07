@@ -12,16 +12,16 @@
 
 #define ALLOCN(type,n) (type*)malloc((n) * sizeof(type))
 
-/* RANGE : normal range for evalutations (-RANGE -> RANGE) */
+/* RANGE : normal range for evaluations (-RANGE -> RANGE) */
 #define RANGE 50
 
-/* SRANGE : small range for evalutations */
+/* SRANGE : small range for evaluations */
 #define SRANGE 15
 
 /* if dimension >= BIDDIM, use SRANGE */
 #define BIGDIM 5
 
-/* VSRANGE : very small range for evalutations */
+/* VSRANGE : very small range for evaluations */
 #define VSRANGE 5
 
 /* if dimension >= VBIDDIM, use VSRANGE */
