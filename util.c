@@ -10,7 +10,6 @@
 #include <barvinok/polylib.h>
 #include <barvinok/options.h>
 #include <polylib/ranking.h>
-#include "config.h"
 #include "lattice_point.h"
 
 #define ALLOC(type) (type*)malloc(sizeof(type))
