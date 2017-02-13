@@ -1,0 +1,31 @@
+The following lexmin inputs have been copied/adapted
+from the corresponding inputs in the piplib distribution,
+released under the GNU LGPLv2.1 license:
+
+boulet.pip
+brisebarre.pip
+cg1.pip
+dirk.pip
+discr.pip
+equus.pip
+esced.pip
+ex.pip
+fimmel.pip
+invert.pip
+linear.pip
+lineri.pip
+lineri-urs.pip
+max.pip
+negative.pip
+rairoi.pip
+small.pip
+sor1d.pip
+square.pip
+sven.pip
+test2i.pip
+test3i.pip
+test4i.pip
+test5i.pip
+test6i.pip
+test7i.pip
+test8i.pip
