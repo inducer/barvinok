@@ -1,4 +1,5 @@
 AC_DEFUN([AX_UNORDERED_MAP], [
+	AX_CXX_COMPILE_STDCXX_11([], [optional])
 	AC_LANG_SAVE
 	AC_LANG_CPLUSPLUS
 	AC_TRY_COMPILE([#include <unordered_map>], [using std::unordered_map;],

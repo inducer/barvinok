@@ -40,7 +40,6 @@ if test "x$bv_cv_shared_barvinok" != "xyes" ; then
 fi
 
 AX_C___ATTRIBUTE__
-AX_CXX_COMPILE_STDCXX_11([], [optional])
 AX_UNORDERED_MAP
 AC_CXX_GNUCXX_HASHMAP
 
