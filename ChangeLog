@@ -1,3 +1,8 @@
+version: 0.40
+date: Thu Feb 23 10:03:21 CET 2017
+changes:
+    - minor bug fixes
+---
 version: 0.39
 date: Fri Jan 15 09:20:30 CET 2016
 changes:
