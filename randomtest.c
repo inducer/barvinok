@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <barvinok/util.h>
 #include <barvinok/barvinok.h>
+#include "config.h"
 
 #ifdef HAVE_SYS_TIMES_H
 
