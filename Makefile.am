@@ -359,7 +359,8 @@ EXTRA_DIST = \
     doc/chicago.sty \
     doc/mydefs.sty \
     interface/all_barvinok.h \
-    interface/isl.py.top \
+    interface/isl.py.top.no_pet \
+    interface/isl.py.top.pet \
     polymake/Makefile.in \
     polymake/README \
     polymake/autogen.sh \
