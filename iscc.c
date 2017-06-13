@@ -1998,8 +1998,6 @@ static struct isl_obj schedule(struct isl_stream *s,
 
 /* Read a schedule for code generation in the form of either
  * a schedule tree or a union map.
- * If the input is a set rather than a map, then we construct
- * an identity union map schedule on the given set.
  */
 static struct isl_obj get_codegen_schedule(struct isl_stream *s,
 	struct isl_hash_table *table)
@@ -2012,18 +2010,13 @@ static struct isl_obj get_codegen_schedule(struct isl_stream *s,
 
 	if (obj.type == isl_obj_schedule)
 		return obj;
-	if (is_subtype(obj, isl_obj_union_set)) {
-		obj = convert(ctx, obj, isl_obj_union_set);
-		obj.v = isl_union_set_identity(obj.v);
-		obj.type = isl_obj_union_map;
-	}
 	if (is_subtype(obj, isl_obj_union_map))
 		return convert(ctx, obj, isl_obj_union_map);
 
 	free_obj(obj);
 	obj.v = NULL;
 	obj.type = isl_obj_none;
-	isl_die(ctx, isl_error_invalid, "expecting schedule, set or map",
+	isl_die(ctx, isl_error_invalid, "expecting schedule or map",
 		return obj);
 }
 
