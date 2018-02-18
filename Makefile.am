@@ -324,7 +324,13 @@ iscc_LDADD = \
 	libbarvinok.la $(LIB_PET) $(LIB_ISL) \
 	$(LIB_POLYLIB)
 
-isl.py: interface/isl.py.top
+# dummy library that captures the dependencies on all headers
+# that are relevant for the bindings
+noinst_LIBRARIES = libdep.a
+libdep_a_CPPFLAGS = $(DEFAULT_INCLUDES) @ISL_CFLAGS@ -I"@ISL_SRCDIR@"
+libdep_a_SOURCES = interface/all_barvinok.c
+
+isl.py: libdep.a interface/isl.py.top
 	(cat interface/isl.py.top; \
 		@ISL_BUILDDIR@/interface/extract_interface$(EXEEXT) \
 			--language=python \
