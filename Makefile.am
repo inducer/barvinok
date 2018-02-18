@@ -363,6 +363,7 @@ EXTRA_DIST = \
     doc/barvinok.gdf \
     doc/chicago.bst \
     doc/chicago.sty \
+    doc/glosstex.ist \
     doc/mydefs.sty \
     interface/all_barvinok.h \
     interface/isl.py.top.no_pet \
