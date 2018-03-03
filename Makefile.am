@@ -389,7 +389,7 @@ uninstall-local:
 dist-hook: isl.py
 	cp isl.py $(distdir)/
 	(cd $(distdir)/polymake; \
-	    ./autogen.sh; rm -rf autogen.sh autom4te.cache)
+	    ./autogen.sh; rm -rf autom4te.cache)
 	(cd doc; make barvinok.pdf)
 	cp doc/barvinok.pdf $(distdir)/doc/
 	if test -f $(top_srcdir)/.git/HEAD; then \
