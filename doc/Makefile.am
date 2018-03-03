@@ -2,6 +2,34 @@ export TEXINPUTS := $(srcdir):$(TEXINPUTS)
 export BIBINPUTS := $(srcdir):$(BIBINPUTS)
 export BSTINPUTS := $(srcdir):$(BSTINPUTS)
 
+CLEANFILES = \
+	applications.aux \
+	barvinok.aux \
+	barvinok.bbl \
+	barvinok.blg \
+	barvinok.brf \
+	barvinok.dvi \
+	barvinok.glo \
+	barvinok.gls \
+	barvinok.glx \
+	barvinok.gxg \
+	barvinok.gxs \
+	barvinok.idx \
+	barvinok.ilg \
+	barvinok.ind \
+	barvinok.lof \
+	barvinok.log \
+	barvinok.out \
+	barvinok.pdf \
+	barvinok.ps \
+	barvinok.toc \
+	implementation.aux \
+	Internal.aux \
+	isl.aux \
+	polymake.aux \
+	reports.aux \
+	version.tex
+
 barvinok.dvi: FORCE
 	(cd ..; echo "@GIT_HEAD_VERSION@") > version.tex
 	latex barvinok.tex

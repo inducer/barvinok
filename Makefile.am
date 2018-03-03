@@ -340,6 +340,20 @@ isl.py: libdep.a interface/isl.py.top
 
 TESTFILES = $(shell find $(top_srcdir)/tests -type f ! -path '*CVS*')
 
+CLEANFILES = \
+	zsolve/graver \
+	zsolve/hilbert \
+	isl.py \
+	version.h
+DISTCLEANFILES = \
+	barvinok-uninstalled.sh \
+	barvinok-uninstalled.pc \
+	barvinok.pc \
+	barvinok.pc.in \
+	barvinok/set.h \
+	barvinok/NTL.h \
+	interface/isl.py.top
+
 EXTRA_DIST = \
     ChangeLog \
     $(TESTFILES) \
