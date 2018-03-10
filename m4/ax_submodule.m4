@@ -45,7 +45,7 @@ $3)
 	case "$4" in
 	bundled)
 		if test -d $srcdir/.git -a \
-			-d $srcdir/$1; then if \
+			-d $srcdir/$1; then if test \
 			"`cd $srcdir; git submodule status $1 | cut -c1`" = '-'; then
 			AC_MSG_WARN([git repo detected, but submodule $1 not initialized])
 			AC_MSG_WARN([You may want to run])
