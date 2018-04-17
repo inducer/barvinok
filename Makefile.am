@@ -355,6 +355,7 @@ DISTCLEANFILES = \
 	interface/isl.py.top
 
 EXTRA_DIST = \
+    LICENSE \
     ChangeLog \
     $(TESTFILES) \
     latte2polylib.pl \
