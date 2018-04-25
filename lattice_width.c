@@ -1,5 +1,9 @@
 #include <assert.h>
 #include <stdlib.h>
+#include <isl/space.h>
+#include <isl/set.h>
+#include <isl/union_set.h>
+#include <isl/polynomial.h>
 #include <isl_set_polylib.h>
 #include <barvinok/options.h>
 #include <barvinok/util.h>
