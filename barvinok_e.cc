@@ -1,5 +1,8 @@
 #include <assert.h>
 #include <gmp.h>
+#include <isl/ctx.h>
+#include <isl/space.h>
+#include <isl/set.h>
 #include <isl_set_polylib.h>
 #include <barvinok/barvinok.h>
 #include <barvinok/evalue.h>
