@@ -1,5 +1,9 @@
 #include <isl_aff_polylib.h>
 #include <isl_set_polylib.h>
+#include <isl/ctx.h>
+#include <isl/space.h>
+#include <isl/aff.h>
+#include <isl/set.h>
 #include <isl/vertices.h>
 #include "isl_param_util.h"
 
