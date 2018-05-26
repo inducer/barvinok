@@ -162,6 +162,7 @@ system)
 esac
 AM_CONDITIONAL(BUNDLED_ISL, test $with_isl = bundled)
 AM_CONDITIONAL(BUILD_ISL, test $with_isl = build)
+AM_CONDITIONAL(HAVE_ISL_BUILDDIR, test "x$ISL_BUILDDIR" != "x")
 
 AX_SUBMODULE(pet,bundled|build|system|no,no)
 AC_SUBST(PET_CFLAGS)
