@@ -1,3 +1,9 @@
+version: 0.41.1
+date: Mon Jul 30 22:57:00 CEST 2018
+changes:
+    - add LICENSE file to distribution
+    - update isl
+---
 version: 0.41
 date: Tue Mar  6 21:23:21 CET 2018
 changes:
