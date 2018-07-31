@@ -1,2 +1,2 @@
-#include <interface/all.h>
+#include <all.h>
 #include <barvinok/isl.h>
