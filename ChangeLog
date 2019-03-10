@@ -1,3 +1,8 @@
+version: 0.41.2
+date: Thu Mar 28 18:33:44 CET 2019
+changes:
+    - update isl
+---
 version: 0.41.1
 date: Mon Jul 30 22:57:00 CEST 2018
 changes:
