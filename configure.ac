@@ -7,6 +7,7 @@ AC_PROG_CC
 AC_PROG_CXX
 AM_PROG_LEX
 AC_PROG_YACC
+AC_PROG_GREP
 AC_PROG_SED
 AC_SUBST(versioninfo)
 versioninfo=23:8:0
@@ -251,7 +252,7 @@ AC_SUBST(NTL_CPPFLAGS)
 AC_SUBST(NTL_LDFLAGS)
 case "$with_ntl" in
 build)
-	NTL_CPPFLAGS="-I$with_ntl_builddir/include"
+	ntl_include="$with_ntl_builddir/include"
 	NTL_LDFLAGS="-L$with_ntl_builddir/src/$lt_cv_objdir"
 	ntl_builddir_found=false
 	AC_CHECK_FILE(["$with_ntl_builddir/src/ZZ.c"],
@@ -270,11 +271,30 @@ build)
 	;;
 system)
 	if test "x$with_ntl_prefix" != "x"; then
-		NTL_CPPFLAGS="-I$with_ntl_prefix/include"
+		ntl_include="$with_ntl_prefix/include"
 		NTL_LDFLAGS="-L$with_ntl_prefix/lib"
 	fi
 	;;
 esac
+if test "x$ntl_include" != "x"; then
+	NTL_CPPFLAGS="-I$ntl_include"
+else
+	for path in /usr/local /usr; do
+		if test -f "$path/include/NTL/ZZ.h"; then
+			ntl_include="$path/include"
+			break;
+		fi
+	done
+fi
+# Look for compiler/linker options needed for linking against NTL
+ntl_configlog="$ntl_include/NTL/ConfigLog.h"
+if test -f "$ntl_configlog"; then
+	AC_MSG_CHECKING([for compiler options in $ntl_configlog])
+	eval $($GREP "^CXXAUTOFLAGS" $ntl_configlog | $SED -e 's/^/NTL_/')
+	AC_MSG_RESULT([$NTL_CXXAUTOFLAGS])
+	NTL_CPPFLAGS="$NTL_CPPFLAGS $NTL_CXXAUTOFLAGS"
+	NTL_LDFLAGS="$NTL_LDFLAGS $NTL_CXXAUTOFLAGS"
+fi
 
 AX_CHECK_NTL
 
