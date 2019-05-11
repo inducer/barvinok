@@ -7,6 +7,7 @@ AC_PROG_CC
 AC_PROG_CXX
 AM_PROG_LEX
 AC_PROG_YACC
+AC_PROG_SED
 AC_SUBST(versioninfo)
 versioninfo=23:8:0
 
@@ -288,7 +289,7 @@ use_zsolve=false
 if test "$with_zsolve" != "no"; then
 	if test "$GCC" = "yes"; then
 		$CC --version |
-		sed -e 's/.* \(@<:@0-9@:>@@<:@0-9@:>@*\)\.\(@<:@0-9@:>@@<:@0-9@:>@*\).*/\1 \2/' |
+		$SED -e 's/.* \(@<:@0-9@:>@@<:@0-9@:>@*\)\.\(@<:@0-9@:>@@<:@0-9@:>@*\).*/\1 \2/' |
 		(read major minor
 			if test $major -gt 3; then
 				exit 0
