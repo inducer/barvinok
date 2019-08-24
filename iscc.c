@@ -1113,7 +1113,8 @@ static struct isl_obj stored_obj(struct isl_ctx *ctx,
 
 	name_hash = isl_hash_string(isl_hash_init(), name);
 	entry = isl_hash_table_find(ctx, table, name_hash, same_name, name, 0);
-	if (entry) {
+	if (!entry) {
+	} else if (entry != isl_hash_table_entry_none) {
 		struct isl_named_obj *named;
 		named = entry->data;
 		obj = named->obj;
