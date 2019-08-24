@@ -148,8 +148,8 @@ bundled)
 	ISL_SRCDIR="$srcdir/isl"
 	ISL_BUILDDIR=isl
 	ISL_CFLAGS="-I\$(top_srcdir)/isl/include -I\$(top_builddir)/isl/include"
-	bv_configure_args=\
-		"$bv_configure_args --with-isl=build --with-isl-builddir=../isl"
+	bv_configure_args="$bv_configure_args --with-isl=build"
+	bv_configure_args="$bv_configure_args --with-isl-builddir=../isl"
 	PACKAGE_CFLAGS_ISL='-I${prefix}/include'
 	;;
 build)
