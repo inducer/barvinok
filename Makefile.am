@@ -329,12 +329,12 @@ libdep_a_CPPFLAGS = $(DEFAULT_INCLUDES) @ISL_CFLAGS@ -I"@ISL_SRCDIR@"
 libdep_a_SOURCES = interface/all_barvinok.c
 
 isl.py: libdep.a interface/isl.py.top
-	(cat interface/isl.py.top; \
+	(cat interface/isl.py.top && \
 		@ISL_BUILDDIR@/interface/extract_interface$(EXEEXT) \
 			--language=python \
 			$(DEFAULT_INCLUDES) @ISL_CFLAGS@ -I"@ISL_SRCDIR@" \
 			$(srcdir)/interface/all_barvinok.h) \
-			> isl.py
+			> $@ || (rm $@ && false)
 endif
 
 TESTFILES = $(shell find $(top_srcdir)/tests -type f ! -path '*CVS*')
