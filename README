@@ -91,6 +91,15 @@ be faster than the depth-first version, especially on polytopes
 of moderate dimension with a lot of "structure", but can require
 more memory.
 
+Building the Python interface requires barvinok to be configured with
+LLVM/clang libraries (--with-clang=system; see pet/README for detailed
+requirements) and an isl build directory. The isl build directory is
+defined implicitly when using the included copy of isl
+(--with-isl=bundled) and only needs to be specified explicitly when
+using an external copy of isl (--with-isl-builddir=DIR, where DIR is
+the location of the isl build directory). Using the Python interface
+further requires shared barvinok libraries (--enable-shared-barvinok).
+
 For bug reports, feature requests and questions,
 contact http://groups.google.com/group/isl-development
 
