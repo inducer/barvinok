@@ -1,0 +1,9 @@
+# This test case was contributed by Corentin Ferry <corentin.ferry@irisa.fr>.
+# It would result in a segmentation fault on earlier versions of barvinok.
+X := { [m, l] -> [o1, o2] :
+        o1 <= 8 + 10m
+        and 7 + 10m <= o2
+        and -9 - 10m + 5l + o1 <= o2
+        and o2 < o1
+        and o2 <= 3 + 5l };
+assert(card(X) == { [m, l = 1 + 2m] -> 1 });

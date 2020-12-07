@@ -191,6 +191,7 @@ int remove_all_equalities(Polyhedron **P, Polyhedron **C, Matrix **CPP, Matrix *
 	    else if (C)
 		D = Polyhedron_Copy(D);
 	    Q = R;
+	    remove_parameter_equalities(&Q, &D, &CP, &nparam, Q != *P, MaxRays);
 	}
     }
 
