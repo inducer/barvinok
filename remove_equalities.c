@@ -188,6 +188,8 @@ int remove_all_equalities(Polyhedron **P, Polyhedron **C, Matrix **CPP, Matrix *
 	    CV = compose_transformations(CV, T);
 	    if (Q != *P)
 		Polyhedron_Free(Q);
+	    else if (C)
+		D = Polyhedron_Copy(D);
 	    Q = R;
 	}
     }
