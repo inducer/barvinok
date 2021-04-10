@@ -34,7 +34,7 @@ polylib/libpolylibgmp.la: FORCE
 	cd polylib; $(MAKE) $(AM_MAKEFLAGS) libpolylibgmp.la
 isl/libisl.la: FORCE
 	cd isl; $(MAKE) $(AM_MAKEFLAGS) libisl.la
-pet/libpet.la: FORCE
+pet/libpet.la: $(LOCAL_ISL_LA) FORCE
 	cd pet; $(MAKE) $(AM_MAKEFLAGS) libpet.la
 zsolve/libzsolve.la: FORCE
 	cd zsolve; $(MAKE) $(AM_MAKEFLAGS) libzsolve.la
