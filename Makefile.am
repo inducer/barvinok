@@ -1,7 +1,6 @@
 if BUNDLED_POLYLIB
     MAYBE_POLYLIB = polylib
     POLYLIB_LA = $(top_builddir)/polylib/libpolylibgmp.la
-    LOCAL_POLYLIB_LA = polylib/libpolylibgmp.la
 endif
 if BUNDLED_ISL
     MAYBE_ISL = isl
