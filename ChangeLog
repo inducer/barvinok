@@ -1,3 +1,9 @@
+version: 0.41.5
+date: Sat 01 May 2021 12:50:27 PM CEST
+changes:
+    - support recent versions of clang
+    - fix minor bug involving implicit equality constraints
+---
 version: 0.41.4
 date: Sun 01 Nov 2020 03:46:32 PM CET
 changes:
