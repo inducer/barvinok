@@ -1,3 +1,5 @@
+# This example was derived from an Omega test case reported by
+# Jerome Leroux <leroux@labri.fr>.
 P :=
 2 4
 1 1 -3 -1
