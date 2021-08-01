@@ -453,7 +453,7 @@ check-euler: barvinok_summate$(EXEEXT)
 		done \
 	    fi \
 	done
-	@for t in dull EML_p EML-product EML line square square_p square \
+	@for t in dull EML_p EML-product EML line square square_p square_p2 \
 		square_p3 triangle triangle2 triangle_p quasi; do \
 	    i=$(top_srcdir)/tests/euler/$$t.pwqp; \
 	    if test -f $$i; then \
@@ -462,7 +462,7 @@ check-euler: barvinok_summate$(EXEEXT)
 		./barvinok_summate$(EXEEXT) -T $$opt < $$i || exit; \
 	    fi \
 	done
-	@for t in dull dull_p EML line square square_p square \
+	@for t in dull dull_p EML line square square_p square_p2 \
 		square_p3 triangle triangle2 triangle_p; do \
 	    i=$(top_srcdir)/tests/euler/$$t.pwqp; \
 	    if test -f $$i; then \
