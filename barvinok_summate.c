@@ -48,7 +48,6 @@ static isl_stat verify_point(__isl_take isl_point *pnt, void *user)
 	struct verify_point_sum *vps = (struct verify_point_sum *) user;
 	int i;
 	int ok;
-	unsigned nvar;
 	unsigned nparam;
 	isl_val *v;
 	isl_set *dom;
@@ -75,8 +74,6 @@ static isl_stat verify_point(__isl_take isl_point *pnt, void *user)
 	isl_set_free(dom);
 	if (r < 0)
 		goto error;
-
-	nvar = isl_set_dim(dom, isl_dim_set);
 
 	ok = isl_val_eq(eval, vps->manual);
 
