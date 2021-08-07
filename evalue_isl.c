@@ -137,7 +137,7 @@ static __isl_give isl_pw_qpolynomial *relation2pwqp(__isl_take isl_set *set,
 {
 	int i;
 	Vector *vec;
-	isl_space *dim;
+	isl_space *space;
 	isl_ctx *ctx;
 	isl_val *v;
 	unsigned nparam;
@@ -152,9 +152,9 @@ static __isl_give isl_pw_qpolynomial *relation2pwqp(__isl_take isl_set *set,
 		goto error;
 
 	if (e->x.p->size == 1) {
-		dim = isl_set_get_space(set);
+		space = isl_set_get_space(set);
 		isl_set_free(set);
-		return isl_pw_qpolynomial_zero(dim);
+		return isl_pw_qpolynomial_zero(space);
 	}
 
 	ctx = isl_set_get_ctx(set);
@@ -175,10 +175,10 @@ static __isl_give isl_pw_qpolynomial *relation2pwqp(__isl_take isl_set *set,
 	evalue_extract_affine(&fract->x.p->arr[0],
 				vec->p + 2, &vec->p[1], &vec->p[0]);
 
-	dim = isl_set_get_space(set);
+	space = isl_set_get_space(set);
 
-	bset = isl_basic_set_universe(isl_space_copy(dim));
-	aff = isl_aff_zero_on_domain(isl_local_space_from_space(dim));
+	bset = isl_basic_set_universe(isl_space_copy(space));
+	aff = isl_aff_zero_on_domain(isl_local_space_from_space(space));
 	v = isl_val_int_from_gmp(ctx, vec->p[1]);
 	aff = isl_aff_set_constant_val(aff, v);
 	for (i = 0; i < nparam; ++i) {
