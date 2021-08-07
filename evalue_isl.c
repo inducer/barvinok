@@ -474,7 +474,6 @@ static isl_stat add_guarded_qp(__isl_take isl_set *set,
 	evalue *e = NULL;
 	evalue *f;
 	evalue *sum = (evalue *)user;
-	unsigned dim;
 
 	e = isl_alloc_type(isl_set_get_ctx(set), evalue);
 	if (!e)
@@ -490,7 +489,6 @@ static isl_stat add_guarded_qp(__isl_take isl_set *set,
 		goto error;
 	}
 
-	dim = isl_set_dim(set, isl_dim_param) + isl_set_dim(set, isl_dim_set);
 	value_init(e->d);
 	e->x.p = new_enode(partition, 2, D->Dimension);
 	EVALUE_SET_DOMAIN(e->x.p->arr[0], D);
