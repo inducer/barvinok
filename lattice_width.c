@@ -433,7 +433,7 @@ __isl_give isl_pw_qpolynomial *isl_basic_set_lattice_width(
 	__isl_take isl_basic_set *bset)
 {
 	isl_ctx *ctx;
-	isl_space *dim;
+	isl_space *space;
 	isl_pw_qpolynomial *pwqp;
 	unsigned nparam;
 	Polyhedron *U;
@@ -453,15 +453,15 @@ __isl_give isl_pw_qpolynomial *isl_basic_set_lattice_width(
 	}
 
 	nparam = isl_basic_set_dim(bset, isl_dim_param);
-	dim = isl_basic_set_get_space(bset);
-	dim = isl_space_params(dim);
+	space = isl_basic_set_get_space(bset);
+	space = isl_space_params(space);
 
 	U = Universe_Polyhedron(nparam);
 	P = isl_basic_set_to_polylib(bset);
 
 	E = Polyhedron_Lattice_Width(P, U, options);
 
-	pwqp = isl_pw_qpolynomial_from_evalue(dim, E);
+	pwqp = isl_pw_qpolynomial_from_evalue(space, E);
 	isl_basic_set_free(bset);
 
 	evalue_free(E);
