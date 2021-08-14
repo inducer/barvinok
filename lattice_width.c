@@ -479,11 +479,11 @@ __isl_give isl_pw_qpolynomial *isl_set_lattice_width(__isl_take isl_set *set)
 		return NULL;
 
 	if (isl_set_plain_is_empty(set)) {
-		isl_space *dim;
-		dim = isl_set_get_space(set);
-		dim = isl_space_domain(isl_space_from_range(dim));
+		isl_space *space;
+		space = isl_set_get_space(set);
+		space = isl_space_domain(isl_space_from_range(space));
 		isl_set_free(set);
-		return isl_pw_qpolynomial_zero(dim);
+		return isl_pw_qpolynomial_zero(space);
 	}
 
 	if (isl_set_n_basic_set(set) != 1)
