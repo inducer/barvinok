@@ -510,11 +510,11 @@ static isl_stat set_lw(__isl_take isl_set *set, void *user)
 __isl_give isl_union_pw_qpolynomial *isl_union_set_lattice_width(
 	__isl_take isl_union_set *uset)
 {
-	isl_space *dim;
+	isl_space *space;
 	isl_union_pw_qpolynomial *res;
 
-	dim = isl_union_set_get_space(uset);
-	res = isl_union_pw_qpolynomial_zero(dim);
+	space = isl_union_set_get_space(uset);
+	res = isl_union_pw_qpolynomial_zero(space);
 	if (isl_union_set_n_set(uset) > 1)
 		isl_die(isl_union_set_get_ctx(uset), isl_error_unsupported,
 			"unions not supported (yet)", goto error);
