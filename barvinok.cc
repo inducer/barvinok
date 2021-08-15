@@ -1680,11 +1680,11 @@ static isl_stat map_card(__isl_take isl_map *map, void *user)
 __isl_give isl_union_pw_qpolynomial *isl_union_map_card(
 	__isl_take isl_union_map *umap)
 {
-	isl_space *dim;
+	isl_space *space;
 	isl_union_pw_qpolynomial *res;
 
-	dim = isl_union_map_get_space(umap);
-	res = isl_union_pw_qpolynomial_zero(dim);
+	space = isl_union_map_get_space(umap);
+	res = isl_union_pw_qpolynomial_zero(space);
 	if (isl_union_map_foreach_map(umap, &map_card, &res) < 0)
 		goto error;
 	isl_union_map_free(umap);
