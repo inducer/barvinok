@@ -1579,7 +1579,7 @@ static __isl_give isl_pw_qpolynomial *card_as_sum(__isl_take isl_map *map,
 __isl_give isl_pw_qpolynomial *isl_map_card(__isl_take isl_map *map)
 {
 	isl_ctx *ctx;
-	isl_space *dim;
+	isl_space *space;
 	isl_pw_qpolynomial *sum;
 	barvinok_options *options;
 
@@ -1590,11 +1590,11 @@ __isl_give isl_pw_qpolynomial *isl_map_card(__isl_take isl_map *map)
 	     options->summation == BV_SUM_BERNOULLI))
 		return card_as_sum(map, options);
 
-	dim = isl_map_get_space(map);
-	dim = isl_space_domain(dim);
-	dim = isl_space_from_domain(dim);
-	dim = isl_space_add_dims(dim, isl_dim_out, 1);
-	sum = isl_pw_qpolynomial_zero(dim);
+	space = isl_map_get_space(map);
+	space = isl_space_domain(space);
+	space = isl_space_from_domain(space);
+	space = isl_space_add_dims(space, isl_dim_out, 1);
+	sum = isl_pw_qpolynomial_zero(space);
 
 	map = isl_map_make_disjoint(map);
 	map = isl_map_compute_divs(map);
