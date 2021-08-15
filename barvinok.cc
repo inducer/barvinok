@@ -1551,7 +1551,7 @@ static __isl_give isl_pw_qpolynomial *card_as_sum(__isl_take isl_map *map,
 {
 	isl_ctx *ctx;
 	isl_val *one;
-	isl_space *dim;
+	isl_space *space;
 	isl_set *set;
 	isl_qpolynomial *qp;
 	isl_pw_qpolynomial *pwqp;
@@ -1563,10 +1563,10 @@ static __isl_give isl_pw_qpolynomial *card_as_sum(__isl_take isl_map *map,
 	options->summation = BV_SUM_BERNOULLI;
 
 	set = isl_map_wrap(map);
-	dim = isl_set_get_space(set);
+	space = isl_set_get_space(set);
 	ctx = isl_map_get_ctx(map);
 	one = isl_val_one(ctx);
-	qp = isl_qpolynomial_val_on_domain(dim, one);
+	qp = isl_qpolynomial_val_on_domain(space, one);
 
 	pwqp = isl_pw_qpolynomial_alloc(set, qp);
 	pwqp = isl_pw_qpolynomial_sum(pwqp);
