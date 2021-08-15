@@ -252,13 +252,13 @@ static int split_on_domain_size(__isl_take isl_pw_qpolynomial *pwqp,
 	__isl_give isl_pw_qpolynomial **pwqp_more,
 	int size)
 {
-	isl_space *dim;
+	isl_space *space;
 	struct bv_split_data data = { size };
 	int r;
 
-	dim = isl_pw_qpolynomial_get_space(pwqp);
-	data.pwqp_less = isl_pw_qpolynomial_zero(isl_space_copy(dim));
-	data.pwqp_more = isl_pw_qpolynomial_zero(dim);
+	space = isl_pw_qpolynomial_get_space(pwqp);
+	data.pwqp_less = isl_pw_qpolynomial_zero(isl_space_copy(space));
+	data.pwqp_more = isl_pw_qpolynomial_zero(space);
 	r = isl_pw_qpolynomial_foreach_piece(pwqp, &split_on_size, &data);
 	*pwqp_less = data.pwqp_less;
 	*pwqp_more = data.pwqp_more;
