@@ -184,17 +184,15 @@ static __isl_give isl_pw_qpolynomial_fold *iterate(
 	isl_val *v;
 	isl_qpolynomial *qp;
 	isl_qpolynomial_fold *fold;
-	unsigned nvar;
 
 	assert(isl_space_dim(space, isl_dim_param) == 0);
-	nvar = isl_space_dim(space, isl_dim_set);
 
 	if (type == isl_fold_min)
 		v = isl_pw_qpolynomial_min(pwqp);
 	else
 		v = isl_pw_qpolynomial_max(pwqp);
 
-	space = isl_space_drop_dims(space, isl_dim_set, 0, nvar);
+	space = isl_space_params(space);
 	qp = isl_qpolynomial_val_on_domain(isl_space_copy(space), v);
 	fold = isl_qpolynomial_fold_alloc(type, qp);
 	set = isl_set_universe(space);

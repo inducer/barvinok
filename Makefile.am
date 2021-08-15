@@ -440,6 +440,9 @@ check-pwqp: barvinok_bound$(EXEEXT) test_bound$(EXEEXT) barvinok_summate$(EXEEXT
 		./barvinok_summate$(EXEEXT) -T -r30 < $$i || exit; \
 	    fi \
 	done
+	@echo $(top_srcdir)/tests/pwqp/hong1.pwqp --iterate
+	@./barvinok_bound$(EXEEXT) --iterate -T -r30 < \
+		$(top_srcdir)/tests/pwqp/hong1.pwqp || exit
 check-euler: barvinok_summate$(EXEEXT)
 	@for i in $(top_srcdir)/tests/euler/*; do \
 	    if test -f $$i; then \
