@@ -6,7 +6,6 @@
 #include <isl/point.h>
 #include <isl/polynomial.h>
 #include <isl/set.h>
-#include <isl/space.h>
 #include <barvinok/polylib.h>
 #include <barvinok/isl.h>
 #include <barvinok/options.h>
@@ -101,9 +100,7 @@ void verify_options_set_range(struct verify_options *options, int dim)
 isl_stat verify_options_set_range_pwqp(struct verify_options *options,
 	__isl_keep isl_pw_qpolynomial *pwqp)
 {
-	isl_space *space = isl_pw_qpolynomial_get_space(pwqp);
-	isl_size total = isl_space_dim(space, isl_dim_all);
-	isl_space_free(space);
+	isl_size total = isl_pw_qpolynomial_dim(pwqp, isl_dim_all);
 	if (total < 0)
 		return isl_stat_error;
 	verify_options_set_range(options, total);
