@@ -960,11 +960,11 @@ static isl_stat pw_qpolynomial_sum(__isl_take isl_pw_qpolynomial *pwqp,
 __isl_give isl_union_pw_qpolynomial *isl_union_pw_qpolynomial_sum(
 	__isl_take isl_union_pw_qpolynomial *upwqp)
 {
-	isl_space *dim;
+	isl_space *space;
 	isl_union_pw_qpolynomial *res;
 
-	dim = isl_union_pw_qpolynomial_get_space(upwqp);
-	res = isl_union_pw_qpolynomial_zero(dim);
+	space = isl_union_pw_qpolynomial_get_space(upwqp);
+	res = isl_union_pw_qpolynomial_zero(space);
 	if (isl_union_pw_qpolynomial_foreach_pw_qpolynomial(upwqp,
 						&pw_qpolynomial_sum, &res) < 0)
 		goto error;
