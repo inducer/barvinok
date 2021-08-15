@@ -128,17 +128,19 @@ static int verify_isl(Polyhedron *P, Polyhedron *C,
 	struct verify_point_enum vpe = { { options } };
 	int i;
 	isl_ctx *ctx = isl_ctx_alloc();
-	isl_space *dim;
+	isl_space *space;
 	isl_set *set;
 	isl_set *set_C;
 	int r;
 
-	dim = isl_space_set_alloc(ctx, C->Dimension, P->Dimension - C->Dimension);
+	space = isl_space_set_alloc(ctx, C->Dimension,
+				P->Dimension - C->Dimension);
 	for (i = 0; i < C->Dimension; ++i)
-		dim = isl_space_set_dim_name(dim, isl_dim_param, i, options->params[i]);
-	set = isl_set_new_from_polylib(P, isl_space_copy(dim));
-	dim = isl_space_params(dim);
-	set_C = isl_set_new_from_polylib(C, dim);
+		space = isl_space_set_dim_name(space, isl_dim_param, i,
+						options->params[i]);
+	set = isl_set_new_from_polylib(P, isl_space_copy(space));
+	space = isl_space_params(space);
+	set_C = isl_set_new_from_polylib(C, space);
 	set_C = isl_set_intersect_params(isl_set_copy(set), set_C);
 	set_C = isl_set_params(set_C);
 
