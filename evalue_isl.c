@@ -88,8 +88,8 @@ static int type_offset(enode *p)
 	       p->type == flooring ? 1 : 0;
 }
 
-__isl_give isl_qpolynomial *isl_qpolynomial_from_evalue(__isl_take isl_space *dim,
-	const evalue *e)
+__isl_give isl_qpolynomial *isl_qpolynomial_from_evalue(
+	__isl_take isl_space *space, const evalue *e)
 {
 	int i;
 	isl_qpolynomial *qp;
@@ -97,11 +97,11 @@ __isl_give isl_qpolynomial *isl_qpolynomial_from_evalue(__isl_take isl_space *di
 	int offset;
 
 	if (EVALUE_IS_NAN(*e))
-		return isl_qpolynomial_infty_on_domain(dim);
+		return isl_qpolynomial_infty_on_domain(space);
 	if (value_notzero_p(e->d)) {
-		isl_ctx *ctx = isl_space_get_ctx(dim);
+		isl_ctx *ctx = isl_space_get_ctx(space);
 		isl_val *val = isl_val_from_gmp(ctx, e->x.n, e->d);
-		return isl_qpolynomial_val_on_domain(dim, val);
+		return isl_qpolynomial_val_on_domain(space, val);
 	}
 
 	offset = type_offset(e->x.p);
@@ -111,19 +111,19 @@ __isl_give isl_qpolynomial *isl_qpolynomial_from_evalue(__isl_take isl_space *di
 	       e->x.p->type == fractional);
 	assert(e->x.p->size >= 1 + offset);
 
-	base = extract_base(isl_space_copy(dim), e);
-	qp = isl_qpolynomial_from_evalue(isl_space_copy(dim),
+	base = extract_base(isl_space_copy(space), e);
+	qp = isl_qpolynomial_from_evalue(isl_space_copy(space),
 					 &e->x.p->arr[e->x.p->size - 1]);
 
 	for (i = e->x.p->size - 2; i >= offset; --i) {
 		qp = isl_qpolynomial_mul(qp, isl_qpolynomial_copy(base));
 		qp = isl_qpolynomial_add(qp,
-				    isl_qpolynomial_from_evalue(isl_space_copy(dim),
+			    isl_qpolynomial_from_evalue(isl_space_copy(space),
 				    &e->x.p->arr[i]));
 	}
 
 	isl_qpolynomial_free(base);
-	isl_space_free(dim);
+	isl_space_free(space);
 
 	return qp;
 }
