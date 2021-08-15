@@ -140,7 +140,7 @@ enum lp_result isl_constraints_opt(Matrix *C, Value *obj, Value denom,
 {
 	int i;
 	isl_ctx *ctx = isl_ctx_alloc();
-	isl_space *dim;
+	isl_space *space;
 	isl_local_space *ls;
 	isl_mat *eq, *ineq;
 	isl_basic_set *bset;
@@ -151,9 +151,9 @@ enum lp_result isl_constraints_opt(Matrix *C, Value *obj, Value denom,
 
 	eq = extract_equalities(ctx, C);
 	ineq = extract_inequalities(ctx, C);
-	dim = isl_space_set_alloc(ctx, 0, C->NbColumns - 2);
-	ls = isl_local_space_from_space(isl_space_copy(dim));
-	bset = isl_basic_set_from_constraint_matrices(dim, eq, ineq,
+	space = isl_space_set_alloc(ctx, 0, C->NbColumns - 2);
+	ls = isl_local_space_from_space(isl_space_copy(space));
+	bset = isl_basic_set_from_constraint_matrices(space, eq, ineq,
 			isl_dim_set, isl_dim_div, isl_dim_param, isl_dim_cst);
 	aff = isl_aff_zero_on_domain(ls);
 	for (i = 0; i < C->NbColumns - 2; ++i) {
