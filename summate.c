@@ -1056,16 +1056,16 @@ struct barvinok_apply_data {
 static isl_stat pw_qpolynomial_apply(__isl_take isl_pw_qpolynomial *pwqp,
 	void *user)
 {
-	isl_space *map_dim;
-	isl_space *pwqp_dim;
+	isl_space *map_space;
+	isl_space *pwqp_space;
 	struct barvinok_apply_data *data = user;
 	int ok;
 
-	map_dim = isl_map_get_space(data->map);
-	pwqp_dim = isl_pw_qpolynomial_get_space(pwqp);
-	ok = join_compatible(map_dim, pwqp_dim);
-	isl_space_free(map_dim);
-	isl_space_free(pwqp_dim);
+	map_space = isl_map_get_space(data->map);
+	pwqp_space = isl_pw_qpolynomial_get_space(pwqp);
+	ok = join_compatible(map_space, pwqp_space);
+	isl_space_free(map_space);
+	isl_space_free(pwqp_space);
 
 	if (ok) {
 		isl_union_pw_qpolynomial *upwqp;
