@@ -64,7 +64,7 @@ enum order_sign isl_polyhedron_affine_sign(Polyhedron *D, Matrix *T,
 {
 	int i;
 	isl_ctx *ctx = isl_ctx_alloc();
-	isl_space *dim;
+	isl_space *space;
 	isl_local_space *ls;
 	isl_aff *aff;
 	isl_basic_set *bset;
@@ -74,9 +74,9 @@ enum order_sign isl_polyhedron_affine_sign(Polyhedron *D, Matrix *T,
 
 	assert(D->Dimension == T->NbColumns - 1);
 
-	dim = isl_space_set_alloc(ctx, 0, D->Dimension);
-	ls = isl_local_space_from_space(isl_space_copy(dim));
-	bset = isl_basic_set_new_from_polylib(D, dim);
+	space = isl_space_set_alloc(ctx, 0, D->Dimension);
+	ls = isl_local_space_from_space(isl_space_copy(space));
+	bset = isl_basic_set_new_from_polylib(D, space);
 	aff = isl_aff_zero_on_domain(ls);
 	for (i = 0; i < D->Dimension; ++i) {
 		v = isl_val_int_from_gmp(ctx, T->p[0][i]);
