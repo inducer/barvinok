@@ -1524,11 +1524,11 @@ static isl_stat basic_map_card(__isl_take isl_basic_map *bmap, void *user)
 	isl_pw_qpolynomial *pwqp;
 	unsigned nparam = isl_basic_map_dim(bmap, isl_dim_param);
 	unsigned n_in = isl_basic_map_dim(bmap, isl_dim_in);
-	isl_space *target_dim;
+	isl_space *target_space;
 	isl_basic_set *bset;
 
-	target_dim = isl_basic_map_get_space(bmap);
-	target_dim = isl_space_domain(target_dim);
+	target_space = isl_basic_map_get_space(bmap);
+	target_space = isl_space_domain(target_space);
 
 	bmap = isl_basic_map_move_dims(bmap, isl_dim_param, nparam,
 					isl_dim_in, 0, n_in);
@@ -1540,7 +1540,7 @@ static isl_stat basic_map_card(__isl_take isl_basic_map *bmap, void *user)
 	pwqp = isl_pw_qpolynomial_from_range(pwqp);
 	pwqp = isl_pw_qpolynomial_move_dims(pwqp, isl_dim_in, 0,
 						isl_dim_param, nparam, n_in);
-	pwqp = isl_pw_qpolynomial_reset_domain_space(pwqp, target_dim);
+	pwqp = isl_pw_qpolynomial_reset_domain_space(pwqp, target_space);
 	*sum = isl_pw_qpolynomial_add(*sum, pwqp);
 
 	return isl_stat_ok;
