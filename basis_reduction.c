@@ -33,7 +33,7 @@ Matrix *isl_Polyhedron_Reduced_Basis(Polyhedron *P,
 	int i, j;
 	isl_val *v;
 	isl_ctx *ctx;
-	isl_space *dim;
+	isl_space *space;
 	int nvar = P->Dimension;
 	isl_basic_set *bset;
 	isl_mat *basis;
@@ -44,8 +44,8 @@ Matrix *isl_Polyhedron_Reduced_Basis(Polyhedron *P,
 
 	isl_options_set_gbr_only_first(ctx, options->gbr_only_first);
 
-	dim = isl_space_set_alloc(ctx, 0, nvar);
-	bset = isl_basic_set_new_from_polylib(P, dim);
+	space = isl_space_set_alloc(ctx, 0, nvar);
+	bset = isl_basic_set_new_from_polylib(P, space);
 
 	basis = isl_basic_set_reduced_basis(bset);
 	isl_basic_set_free(bset);
