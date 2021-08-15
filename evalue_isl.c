@@ -10,7 +10,7 @@
 #include <barvinok/polylib.h>
 #include <barvinok/evalue.h>
 
-static __isl_give isl_qpolynomial *extract_base(__isl_take isl_space *dim,
+static __isl_give isl_qpolynomial *extract_base(__isl_take isl_space *space,
 	const evalue *e)
 {
 	int i;
@@ -22,14 +22,15 @@ static __isl_give isl_qpolynomial *extract_base(__isl_take isl_space *dim,
 	isl_qpolynomial *base, *c;
 	unsigned nparam;
 
-	if (!dim)
+	if (!space)
 		return NULL;
 
 	if (e->x.p->type == polynomial)
-		return isl_qpolynomial_var_on_domain(dim, isl_dim_param, e->x.p->pos - 1);
+		return isl_qpolynomial_var_on_domain(space,
+						isl_dim_param, e->x.p->pos - 1);
 
-	ctx = isl_space_get_ctx(dim);
-	nparam = isl_space_dim(dim, isl_dim_param);
+	ctx = isl_space_get_ctx(space);
+	nparam = isl_space_dim(space, isl_dim_param);
 	v = Vector_Alloc(2 + nparam);
 	if (!v)
 		goto error;
@@ -38,7 +39,7 @@ static __isl_give isl_qpolynomial *extract_base(__isl_take isl_space *dim,
 		value_set_si(v->p[2 + i], 0);
 	evalue_extract_affine(&e->x.p->arr[0], v->p + 2, &v->p[1], &v->p[0]);
 
-	ls = isl_local_space_from_space(isl_space_copy(dim));
+	ls = isl_local_space_from_space(isl_space_copy(space));
 	aff = isl_aff_zero_on_domain(ls);
 	val = isl_val_int_from_gmp(ctx, v->p[1]);
 	aff = isl_aff_set_constant_val(aff, val);
@@ -58,15 +59,15 @@ static __isl_give isl_qpolynomial *extract_base(__isl_take isl_space *dim,
 		base = isl_qpolynomial_neg(base);
 
 		val = isl_val_from_gmp(ctx,  v->p[1], v->p[0]);
-		c = isl_qpolynomial_val_on_domain(isl_space_copy(dim), val);
+		c = isl_qpolynomial_val_on_domain(isl_space_copy(space), val);
 		base = isl_qpolynomial_add(base, c);
 
 		for (i = 0; i < nparam; ++i) {
 			isl_qpolynomial *t;
 			val = isl_val_from_gmp(ctx,  v->p[2 + i], v->p[0]);
-			c = isl_qpolynomial_val_on_domain(isl_space_copy(dim),
+			c = isl_qpolynomial_val_on_domain(isl_space_copy(space),
 							val);
-			t = isl_qpolynomial_var_on_domain(isl_space_copy(dim),
+			t = isl_qpolynomial_var_on_domain(isl_space_copy(space),
 						isl_dim_param, i);
 			t = isl_qpolynomial_mul(c, t);
 			base = isl_qpolynomial_add(base, t);
@@ -74,11 +75,11 @@ static __isl_give isl_qpolynomial *extract_base(__isl_take isl_space *dim,
 	}
 
 	Vector_Free(v);
-	isl_space_free(dim);
+	isl_space_free(space);
 
 	return base;
 error:
-	isl_space_free(dim);
+	isl_space_free(space);
 	return NULL;
 }
 
