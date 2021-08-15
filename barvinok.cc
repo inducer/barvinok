@@ -1648,11 +1648,11 @@ static isl_stat set_card(__isl_take isl_set *set, void *user)
 __isl_give isl_union_pw_qpolynomial *isl_union_set_card(
 	__isl_take isl_union_set *uset)
 {
-	isl_space *dim;
+	isl_space *space;
 	isl_union_pw_qpolynomial *res;
 
-	dim = isl_union_set_get_space(uset);
-	res = isl_union_pw_qpolynomial_zero(dim);
+	space = isl_union_set_get_space(uset);
+	res = isl_union_pw_qpolynomial_zero(space);
 	if (isl_union_set_foreach_set(uset, &set_card, &res) < 0)
 		goto error;
 	isl_union_set_free(uset);
