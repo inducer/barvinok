@@ -226,25 +226,26 @@ static __isl_give isl_pw_qpolynomial *guarded_evalue2pwqp(__isl_take isl_set *se
 	return isl_pw_qpolynomial_alloc(set, qp);
 }
 
-__isl_give isl_pw_qpolynomial *isl_pw_qpolynomial_from_evalue(__isl_take isl_space *dim, const evalue *e)
+__isl_give isl_pw_qpolynomial *isl_pw_qpolynomial_from_evalue(
+	__isl_take isl_space *space, const evalue *e)
 {
 	int i;
 	isl_space *pw_space;
 	isl_pw_qpolynomial *pwqp;
 
-	if (!dim || !e)
+	if (!space || !e)
 		goto error;
 	if (EVALUE_IS_ZERO(*e)) {
-		dim = isl_space_from_domain(dim);
-		dim = isl_space_add_dims(dim, isl_dim_out, 1);
-		return isl_pw_qpolynomial_zero(dim);
+		space = isl_space_from_domain(space);
+		space = isl_space_add_dims(space, isl_dim_out, 1);
+		return isl_pw_qpolynomial_zero(space);
 	}
 
 	if (value_notzero_p(e->d)) {
-		isl_ctx *ctx = isl_space_get_ctx(dim);
-		isl_set *set = isl_set_universe(isl_space_copy(dim));
+		isl_ctx *ctx = isl_space_get_ctx(space);
+		isl_set *set = isl_set_universe(isl_space_copy(space));
 		isl_val *val = isl_val_from_gmp(ctx, e->x.n, e->d);
-		isl_qpolynomial *qp = isl_qpolynomial_val_on_domain(dim, val);
+		isl_qpolynomial *qp = isl_qpolynomial_val_on_domain(space, val);
 		return isl_pw_qpolynomial_alloc(set, qp);
 	}
 
@@ -252,26 +253,27 @@ __isl_give isl_pw_qpolynomial *isl_pw_qpolynomial_from_evalue(__isl_take isl_spa
 
 	assert(e->x.p->type == partition);
 
-	pw_space = isl_space_copy(dim);
+	pw_space = isl_space_copy(space);
 	pw_space = isl_space_from_domain(pw_space);
 	pw_space = isl_space_add_dims(pw_space, isl_dim_out, 1);
 	pwqp = isl_pw_qpolynomial_zero(pw_space);
 
 	for (i = 0; i < e->x.p->size/2; ++i) {
 		Polyhedron *D = EVALUE_DOMAIN(e->x.p->arr[2 * i]);
-		isl_set *set = isl_set_new_from_polylib(D, isl_space_copy(dim));
+		isl_set *set;
 		isl_pw_qpolynomial *pwqp_i;
 
+		set = isl_set_new_from_polylib(D, isl_space_copy(space));
 		pwqp_i = guarded_evalue2pwqp(set, &e->x.p->arr[2 * i + 1]);
 
 		pwqp = isl_pw_qpolynomial_add_disjoint(pwqp, pwqp_i);
 	}
 
-	isl_space_free(dim);
+	isl_space_free(space);
 
 	return pwqp;
 error:
-	isl_space_free(dim);
+	isl_space_free(space);
 	return NULL;
 }
 
