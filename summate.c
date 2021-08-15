@@ -1097,7 +1097,7 @@ __isl_give isl_union_pw_qpolynomial *isl_union_map_apply_union_pw_qpolynomial(
 	__isl_take isl_union_map *umap,
 	__isl_take isl_union_pw_qpolynomial *upwqp)
 {
-	isl_space *dim;
+	isl_space *space;
 	struct barvinok_apply_data data;
 
 	upwqp = isl_union_pw_qpolynomial_align_params(upwqp,
@@ -1106,8 +1106,8 @@ __isl_give isl_union_pw_qpolynomial *isl_union_map_apply_union_pw_qpolynomial(
 				isl_union_pw_qpolynomial_get_space(upwqp));
 
 	data.upwqp = upwqp;
-	dim = isl_union_pw_qpolynomial_get_space(upwqp);
-	data.res = isl_union_pw_qpolynomial_zero(dim);
+	space = isl_union_pw_qpolynomial_get_space(upwqp);
+	data.res = isl_union_pw_qpolynomial_zero(space);
 	if (isl_union_map_foreach_map(umap, &map_apply, &data) < 0)
 		goto error;
 
