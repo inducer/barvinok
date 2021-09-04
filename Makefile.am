@@ -52,7 +52,6 @@ lib_LTLIBRARIES = libbarvinok.la
 bin_PROGRAMS = barvinok_count barvinok_enumerate barvinok_enumerate_e \
 		  barvinok_ehrhart polytope_scan iscc
 noinst_PROGRAMS = test testlib randomtest \
-		  remove_redundant_equalities \
 		  barvinok_union polytope_volume test_approx \
 		  barvinok_summate verify_lexsmaller \
 		  polyhedron_sample 4coins lexmin \
