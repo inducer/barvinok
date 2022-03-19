@@ -51,13 +51,11 @@ output.
 1 -2 13
 > ./barvinok_count  < S
 POLYHEDRON Dimension:1
-           Constraints:2  Equations:0  Rays:2  Lines:0
+           Constraints:2  Equations:0  Rays:0  Lines:0
 Constraints 2 3
-Inequality: [   1   0 ]
-Inequality: [  -2  13 ]
-Rays 2 3
-Vertex: [   0 ]/1
-Vertex: [  13 ]/2
+Inequality: [   1    0  ]
+Inequality: [  -1    6  ]
+Rays 0 3
    7 
 \end{verbatim}
 \index{PolyLib@{\tt  PolyLib}!version 5.22.0 or newer}
@@ -119,31 +117,17 @@ from \shortciteN[Chapter II.2]{Loechner97phd}.
 # 2 parameters, no constraints. 
 0 4
 > ./barvinok_enumerate < loechner 
-POLYHEDRON Dimension:5
-           Constraints:6  Equations:1  Rays:5  Lines:0
-Constraints 6 7
-Equality:   [   1   1   1   0  -1   0 ]
-Inequality: [   0   1   1   1  -1   0 ]
-Inequality: [   0   1   0   0   0   0 ]
-Inequality: [   0   0   1   0   0   0 ]
-Inequality: [   0  -2  -2   0   1   0 ]
-Inequality: [   0   0   0   0   0   1 ]
-Rays 5 7
-Ray:    [   1   0   1   1   2 ]
-Ray:    [   1   1   0   1   2 ]
-Vertex: [   0   0   0   0   0 ]/1
-Ray:    [   0   0   0   1   0 ]
-Ray:    [   1   0   0   1   1 ]
-POLYHEDRON Dimension:2
-           Constraints:1  Equations:0  Rays:3  Lines:2
-Constraints 1 4
-Inequality: [   0   0   1 ]
-Rays 3 4
-Line:   [   1   0 ]
-Line:   [   0   1 ]
-Vertex: [   0   0 ]/1
-         - P + Q  >= 0
+         P - Q  >= 0
+         Q  >= 0
+          1 >= 0
+
+( 1/8 * Q^2 + ( -1/2 * {( 1/2 * Q + 0 )
+} + 3/4 )
+ * Q + ( -5/4 * {( 1/2 * Q + 0 )
+} + 1 )
+ )
          2P - Q  >= 0
+         - P + Q  -1 >= 0
           1 >= 0
 
 ( -1/2 * P^2 + ( 1 * Q + 1/2 )
@@ -152,15 +136,6 @@ Vertex: [   0   0 ]/1
  * Q + ( -5/4 * {( 1/2 * Q + 0 )
 } + 1 )
  )
- )
-         Q  >= 0
-         P - Q  -1 >= 0
-          1 >= 0
-
-( 1/8 * Q^2 + ( -1/2 * {( 1/2 * Q + 0 )
-} + 3/4 )
- * Q + ( -5/4 * {( 1/2 * Q + 0 )
-} + 1 )
  )
 \end{verbatim}
 The output corresponds to 
@@ -198,27 +173,6 @@ The following is an example of Petr Lison\u{e}k\index{Lison\u{e}k, P.}.
 0 3
 n
 > ./barvinok_enumerate --series < petr
-POLYHEDRON Dimension:4
-           Constraints:5  Equations:0  Rays:5  Lines:0
-Constraints 5 6
-Inequality: [  -1  -1  -1   1   0 ]
-Inequality: [   1  -1   0   0   0 ]
-Inequality: [   0   1  -1   0   0 ]
-Inequality: [   0   0   1   0  -1 ]
-Inequality: [   0   0   0   0   1 ]
-Rays 5 6
-Ray:    [   1   1   1   3 ]
-Ray:    [   1   1   0   2 ]
-Ray:    [   1   0   0   1 ]
-Ray:    [   0   0   0   1 ]
-Vertex: [   1   1   1   3 ]/1
-POLYHEDRON Dimension:1
-           Constraints:1  Equations:0  Rays:2  Lines:1
-Constraints 1 3
-Inequality: [   0   1 ]
-Rays 2 3
-Line:   [   1 ]
-Vertex: [   0 ]/1
 (n^3)/((1-n) * (1-n) * (1-n^2) * (1-n^3))
 \end{verbatim}
 
@@ -263,20 +217,6 @@ The following example corresponds to
 E 2
 P 1
 > ./barvinok_enumerate_e <projected 
-POLYHEDRON Dimension:4
-           Constraints:5  Equations:1  Rays:4  Lines:0
-Constraints 5 6
-Equality:   [   1  -6  -9   0   7 ]
-Inequality: [   0   1   0   0  -1 ]
-Inequality: [   0  -1   0   0   8 ]
-Inequality: [   0   0   1   0  -1 ]
-Inequality: [   0   0  -1   1   0 ]
-Rays 4 6
-Vertex: [  50   8   1   1 ]/1
-Ray:    [   0   0   0   1 ]
-Ray:    [   9   0   1   1 ]
-Vertex: [   8   1   1   1 ]/1
-exist: 2, nparam: 1
          P  -3 >= 0
           1 >= 0
 
@@ -395,7 +335,7 @@ For example
 [n] -> { [x, y] -> x * y :
          n >= -9 + 3x and x >= 2 and y >= 4 and y <= 5 }
 > ./barvinok_summate < square_p3.pwqp
-[n] -> { (45 + 63/2 * [(n)/3] + 9/2 * [(n)/3]^2) : n >= -3 }
+[n] -> { (45 + 63/2 * floor((n)/3) + 9/2 * floor((n)/3)^2) : n >= -3 }
 \end{verbatim}
 
 Options:\\
@@ -430,7 +370,7 @@ have only parameters and no variables.
 [U] -> { [V] -> ((1/3 * U + 2/3 * V) - [(U + 2V)/3]) :
          2V >= -3 - U and 2V <= -U and U >= 0 and U <= 10 }
 > ./barvinok_bound < devos.pwqp
-[U] -> { max(2/3) : U <= 10 and U >= 0 }
+[U] -> { max(2/3) : 0 <= U <= 10 }
 \end{verbatim}
 
 Options:\\
