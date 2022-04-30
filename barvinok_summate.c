@@ -121,7 +121,7 @@ error:
 }
 
 static int verify(__isl_keep isl_pw_qpolynomial *pwqp,
-	__isl_take isl_pw_qpolynomial *sum, struct verify_options *options)
+	__isl_keep isl_pw_qpolynomial *sum, struct verify_options *options)
 {
 	struct verify_point_sum vps = { { options } };
 	isl_set *context;
