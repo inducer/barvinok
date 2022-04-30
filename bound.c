@@ -296,10 +296,8 @@ static int optimize_and_print(__isl_take isl_pw_qpolynomial *pwqp,
     enum isl_fold type = options->lower ? isl_fold_min : isl_fold_max;
 
     if (options->verify->verify) {
-	isl_space *dim = isl_pw_qpolynomial_get_space(pwqp);
-	unsigned total = isl_space_dim(dim, isl_dim_all);
-	isl_space_free(dim);
-	verify_options_set_range(options->verify, total);
+	if (verify_options_set_range_pwqp(options->verify, pwqp) < 0)
+	    pwqp = isl_pw_qpolynomial_free(pwqp);
 	if (!options->verify->barvinok->verbose)
 	    print_solution = 0;
     }

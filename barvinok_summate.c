@@ -163,10 +163,8 @@ int main(int argc, char **argv)
     pwqp = isl_stream_read_pw_qpolynomial(s);
 
     if (options->verify->verify) {
-	isl_space *dim = isl_pw_qpolynomial_get_space(pwqp);
-	unsigned total = isl_space_dim(dim, isl_dim_all);
-	isl_space_free(dim);
-	verify_options_set_range(options->verify, total);
+	if (verify_options_set_range_pwqp(options->verify, pwqp) < 0)
+	    pwqp = isl_pw_qpolynomial_free(pwqp);
     }
 
     sum = isl_pw_qpolynomial_sum(isl_pw_qpolynomial_copy(pwqp));

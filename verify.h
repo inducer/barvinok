@@ -2,6 +2,8 @@
 #define VERIFY_H
 
 #include <isl/arg.h>
+#include <isl/ctx.h>
+#include <isl/polynomial.h>
 #include <isl/set.h>
 #include <barvinok/polylib.h>
 
@@ -27,6 +29,8 @@ struct verify_options {
 ISL_ARG_DECL(verify_options, struct verify_options, verify_options_args)
 
 void verify_options_set_range(struct verify_options *options, int dim);
+isl_stat verify_options_set_range_pwqp(struct verify_options *options,
+	__isl_keep isl_pw_qpolynomial *pwqp);
 
 Polyhedron *check_poly_context_scan(Polyhedron *P, Polyhedron **C,
 				    unsigned nparam,
