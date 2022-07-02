@@ -41,6 +41,17 @@ if test "x$bv_cv_shared_barvinok" != "xyes" ; then
 	BV_LIB_LDFLAGS="$BV_LIB_LDFLAGS -static"
 fi
 
+AC_SUBST(BV_LDFLAGS)
+AC_MSG_CHECKING(whether to build static executables)
+AC_ARG_ENABLE(all_static,
+	AS_HELP_STRING([--enable-all-static],
+		       [build static executables]),
+	[bv_cv_all_static=$enableval], [bv_cv_all_static="no"])
+AC_MSG_RESULT($bv_cv_all_static)
+if test "x$bv_cv_all_static" = "xyes" ; then
+	BV_LDFLAGS="$BV_LDFLAGS -all-static"
+fi
+
 AX_C___ATTRIBUTE__
 AX_UNORDERED_MAP
 AC_CXX_GNUCXX_HASHMAP
