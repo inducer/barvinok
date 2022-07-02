@@ -18,7 +18,7 @@ AC_SUBST(BV_LDFLAGS)
 case $host in
 	*-*-cygwin* | *-*-mingw* | *-*-pw32* | *-*-os2*)
 	if test "$enable_shared" = yes; then
-		BV_LDFLAGS="-no-undefined" 
+		BV_LDFLAGS="-no-undefined"
 	fi
 	;;
 esac
