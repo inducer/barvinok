@@ -14,11 +14,11 @@ versioninfo=23:11:0
 
 AC_CANONICAL_HOST
 AC_LIBTOOL_WIN32_DLL
-AC_SUBST(BV_LDFLAGS)
+AC_SUBST(BV_LIB_LDFLAGS)
 case $host in
 	*-*-cygwin* | *-*-mingw* | *-*-pw32* | *-*-os2*)
 	if test "$enable_shared" = yes; then
-		BV_LDFLAGS="-no-undefined"
+		BV_LIB_LDFLAGS="-no-undefined"
 	fi
 	;;
 esac
@@ -38,7 +38,7 @@ AC_ARG_ENABLE(shared_barvinok,
 	[bv_cv_shared_barvinok=$enableval], [bv_cv_shared_barvinok="no"])
 AC_MSG_RESULT($bv_cv_shared_barvinok)
 if test "x$bv_cv_shared_barvinok" != "xyes" ; then
-	BV_LDFLAGS="$BV_LDFLAGS -static"
+	BV_LIB_LDFLAGS="$BV_LIB_LDFLAGS -static"
 fi
 
 AX_C___ATTRIBUTE__

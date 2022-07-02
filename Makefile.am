@@ -200,7 +200,7 @@ if USE_ZSOLVE
 endif
 libbarvinok_la_LIBADD = @LTLIBOBJS@ $(LIB_ISL) \
 			     $(LIB_POLYLIB) $(ZSOLVE_LA)
-libbarvinok_la_LDFLAGS = @BV_LDFLAGS@ -version-info @versioninfo@ \
+libbarvinok_la_LDFLAGS = @BV_LIB_LDFLAGS@ -version-info @versioninfo@ \
 				$(AM_LDFLAGS)
 LDADD = libbarvinok.la $(LIB_ISL) $(LIB_POLYLIB)
 
