@@ -1,4 +1,4 @@
-AC_INIT([barvinok], [0.41.5], [isl-development@googlegroups.com])
+AC_INIT([barvinok], [0.41.6], [isl-development@googlegroups.com])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
