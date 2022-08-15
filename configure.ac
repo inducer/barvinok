@@ -507,10 +507,10 @@ AX_DETECT_GIT_HEAD
 echo '#define GIT_HEAD_ID "'$GIT_HEAD_ID'"' > version.h
 
 AC_LANG_PUSH(C++)
-AC_TRY_COMPILE([
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 		#include <set>
 		void negate();
-	], [negate()],
+	]], [[negate()]])],
 	suffix="normal", suffix="broken")
 AC_CONFIG_COMMANDS([barvinok/set.h],
 		   [cp $srcdir/barvinok/set.h.$suffix barvinok/set.h],
@@ -521,7 +521,7 @@ AC_CONFIG_COMMANDS([barvinok/NTL.h],
 use_fdstream=false
 SAVE_CPPFLAGS="$CPPFLAGS"
 CPPFLAGS="-I$srcdir $CPPFLAGS"
-AC_TRY_COMPILE([#include "fdstream.h"],[],
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include "fdstream.h"]],[[]])],
 	[AC_DEFINE(USE_FDSTREAM,[],[use fdstream])
 	use_fdstream=true])
 CPPFLAGS="$SAVE_CPPFLAGS"
