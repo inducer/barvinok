@@ -17,8 +17,6 @@ using std::ostream;
 using std::endl;
 using std::vector;
 
-#if defined HAVE_UNORDERED_MAP
-
 #include <unordered_map>
 
 #define HASH_MAP std::unordered_map
@@ -36,14 +34,6 @@ namespace std
                 }
         };
 }
-
-#else
-
-#warning "no hash_map available"
-#include <map>
-#define HASH_MAP std::map
-
-#endif
 
 #define ALLOC(type) (type*)malloc(sizeof(type))
 #define ALLOCN(type,n) (type*)malloc((n) * sizeof(type))

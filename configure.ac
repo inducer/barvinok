@@ -50,7 +50,7 @@ if test "x$bv_cv_all_static" = "xyes" ; then
 fi
 
 AX_C___ATTRIBUTE__
-AX_UNORDERED_MAP
+AX_CXX_COMPILE_STDCXX_11([], [mandatory])
 
 AC_ARG_WITH(default-prefix,
 	AS_HELP_STRING([--with-default-prefix=DIR],
