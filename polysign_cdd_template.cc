@@ -1,7 +1,7 @@
 #include <assert.h>
 #define GMPRATIONAL
-#include <setoper.h>
-#include <cdd.h>
+#include <cddlib/setoper.h>
+#include <cddlib/cdd.h>
 #include <barvinok/util.h>
 #include <barvinok/options.h>
 #include "polysign.h"
