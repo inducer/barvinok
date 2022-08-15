@@ -421,13 +421,13 @@ if test "$cddlib_package" != "no"; then
 	CPPFLAGS="-I$cddlib_package/include $CPPFLAGS"
 	LDFLAGS="-L$cddlib_package/lib $LDFLAGS"
     fi
-    AC_TRY_LINK([
+    AC_LINK_IFELSE([AC_LANG_PROGRAM([[
 #define GMPRATIONAL
 #include <setoper.h>
 #include <cddmp.h>
-], [
+]], [[
     mytype a;
-    dd_init(a); ], [
+    dd_init(a); ]])], [
 	have_cddlib=true
 	AC_CHECK_LIB(cddgmp, main,[
 		SAVE_LIBS="$LIBS"
