@@ -219,15 +219,15 @@ case $bv_cv_incremental in
 esac
 
 AC_ARG_WITH(ntl,
-	    [AC_HELP_STRING([--with-ntl=system|build],
+	    [AS_HELP_STRING([--with-ntl=system|build],
 			    [Which NTL to use [default=system]])])
 
 AC_ARG_WITH(ntl-prefix,
-	    [AC_HELP_STRING([--with-ntl-prefix=DIR],
+	    [AS_HELP_STRING([--with-ntl-prefix=DIR],
 			    [Prefix of NTL installation])])
 
 AC_ARG_WITH(ntl-builddir,
-	    [AC_HELP_STRING([--with-ntl-builddir=DIR],
+	    [AS_HELP_STRING([--with-ntl-builddir=DIR],
 			    [Prefix of NTL root build directory
 			     containing include and src subdirectories])])
 
