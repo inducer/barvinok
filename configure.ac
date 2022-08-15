@@ -11,7 +11,6 @@ AC_SUBST(versioninfo)
 versioninfo=23:11:0
 
 AC_CANONICAL_HOST
-AC_LIBTOOL_WIN32_DLL
 AC_SUBST(BV_LIB_LDFLAGS)
 case $host in
 	*-*-cygwin* | *-*-mingw* | *-*-pw32* | *-*-os2*)
@@ -21,7 +20,7 @@ case $host in
 	;;
 esac
 
-AC_PROG_LIBTOOL
+LT_INIT(win32-dll)
 
 PKG_PROG_PKG_CONFIG
 
