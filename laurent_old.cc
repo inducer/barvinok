@@ -37,26 +37,6 @@ namespace std
         };
 }
 
-#elif defined HAVE_GNUCXX_HASHMAP
-
-#include <ext/hash_map>
-
-#define HASH_MAP __gnu_cxx::hash_map
-
-namespace __gnu_cxx
-{
-        template<> struct hash< std::vector<int> >
-        {
-                size_t operator()( const std::vector<int>& x ) const
-                {
-			unsigned long __h = 0;
-			for (int i = 0; i < x.size(); ++i)
-			    __h = 5 * __h + x[i];
-                        return size_t(__h);
-                }
-        };
-}
-
 #else
 
 #warning "no hash_map available"

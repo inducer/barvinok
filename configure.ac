@@ -51,7 +51,6 @@ fi
 
 AX_C___ATTRIBUTE__
 AX_UNORDERED_MAP
-AC_CXX_GNUCXX_HASHMAP
 
 AC_ARG_WITH(default-prefix,
 	AS_HELP_STRING([--with-default-prefix=DIR],
