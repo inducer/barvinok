@@ -132,14 +132,6 @@ static void print_version(void)
 	printf("%s", barvinok_version());
 }
 
-#ifdef USE_INCREMENTAL_BF
-#define DEFAULT_SPECIALIZATION BV_SPECIALIZATION_BF
-#elif defined USE_INCREMENTAL_DF
-#define DEFAULT_SPECIALIZATION BV_SPECIALIZATION_DF
-#else
-#define DEFAULT_SPECIALIZATION BV_SPECIALIZATION_RANDOM
-#endif
-
 static struct isl_arg_choice specialization[] = {
 	{"bf",		BV_SPECIALIZATION_BF},
 	{"df",		BV_SPECIALIZATION_DF},
@@ -210,7 +202,7 @@ ISL_ARG_LONG(struct barvinok_options, LLL_a, 0, "lll-reduction-num", 1,
 ISL_ARG_LONG(struct barvinok_options, LLL_b, 0, "lll-reduction-den", 1,
 	"LLL reduction parameter denominator")
 ISL_ARG_CHOICE(struct barvinok_options, incremental_specialization,
-	0, "specialization", specialization, DEFAULT_SPECIALIZATION, NULL)
+	0, "specialization", specialization, BV_SPECIALIZATION_RANDOM, NULL)
 ISL_ARG_ULONG(struct barvinok_options, max_index, 0, "index", 1,
        "maximal index of simple cones in decomposition")
 ISL_ARG_BOOL(struct barvinok_options, primal, 0, "primal", 0, NULL)

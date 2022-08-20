@@ -200,23 +200,6 @@ esac
 AM_CONDITIONAL(BUNDLED_PET, test $with_pet = bundled)
 AM_CONDITIONAL(BUILD_PET, test $with_pet = build)
 
-AC_MSG_CHECKING(whether to use incremental algorithm)
-AC_ARG_ENABLE(incremental,
-	[AS_HELP_STRING([--enable-incremental@<:@=bf|df@:>@],
-			[Enable incremental algorithm [bf]])],
-	[bv_cv_incremental=$enableval], [bv_cv_incremental="no"])
-AC_MSG_RESULT($bv_cv_incremental)
-case $bv_cv_incremental in
-	yes | bf)
-		AC_DEFINE(USE_INCREMENTAL_BF,[], 
-			  [Use breadth-first incremental algorithm])
-	;;
-	df)
-		AC_DEFINE(USE_INCREMENTAL_DF,[], 
-			  [Use depth-first incremental algorithm])
-	;;
-esac
-
 AC_ARG_WITH(ntl,
 	    [AS_HELP_STRING([--with-ntl=system|build],
 			    [Which NTL to use [default=system]])])
