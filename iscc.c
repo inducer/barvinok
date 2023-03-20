@@ -2120,6 +2120,7 @@ static struct isl_obj power(struct isl_stream *s, struct isl_obj obj)
 	struct isl_token *tok;
 	isl_ctx *ctx;
 	isl_val *v;
+	int sign = 1;
 
 	ctx = isl_stream_get_ctx(s);
 	if (isl_stream_eat_if_available(s, '+'))
@@ -2129,6 +2130,8 @@ static struct isl_obj power(struct isl_stream *s, struct isl_obj obj)
 	if (obj.type != isl_obj_union_map)
 		obj = convert(ctx, obj, isl_obj_union_map);
 
+	if (isl_stream_eat_if_available(s, '-'))
+		sign = -1;
 	tok = isl_stream_next_token(s);
 	if (!tok || isl_token_get_type(tok) != ISL_TOKEN_VALUE) {
 		isl_stream_error(s, tok, "expecting integer exponent");
@@ -2138,6 +2141,8 @@ static struct isl_obj power(struct isl_stream *s, struct isl_obj obj)
 	}
 
 	v = isl_token_get_val(ctx, tok);
+	if (sign < 0)
+		v = isl_val_neg(v);
 	if (isl_val_is_zero(v)) {
 		isl_stream_error(s, tok, "expecting non-zero exponent");
 		isl_val_free(v);
