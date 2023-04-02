@@ -1,4 +1,4 @@
-AC_INIT([barvinok], [0.41.6], [isl-development@googlegroups.com])
+AC_INIT([barvinok], [0.41.7], [isl-development@googlegroups.com])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
@@ -8,7 +8,7 @@ AC_PROG_CXX
 AC_PROG_GREP
 AC_PROG_SED
 AC_SUBST(versioninfo)
-versioninfo=23:11:0
+versioninfo=23:12:0
 
 AC_CANONICAL_HOST
 AC_SUBST(BV_LIB_LDFLAGS)
