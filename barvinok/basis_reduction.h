@@ -16,10 +16,6 @@ Matrix *glpk_Polyhedron_Reduced_Basis(Polyhedron *P,
 					struct barvinok_options *options);
 Matrix *cdd_Polyhedron_Reduced_Basis(Polyhedron *P,
 					struct barvinok_options *options);
-Matrix *pip_Polyhedron_Reduced_Basis(Polyhedron *P,
-					struct barvinok_options *options);
-Matrix *pip_dual_Polyhedron_Reduced_Basis(Polyhedron *P,
-					struct barvinok_options *options);
 
 #if defined(__cplusplus)
 }
