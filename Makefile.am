@@ -359,7 +359,6 @@ EXTRA_DIST = \
     ChangeLog \
     $(TESTFILES) \
     latte2polylib.pl \
-    NTL_5_3_2.patch \
     basis_reduction_templ.c \
     cdd94e-test \
     polysign_cdd_template.cc \
