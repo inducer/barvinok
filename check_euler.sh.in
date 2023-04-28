@@ -1,0 +1,32 @@
+#!/bin/sh
+
+EXEEXT="@EXEEXT@"
+top_srcdir="@top_srcdir@"
+
+for i in "$top_srcdir"/tests/euler/*; do
+    if test -f $i; then
+	for method in 'euler' 'laurent_old' 'laurent'; do
+	    opt="--summation=$method";
+	    echo $i $opt;
+	    ./barvinok_summate$EXEEXT -T $opt < $i || exit;
+	done
+    fi
+done
+for t in dull EML_p EML-product EML line square square_p square_p2 \
+	square_p3 triangle triangle2 triangle_p quasi; do
+    i="$top_srcdir"/tests/euler/$t.pwqp;
+    if test -f $i; then
+	opt="--summation=box";
+	echo $i $opt;
+	./barvinok_summate$EXEEXT -T $opt < $i || exit;
+    fi
+done
+for t in dull dull_p EML line square square_p square_p2 \
+	square_p3 triangle triangle2 triangle_p; do
+    i="$top_srcdir"/tests/euler/$t.pwqp;
+    if test -f $i; then
+	opt="--summation=bernoulli";
+	echo $i $opt;
+	./barvinok_summate$EXEEXT -T $opt < $i || exit;
+    fi
+done

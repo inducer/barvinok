@@ -1,0 +1,14 @@
+#!/bin/sh
+
+EXEEXT="@EXEEXT@"
+top_srcdir="@top_srcdir@"
+
+for i in "$top_srcdir"/tests/ehrhart_union/*; do
+    if test -f $i; then
+	for spec in 'random' 'bf' 'df'; do
+	    opt="--specialization=$spec $options";
+	    echo $i $opt;
+	    ./barvinok_union$EXEEXT -c $opt < $i || exit;
+	done
+    fi
+done

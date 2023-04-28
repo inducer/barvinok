@@ -412,6 +412,9 @@ if test "$topcom_package" != no; then
 	fi
 fi
 AM_CONDITIONAL(HAVE_TOPCOM, test x$have_topcom = xtrue)
+AM_COND_IF([HAVE_TOPCOM], [
+	AC_SUBST(TOPCOM_CD, '--chamber-decomposition=topcom')
+])
 
 AX_DETECT_GIT_HEAD
 echo '#define GIT_HEAD_ID "'$GIT_HEAD_ID'"' > version.h
@@ -449,6 +452,15 @@ AX_CREATE_PKGCONFIG_INFO
 AH_BOTTOM([#include "config_post.h"])
 AC_CONFIG_HEADERS(config.h)
 AC_CONFIG_FILES(Makefile zsolve/Makefile doc/Makefile)
+AC_CONFIG_FILES([check_approx.sh], [chmod +x check_approx.sh])
+AC_CONFIG_FILES([check_enumerate.sh], [chmod +x check_enumerate.sh])
+AC_CONFIG_FILES([check_enumerate_e.sh], [chmod +x check_enumerate_e.sh])
+AC_CONFIG_FILES([check_euler.sh], [chmod +x check_euler.sh])
+AC_CONFIG_FILES([check_iscc.sh], [chmod +x check_iscc.sh])
+AC_CONFIG_FILES([check_lexmin.sh], [chmod +x check_lexmin.sh])
+AC_CONFIG_FILES([check_pwqp.sh], [chmod +x check_pwqp.sh])
+AC_CONFIG_FILES([check_test.sh], [chmod +x check_test.sh])
+AC_CONFIG_FILES([check_union.sh], [chmod +x check_union.sh])
 if test $with_polylib = bundled; then
 	AC_CONFIG_SUBDIRS(polylib)
 fi

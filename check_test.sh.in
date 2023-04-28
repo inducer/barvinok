@@ -1,0 +1,27 @@
+#!/bin/sh
+
+EXEEXT=@EXEEXT@
+top_srcdir="@top_srcdir@"
+
+failed=0;
+for i in "$top_srcdir"/tests/iscc/count/*; do
+    if test -f $i; then
+	for options in '--index=10' '--primal --index=10'; do
+	    for spec in 'random' 'bf' 'df' 'todd'; do
+		opt="--specialization=$spec $options";
+		echo -n $i $opt;
+		./iscc$EXEEXT $opt < $i;
+		if test "$?" -ne "0"; then
+		    failed=`expr $failed + 1`;
+		    echo " NOT ok";
+		else
+		    echo " ok";
+		fi;
+	    done
+	done
+    fi
+done
+if test $failed != 0; then
+	echo "$failed tests failed";
+	exit -1;
+fi

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+EXEEXT="@EXEEXT@"
+top_srcdir="@top_srcdir@"
+
+for i in "$top_srcdir"/tests/iscc/*; do
+	if test -f $i; then
+		echo $i;
+		./iscc$EXEEXT < $i || exit;
+	fi
+done

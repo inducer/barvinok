@@ -1,0 +1,16 @@
+#!/bin/sh
+
+EXEEXT="@EXEEXT@"
+top_srcdir="@top_srcdir@"
+
+for i in "$top_srcdir"/tests/pwqp/*; do
+    if test -f $i; then
+	echo $i;
+	./barvinok_bound$EXEEXT -T -r30 < $i || exit;
+	echo $i | ./test_bound$EXEEXT -q -r30 || exit;
+	./barvinok_summate$EXEEXT -T -r30 < $i || exit;
+    fi
+done
+echo "$top_srcdir"/tests/pwqp/hong1.pwqp --iterate
+./barvinok_bound$EXEEXT --iterate -T -r30 < \
+	"$top_srcdir"/tests/pwqp/hong1.pwqp || exit

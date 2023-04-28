@@ -1,0 +1,14 @@
+#!/bin/sh
+
+EXEEXT="@EXEEXT@"
+top_srcdir="@top_srcdir@"
+
+for i in "$top_srcdir"/tests/lexmin/*; do
+    if test -f $i; then
+	for spec in 'random' 'bf' 'df'; do
+	    opt="--specialization=$spec";
+	    echo $i $opt;
+	    ./lexmin$EXEEXT --verify $opt < $i || exit;
+	done
+    fi
+done

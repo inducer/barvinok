@@ -1,0 +1,10 @@
+#!/bin/sh
+
+EXEEXT=@EXEEXT@
+top_srcdir=@top_srcdir@
+
+for i in "$top_srcdir"/tests/ehrhart/*; do
+    if test -f $i; then
+	echo $i | ./test_approx$EXEEXT -q -r 10 || exit;
+    fi
+done
