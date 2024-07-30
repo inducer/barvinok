@@ -721,7 +721,7 @@ evalue *barvinok_sum_over_polytope(Polyhedron *P, evalue *E, unsigned nvar,
     if (options->summation == BV_SUM_BERNOULLI)
 	return bernoulli_summate(P, E, nvar, sections, options);
     else if (options->summation == BV_SUM_BOX)
-	return box_summate(P, E, nvar, options->MaxRays);
+	return box_summate(P, E, nvar, options);
 
     evalue_frac2floor2(E, 0);
 

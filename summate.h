@@ -7,7 +7,8 @@ struct barvinok_options;
 extern "C" {
 #endif
 
-evalue *box_summate(Polyhedron *P, evalue *E, unsigned nvar, unsigned MaxRays);
+evalue *box_summate(Polyhedron *P, evalue *E, unsigned nvar,
+    struct barvinok_options *options);
 evalue *barvinok_summate_unweighted(Polyhedron *P, Polyhedron *C,
 				    struct barvinok_options *options);
 evalue *barvinok_sum_over_polytope(Polyhedron *P, evalue *E, unsigned nvar,

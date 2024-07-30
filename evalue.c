@@ -17,6 +17,7 @@
 #include <string.h>
 #include <barvinok/evalue.h>
 #include <barvinok/barvinok.h>
+#include <barvinok/options.h>
 #include <barvinok/util.h>
 #include "summate.h"
 
@@ -3737,10 +3738,11 @@ static void shift_floor_in_domain(evalue *e, Polyhedron *D)
     value_clear(m);
 }
 
-evalue *box_summate(Polyhedron *P, evalue *E, unsigned nvar, unsigned MaxRays)
+evalue *box_summate(Polyhedron *P, evalue *E, unsigned nvar,
+    struct barvinok_options *options)
 {
     evalue *sum = evalue_zero();
-    Polyhedron *D = Polyhedron_Split_Into_Orthants(P, MaxRays);
+    Polyhedron *D = Polyhedron_Split_Into_Orthants(P, options->MaxRays);
     for (P = D; P; P = P->next) {
 	evalue *t;
 	evalue *fe = evalue_dup(E);
@@ -3749,7 +3751,7 @@ evalue *box_summate(Polyhedron *P, evalue *E, unsigned nvar, unsigned MaxRays)
 	reduce_evalue_in_domain(fe, P);
 	evalue_frac2floor2(fe, 0);
 	shift_floor_in_domain(fe, P);
-	t = esum_over_domain(fe, nvar, P, NULL, NULL, MaxRays);
+	t = esum_over_domain(fe, nvar, P, NULL, NULL, options->MaxRays);
 	if (t) {
 	    eadd(t, sum);
 	    evalue_free(t);
