@@ -226,6 +226,13 @@ static Matrix *isl_basic_map_to_polylib_constraints(
 	return M;
 }
 
+/* Return the constraints of "bset" as a PolyLib Matrix.
+ */
+Matrix *isl_basic_set_to_polylib_constraints(__isl_keep isl_basic_set *bset)
+{
+	return isl_basic_map_to_polylib_constraints((isl_basic_map *) bset);
+}
+
 Polyhedron *isl_basic_map_to_polylib(__isl_keep isl_basic_map *bmap)
 {
 	Matrix *M;

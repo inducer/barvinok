@@ -19,6 +19,7 @@ extern "C" {
 
 __isl_give isl_basic_set *isl_basic_set_new_from_polylib(Polyhedron *P,
 			__isl_take isl_space *dim);
+Matrix *isl_basic_set_to_polylib_constraints(__isl_keep isl_basic_set *bset);
 Polyhedron *isl_basic_set_to_polylib(__isl_keep isl_basic_set *bset);
 
 __isl_give isl_set *isl_set_new_from_polylib(Polyhedron *D,
