@@ -3392,18 +3392,19 @@ int evalue_floor2frac(evalue *e)
     return r;
 }
 
-static evalue *esum_over_domain_cst(int nvar, Polyhedron *D, Matrix *C)
+static evalue *esum_over_domain_cst(int nvar, Polyhedron *D, Matrix *C,
+    struct barvinok_options *options)
 {
     evalue *t;
     int nparam = D->Dimension - nvar;
 
     if (C != 0) {
 	C = Matrix_Copy(C);
-	D = Constraints2Polyhedron(C, 0);
+	D = Constraints2Polyhedron(C, options->MaxRays);
 	Matrix_Free(C);
     }
 
-    t = barvinok_enumerate_e(D, 0, nparam, 0);
+    t = barvinok_enumerate_e(D, 0, nparam, options->MaxRays);
 
     /* Double check that D was not unbounded. */
     assert(!(value_pos_p(t->d) && value_neg_p(t->x.n)));
@@ -3477,7 +3478,7 @@ static evalue *esum_over_domain(evalue *e, int nvar, Polyhedron *D,
     if (value_notzero_p(e->d)) {
 	evalue *t;
 
-	t = esum_over_domain_cst(nvar, D, C);
+	t = esum_over_domain_cst(nvar, D, C, options);
 
 	if (!EVALUE_IS_ONE(*e))
 	    emul(e, t);
@@ -3504,7 +3505,7 @@ static evalue *esum_over_domain(evalue *e, int nvar, Polyhedron *D,
 	    evalue_copy(&f, e);
 	    floor2frac(&f, nvar);
 
-	    t = esum_over_domain_cst(nvar, D, C);
+	    t = esum_over_domain_cst(nvar, D, C, options);
 
 	    emul(&f, t);
 
