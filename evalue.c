@@ -3430,7 +3430,7 @@ static void domain_signs(Polyhedron *D, int *signs)
 }
 
 static evalue *esum_over_domain(evalue *e, int nvar, Polyhedron *D, 
-			  int *signs, Matrix *C, unsigned MaxRays)
+    int *signs, Matrix *C, struct barvinok_options *options)
 {
     Vector *row = NULL;
     int i, offset;
@@ -3445,14 +3445,14 @@ static evalue *esum_over_domain(evalue *e, int nvar, Polyhedron *D,
 	return 0;
 
     if (D->next) {
-	Polyhedron *DD = Disjoint_Domain(D, 0, MaxRays);
+	Polyhedron *DD = Disjoint_Domain(D, 0, options->MaxRays);
 	Polyhedron *Q;
 
 	Q = DD;
 	DD = Q->next;
 	Q->next = 0;
 
-	res = esum_over_domain(e, nvar, Q, signs, C, MaxRays);
+	res = esum_over_domain(e, nvar, Q, signs, C, options);
 	Polyhedron_Free(Q);
 
 	for (Q = DD; Q; Q = DD) {
@@ -3461,7 +3461,7 @@ static evalue *esum_over_domain(evalue *e, int nvar, Polyhedron *D,
 	    DD = Q->next;
 	    Q->next = 0;
 
-	    t = esum_over_domain(e, nvar, Q, signs, C, MaxRays);
+	    t = esum_over_domain(e, nvar, Q, signs, C, options);
 	    Polyhedron_Free(Q);
 
 	    if (!res)
@@ -3571,7 +3571,7 @@ static evalue *esum_over_domain(evalue *e, int nvar, Polyhedron *D,
 
     offset = type_offset(e->x.p);
 
-    res = esum_over_domain(&e->x.p->arr[offset], nvar, D, signs, C, MaxRays);
+    res = esum_over_domain(&e->x.p->arr[offset], nvar, D, signs, C, options);
 
     if (factor) {
 	value_init(cum.d);
@@ -3593,7 +3593,7 @@ static evalue *esum_over_domain(evalue *e, int nvar, Polyhedron *D,
 	if (C)
 	    Matrix_Print(stderr, P_VALUE_FMT, C);
 	*/
-	t = esum_over_domain(&e->x.p->arr[offset+i], nvar, D, signs, C, MaxRays);
+	t = esum_over_domain(&e->x.p->arr[offset+i], nvar, D, signs, C, options);
 
 	if (t) {
 	    if (factor)
@@ -3751,7 +3751,7 @@ evalue *box_summate(Polyhedron *P, evalue *E, unsigned nvar,
 	reduce_evalue_in_domain(fe, P);
 	evalue_frac2floor2(fe, 0);
 	shift_floor_in_domain(fe, P);
-	t = esum_over_domain(fe, nvar, P, NULL, NULL, options->MaxRays);
+	t = esum_over_domain(fe, nvar, P, NULL, NULL, options);
 	if (t) {
 	    eadd(t, sum);
 	    evalue_free(t);
