@@ -192,22 +192,18 @@ error:
 	return NULL;
 }
 
-Polyhedron *isl_basic_map_to_polylib(__isl_keep isl_basic_map *bmap)
+/* Return the constraints of "bmap" as a PolyLib Matrix.
+ */
+static Matrix *isl_basic_map_to_polylib_constraints(
+	__isl_keep isl_basic_map *bmap)
 {
 	Matrix *M;
-	Polyhedron *P;
-	unsigned max_rays;
 	isl_mat *eq, *ineq;
 	int n_eq, n_ineq;
 	int n_col;
 
 	if (!bmap)
 		return NULL;
-
-	if (isl_basic_map_is_rational(bmap))
-		max_rays = POL_NO_DUAL;
-	else
-		max_rays = POL_NO_DUAL | POL_INTEGER;
 
 	ineq = isl_basic_map_inequalities_matrix(bmap,
 	    isl_dim_in, isl_dim_out, isl_dim_div, isl_dim_param, isl_dim_cst);
@@ -227,6 +223,24 @@ Polyhedron *isl_basic_map_to_polylib(__isl_keep isl_basic_map *bmap)
 	isl_mat_free(ineq);
 	isl_mat_free(eq);
 
+	return M;
+}
+
+Polyhedron *isl_basic_map_to_polylib(__isl_keep isl_basic_map *bmap)
+{
+	Matrix *M;
+	Polyhedron *P;
+	unsigned max_rays;
+
+	if (!bmap)
+		return NULL;
+
+	if (isl_basic_map_is_rational(bmap))
+		max_rays = POL_NO_DUAL;
+	else
+		max_rays = POL_NO_DUAL | POL_INTEGER;
+
+	M = isl_basic_map_to_polylib_constraints(bmap);
 	if (!M)
 		return NULL;
 
