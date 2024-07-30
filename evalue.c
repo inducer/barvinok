@@ -3404,7 +3404,7 @@ static evalue *esum_over_domain_cst(int nvar, Polyhedron *D, Matrix *C,
 	Matrix_Free(C);
     }
 
-    t = barvinok_enumerate_e(D, 0, nparam, options->MaxRays);
+    t = barvinok_enumerate_e_with_options(D, 0, nparam, options);
 
     /* Double check that D was not unbounded. */
     assert(!(value_pos_p(t->d) && value_neg_p(t->x.n)));
