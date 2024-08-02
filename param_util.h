@@ -10,6 +10,7 @@ Param_Polyhedron *Polyhedron2Param_Polyhedron(Polyhedron *Din, Polyhedron *Cin,
 					      struct barvinok_options *options);
 Polyhedron *Param_Polyhedron2Polyhedron(Param_Polyhedron *PP,
     struct barvinok_options *options);
+int Param_Polyhedron_Is_Lower_Dimensional(Param_Polyhedron *PP);
 void Param_Vertex_Common_Denominator(Param_Vertices *V);
 void Param_Inner_Product(Value *constraint, Matrix *Vertex, Value *row);
 Param_Domain *Param_Polyhedron_Facet(Param_Polyhedron *PP, Param_Domain *D,

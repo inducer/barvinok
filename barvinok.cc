@@ -1375,6 +1375,14 @@ evalue* barvinok_enumerate_ev(Polyhedron *P, Polyhedron* C, unsigned MaxRays)
     return E;
 }
 
+/* Enumerate the parametric polytope "PP" derived from "P" with context "C".
+ *
+ * The core computation assumes that the parametric polytope
+ * is full-dimensional.  If this is not the case, then call
+ * enumerate on the polytope derived from the constraints of "PP",
+ * which may be different from those of "P" in case
+ * some simplification has been performed.
+ */
 evalue *Param_Polyhedron_Enumerate(Param_Polyhedron *PP, Polyhedron *P,
 				   Polyhedron *C,
 				   struct barvinok_options *options)
@@ -1383,6 +1391,13 @@ evalue *Param_Polyhedron_Enumerate(Param_Polyhedron *PP, Polyhedron *P,
     Param_Domain *D;
     unsigned nparam = C->Dimension;
     unsigned dim = P->Dimension - nparam;
+
+    if (Param_Polyhedron_Is_Lower_Dimensional(PP)) {
+	P = Param_Polyhedron2Polyhedron(PP, options);
+	eres = enumerate(P, C, options);
+	Polyhedron_Free(P);
+	return eres;
+    }
 
     int nd;
     for (nd = 0, D=PP->D; D; ++nd, D=D->next);

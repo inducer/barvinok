@@ -155,6 +155,21 @@ Polyhedron *Param_Polyhedron2Polyhedron(Param_Polyhedron *PP,
     return P;
 }
 
+/* Is "PP" lower-dimensional?
+ * That is, is one of the constraints an equality constraint?
+ */
+int Param_Polyhedron_Is_Lower_Dimensional(Param_Polyhedron *PP)
+{
+    int i;
+
+    for (i = 0; i < PP->Constraints->NbRows; ++i) {
+	if (value_zero_p(PP->Constraints->p[i][0]))
+	    return 1;
+    }
+
+    return 0;
+}
+
 #define INT_BITS (sizeof(unsigned) * 8)
 
 /* Wegner's method for counting the number of ones in a bit vector */
