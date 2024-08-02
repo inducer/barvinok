@@ -516,14 +516,13 @@ static Polyhedron *flate(Polyhedron *P, Lattice *L,
 	return Polyhedron_Flate(P, nparam, inflate, options->MaxRays);
 }
 
-static void Param_Polyhedron_Scale(Param_Polyhedron *PP, Polyhedron **P,
-				   Lattice **L,
+static void Param_Polyhedron_Scale(Param_Polyhedron *PP, Lattice **L,
 				   Value *det, struct barvinok_options *options)
 {
     if (options->approx->scale_flags & BV_APPROX_SCALE_FAST)
-	Param_Polyhedron_Scale_Integer_Fast(PP, P, L, det, options->MaxRays);
+	Param_Polyhedron_Scale_Integer_Fast(PP, NULL, L, det, options->MaxRays);
     else
-	Param_Polyhedron_Scale_Integer_Slow(PP, P, L, det, options->MaxRays);
+	Param_Polyhedron_Scale_Integer_Slow(PP, NULL, L, det, options->MaxRays);
 }
 
 static evalue *enumerate_flated(Polyhedron *P, Polyhedron *C, Lattice *L,
@@ -560,7 +559,7 @@ static evalue *PP_enumerate_narrow_flated(Param_Polyhedron *PP,
     value_init(det);
     value_set_si(det, 1);
 
-    Param_Polyhedron_Scale(PP, NULL, &L, &det, options);
+    Param_Polyhedron_Scale(PP, &L, &det, options);
     if (!scale_narrow2)
 	P = Param_Polyhedron2Polyhedron(PP, options);
     Param_Polyhedron_Free(PP);
@@ -732,7 +731,7 @@ evalue *scale(Param_Polyhedron *PP, Polyhedron *P, Polyhedron *C,
 
     MaxRays = options->MaxRays;
     POL_UNSET(options->MaxRays, POL_INTEGER);
-    Param_Polyhedron_Scale(PP, NULL, NULL, &det, options);
+    Param_Polyhedron_Scale(PP, NULL, &det, options);
     options->MaxRays = MaxRays;
 
     T = Param_Polyhedron2Polyhedron(PP, options);
