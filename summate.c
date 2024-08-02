@@ -13,6 +13,8 @@
 #include "euler.h"
 #include "laurent.h"
 #include "laurent_old.h"
+#include "param_util.h"
+#include "reduce_domain.h"
 #include "summate.h"
 #include "section_array.h"
 #include "remove_equalities.h"
@@ -166,15 +168,31 @@ static evalue *sum_base_with_equalities(Polyhedron *P, evalue *E,
 static evalue *sum_base(Polyhedron *P, evalue *E, unsigned nvar,
 				     struct barvinok_options *options)
 {
+    Polyhedron *U, *TC;
+    Param_Polyhedron *PP;
+    evalue *sum;
+
     if (P->NbEq)
 	return sum_base_with_equalities(P, E, nvar, options);
+
+    U = Universe_Polyhedron(P->Dimension - nvar);
+    PP = Polyhedron2Param_Polyhedron(P, U, options);
+    TC = true_context(P, U, options->MaxRays);
+
     if (options->summation == BV_SUM_EULER)
-	return euler_summate(P, E, nvar, options);
+	sum = euler_summate(PP, TC, E, nvar, options);
     else if (options->summation == BV_SUM_LAURENT)
-	return laurent_summate(P, E, nvar, options);
+	sum = laurent_summate(PP, TC, E, nvar, options);
     else if (options->summation == BV_SUM_LAURENT_OLD)
-	return laurent_summate_old(P, E, nvar, options);
-    assert(0);
+	sum = laurent_summate_old(PP, TC, E, nvar, options);
+    else
+	assert(0);
+
+    Polyhedron_Free(TC);
+    Polyhedron_Free(U);
+    Param_Polyhedron_Free(PP);
+
+    return sum;
 }
 
 /* Count the number of non-zero terms in e when viewed as a polynomial

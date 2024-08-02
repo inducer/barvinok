@@ -385,23 +385,17 @@ void laurent_summator::handle(const signed_cone& sc, barvinok_options *options)
 	vc.clear();
 }
 
-evalue *laurent_summate(Polyhedron *P, evalue *e, unsigned nvar,
-				   struct barvinok_options *options)
+evalue *laurent_summate(Param_Polyhedron *PP, Polyhedron *TC,
+    evalue *e, unsigned nvar, struct barvinok_options *options)
 {
-	Polyhedron *U, *TC;
-	Param_Polyhedron *PP;
 	struct evalue_section *s;
 	int nd = -1;
 	Param_Domain *PD;
 	evalue *sum;
 
-	U = Universe_Polyhedron(P->Dimension - nvar);
-	PP = Polyhedron2Param_Polyhedron(P, U, options);
-
 	for (nd = 0, PD = PP->D; PD; ++nd, PD = PD->next);
 	s = ALLOCN(struct evalue_section, nd);
 
-	TC = true_context(P, U, options->MaxRays);
 	FORALL_REDUCED_DOMAIN(PP, TC, nd, options, i, PD, rVD)
 		Param_Vertices *V;
 		laurent_summator ls(e, nvar, PP);
@@ -414,9 +408,6 @@ evalue *laurent_summate(Polyhedron *P, evalue *e, unsigned nvar,
 		s[i].E = ls.result;
 		ls.result = NULL;
 	END_FORALL_REDUCED_DOMAIN
-	Polyhedron_Free(TC);
-	Polyhedron_Free(U);
-	Param_Polyhedron_Free(PP);
 
 	sum = evalue_from_section_array(s, nd);
 	free(s);

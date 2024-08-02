@@ -921,11 +921,9 @@ static unsigned *active_constraints(Param_Polyhedron *PP, Param_Domain *D)
     return facets;
 }
 
-evalue *euler_summate(Polyhedron *P, evalue *e, unsigned nvar,
-				   struct barvinok_options *options)
+evalue *euler_summate(Param_Polyhedron *PP, Polyhedron *TC,
+    evalue *e, unsigned nvar, struct barvinok_options *options)
 {
-    Polyhedron *U;
-    Param_Polyhedron *PP;
     evalue *res;
     int nd = -1;
     unsigned MaxRays;
@@ -937,13 +935,9 @@ evalue *euler_summate(Polyhedron *P, evalue *e, unsigned nvar,
     MaxRays = options->MaxRays;
     POL_UNSET(options->MaxRays, POL_INTEGER);
 
-    U = Universe_Polyhedron(P->Dimension - nvar);
-    PP = Polyhedron2Param_Polyhedron(P, U, options);
-
     for (nd = 0, PD = PP->D; PD; ++nd, PD = PD->next);
     s = ALLOCN(struct evalue_section, nd);
 
-    Polyhedron *TC = true_context(P, U, MaxRays);
     FORALL_REDUCED_DOMAIN(PP, TC, nd, options, i, PD, rVD)
 	unsigned *facets;
 
@@ -963,9 +957,6 @@ evalue *euler_summate(Polyhedron *P, evalue *e, unsigned nvar,
 	Vector_Free(inner);
 	free(facets);
     END_FORALL_REDUCED_DOMAIN
-    Polyhedron_Free(TC);
-    Polyhedron_Free(U);
-    Param_Polyhedron_Free(PP);
 
     options->MaxRays = MaxRays;
 
