@@ -700,7 +700,7 @@ evalue *scale_bound(Polyhedron *P, Polyhedron *C,
 evalue *scale(Param_Polyhedron *PP, Polyhedron *P, Polyhedron *C,
 	      struct barvinok_options *options)
 {
-    Polyhedron *T = P;
+    Polyhedron *T;
     unsigned MaxRays;
     evalue *eres = NULL;
     Value det;
@@ -734,12 +734,12 @@ evalue *scale(Param_Polyhedron *PP, Polyhedron *P, Polyhedron *C,
 
     MaxRays = options->MaxRays;
     POL_UNSET(options->MaxRays, POL_INTEGER);
-    Param_Polyhedron_Scale(PP, &T, NULL, &det, options);
+    Param_Polyhedron_Scale(PP, NULL, NULL, &det, options);
     options->MaxRays = MaxRays;
 
+    T = Param_Polyhedron2Polyhedron(PP, options);
     eres = Param_Polyhedron_Enumerate(PP, T, C, options);
-    if (P != T)
-	Polyhedron_Free(T);
+    Polyhedron_Free(T);
 
     if (value_notone_p(det))
 	evalue_div(eres, det);
