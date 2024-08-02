@@ -560,12 +560,10 @@ static evalue *PP_enumerate_narrow_flated(Param_Polyhedron *PP,
     value_init(det);
     value_set_si(det, 1);
 
-    Param_Polyhedron_Scale(PP, &P, &L, &det, options);
+    Param_Polyhedron_Scale(PP, NULL, &L, &det, options);
+    if (!scale_narrow2)
+	P = Param_Polyhedron2Polyhedron(PP, options);
     Param_Polyhedron_Free(PP);
-    if (scale_narrow2) {
-	Polyhedron_Free(P);
-	P = Porig;
-    }
     /* Don't scale again (on this polytope) */
     options->approx->method = BV_APPROX_NONE;
     eres = enumerate_flated(P, C, L, options);
