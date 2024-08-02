@@ -146,7 +146,6 @@ static void Param_Polyhedron_Scale_Integer_Slow(Param_Polyhedron *PP,
 					 Value *det, unsigned MaxRays)
 {
     Param_Vertices *V;
-    unsigned dim = (*P)->Dimension;
     unsigned nparam;
     unsigned nvar;
     Lattice *L = NULL, *Li;
@@ -159,7 +158,7 @@ static void Param_Polyhedron_Scale_Integer_Slow(Param_Polyhedron *PP,
 	return;
 
     nparam = PP->V->Vertex->NbColumns - 2;
-    nvar = dim - nparam;
+    nvar = PP->V->Vertex->NbRows;
 
     for (V = PP->V; V; V = V->next) {
 	Lattice *L2;
