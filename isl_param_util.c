@@ -110,11 +110,12 @@ Param_Polyhedron *ISL_P2PP(Polyhedron *P, Polyhedron *C,
 	bset = isl_basic_set_intersect_params(bset, context);
 
 	vertices = isl_basic_set_compute_vertices(bset);
-	isl_basic_set_free(bset);
 
 	PP->Rays = NULL;
 	PP->nbV = isl_vertices_get_n_vertices(vertices);
-	PP->Constraints = Polyhedron2Constraints(P);
+	PP->Constraints = isl_basic_set_to_polylib_constraints(bset);
+
+	isl_basic_set_free(bset);
 
 	next_V = &PP->V;
 	isl_vertices_foreach_vertex(vertices, &add_vertex, &next_V);
