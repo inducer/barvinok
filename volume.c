@@ -529,13 +529,13 @@ static evalue *volume_in_domain(Param_Polyhedron *PP, Param_Domain *D,
     return vol;
 }
 
-evalue* Param_Polyhedron_Volume(Polyhedron *P, Polyhedron* C,
-				struct barvinok_options *options)
+/* Compute the volume of the parametric polytope "PP" with context "C".
+ */
+static evalue *PP_Volume(Param_Polyhedron *PP, Polyhedron* C,
+    struct barvinok_options *options)
 {
     evalue ***matrix;
-    unsigned nparam = C->Dimension;
-    unsigned nvar = P->Dimension - C->Dimension;
-    Param_Polyhedron *PP;
+    unsigned nvar;
     unsigned MaxRays;
     int i;
     Value fact;
@@ -543,26 +543,12 @@ evalue* Param_Polyhedron_Volume(Polyhedron *P, Polyhedron* C,
     int nd;
     struct evalue_section *s;
     Param_Domain *D;
+    Polyhedron *P;
     Polyhedron *TC;
 
-    if (options->approx->approximation == BV_APPROX_SIGN_NONE)
-	return NULL;
+    P = Param_Polyhedron2Polyhedron(PP, options);
 
-    if (options->approx->approximation != BV_APPROX_SIGN_APPROX) {
-	int pa = options->approx->approximation;
-	assert(pa == BV_APPROX_SIGN_UPPER || pa == BV_APPROX_SIGN_LOWER);
-
-	P = Polyhedron_Flate(P, nparam, pa == BV_APPROX_SIGN_UPPER,
-			     options->MaxRays);
-
-	/* Don't deflate/inflate again (on this polytope) */
-	options->approx->approximation = BV_APPROX_SIGN_APPROX;
-	vol = barvinok_enumerate_with_options(P, C, options);
-	options->approx->approximation = pa;
-
-	Polyhedron_Free(P);
-	return vol;
-    }
+    nvar = P->Dimension - C->Dimension;
 
     TC = true_context(P, C, options->MaxRays);
 
@@ -571,8 +557,6 @@ evalue* Param_Polyhedron_Volume(Polyhedron *P, Polyhedron* C,
 
     value_init(fact);
     Factorial(nvar, &fact);
-
-    PP = Polyhedron2Param_Polyhedron(P, C, options);
 
     for (nd = 0, D = PP->D; D; ++nd, D = D->next);
     s = ALLOCN(struct evalue_section, nd);
@@ -605,8 +589,41 @@ evalue* Param_Polyhedron_Volume(Polyhedron *P, Polyhedron* C,
     for (i = 0; i < nvar+1; ++i)
 	free(matrix[i]);
     free(matrix);
-    Param_Polyhedron_Free(PP);
     value_clear(fact);
+    Polyhedron_Free(P);
+
+    return vol;
+}
+
+evalue* Param_Polyhedron_Volume(Polyhedron *P, Polyhedron* C,
+				struct barvinok_options *options)
+{
+    unsigned nparam = C->Dimension;
+    Param_Polyhedron *PP;
+    evalue *vol;
+
+    if (options->approx->approximation == BV_APPROX_SIGN_NONE)
+	return NULL;
+
+    if (options->approx->approximation != BV_APPROX_SIGN_APPROX) {
+	int pa = options->approx->approximation;
+	assert(pa == BV_APPROX_SIGN_UPPER || pa == BV_APPROX_SIGN_LOWER);
+
+	P = Polyhedron_Flate(P, nparam, pa == BV_APPROX_SIGN_UPPER,
+			     options->MaxRays);
+
+	/* Don't deflate/inflate again (on this polytope) */
+	options->approx->approximation = BV_APPROX_SIGN_APPROX;
+	vol = barvinok_enumerate_with_options(P, C, options);
+	options->approx->approximation = pa;
+
+	Polyhedron_Free(P);
+	return vol;
+    }
+
+    PP = Polyhedron2Param_Polyhedron(P, C, options);
+    vol = PP_Volume(PP, C, options);
+    Param_Polyhedron_Free(PP);
 
     return vol;
 }

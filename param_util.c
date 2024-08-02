@@ -137,6 +137,24 @@ Param_Polyhedron *Polyhedron2Param_Polyhedron(Polyhedron *P, Polyhedron *C,
     }
 }
 
+/* Construct a Polyhedron from the constraints of "PP".
+ *
+ * Use a copy of the constraints because Constraints2Polyhedron
+ * may modify its first argument.
+ */
+Polyhedron *Param_Polyhedron2Polyhedron(Param_Polyhedron *PP,
+    struct barvinok_options *options)
+{
+    Matrix *M;
+    Polyhedron *P;
+
+    M = Matrix_Copy(PP->Constraints);
+    P = Constraints2Polyhedron(M, options->MaxRays);
+    Matrix_Free(M);
+
+    return P;
+}
+
 #define INT_BITS (sizeof(unsigned) * 8)
 
 /* Wegner's method for counting the number of ones in a bit vector */
