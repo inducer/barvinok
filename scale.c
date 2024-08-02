@@ -108,7 +108,7 @@ static void Param_Vertex_Image(Param_Vertices *V, Matrix *T)
     V->Vertex = Vertex;
 }
 
-static void apply_expansion(Param_Polyhedron *PP, Polyhedron **P,
+static void apply_expansion(Param_Polyhedron *PP,
 			    Matrix *expansion, unsigned MaxRays)
 {
     int i;
@@ -123,8 +123,6 @@ static void apply_expansion(Param_Polyhedron *PP, Polyhedron **P,
 	Vector_Normalize(PP->Constraints->p[i]+1, nvar+nparam+1);
     }
     Vector_Free(constraint);
-    if (P)
-	*P = Polyhedron_Preimage(*P, expansion, MaxRays);
 }
 
 /* Scales the parametric polyhedron with constraints vertices PP
@@ -199,7 +197,7 @@ static void Param_Polyhedron_Scale_Integer_Slow(Param_Polyhedron *PP,
     for (i = nvar; i < nvar+nparam+1; ++i)
 	value_assign(expansion->p[i][i], L->p[nvar][nvar]);
 
-    apply_expansion(PP, NULL, expansion, MaxRays);
+    apply_expansion(PP, expansion, MaxRays);
     Matrix_Free(expansion);
 
     /* apply the variable expansion to the parametric vertices */
@@ -297,7 +295,7 @@ static void Param_Polyhedron_Scale_Integer_Fast(Param_Polyhedron *PP,
     value_assign(expansion->p[i][i], global_var_lcm);
 
   /* d- apply the variable expansion to the polyhedron */
-  apply_expansion(PP, NULL, expansion, MaxRays);
+  apply_expansion(PP, expansion, MaxRays);
 
   if (Lat) {
     Lattice *L = Matrix_Alloc(nb_vars+1, nb_vars+1);
