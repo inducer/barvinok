@@ -127,9 +127,9 @@ static void apply_expansion(Param_Polyhedron *PP, Polyhedron **P,
 	*P = Polyhedron_Preimage(*P, expansion, MaxRays);
 }
 
-/* Scales the parametric polyhedron with constraints *P and vertices PP
+/* Scales the parametric polyhedron with constraints vertices PP
  * such that the number of integer points can be represented by a polynomial.
- * Both *P and the vertices of "PP" are adapted according to the scaling.
+ * The vertices of "PP" are adapted according to the scaling.
  * The scaling factor is returned in *det.
  * The transformation that maps the new coordinates to the original
  * coordinates is returned in *Lat (if Lat != NULL).
@@ -141,7 +141,6 @@ static void apply_expansion(Param_Polyhedron *PP, Polyhedron **P,
  * affine transformations" by B. Meister.
  */
 static void Param_Polyhedron_Scale_Integer_Slow(Param_Polyhedron *PP,
-					 Polyhedron **P,
 				         Lattice **Lat,
 					 Value *det, unsigned MaxRays)
 {
@@ -200,7 +199,7 @@ static void Param_Polyhedron_Scale_Integer_Slow(Param_Polyhedron *PP,
     for (i = nvar; i < nvar+nparam+1; ++i)
 	value_assign(expansion->p[i][i], L->p[nvar][nvar]);
 
-    apply_expansion(PP, P, expansion, MaxRays);
+    apply_expansion(PP, NULL, expansion, MaxRays);
     Matrix_Free(expansion);
 
     /* apply the variable expansion to the parametric vertices */
@@ -522,7 +521,7 @@ static void Param_Polyhedron_Scale(Param_Polyhedron *PP, Lattice **L,
     if (options->approx->scale_flags & BV_APPROX_SCALE_FAST)
 	Param_Polyhedron_Scale_Integer_Fast(PP, NULL, L, det, options->MaxRays);
     else
-	Param_Polyhedron_Scale_Integer_Slow(PP, NULL, L, det, options->MaxRays);
+	Param_Polyhedron_Scale_Integer_Slow(PP, L, det, options->MaxRays);
 }
 
 static evalue *enumerate_flated(Polyhedron *P, Polyhedron *C, Lattice *L,
