@@ -140,7 +140,8 @@ static void apply_expansion(Param_Polyhedron *PP, Polyhedron **P,
  * The algorithm is described in "Approximating Ehrhart Polynomials using
  * affine transformations" by B. Meister.
  */
-void Param_Polyhedron_Scale_Integer_Slow(Param_Polyhedron *PP, Polyhedron **P,
+static void Param_Polyhedron_Scale_Integer_Slow(Param_Polyhedron *PP,
+					 Polyhedron **P,
 				         Lattice **Lat,
 					 Value *det, unsigned MaxRays)
 {
@@ -234,7 +235,8 @@ void Param_Polyhedron_Scale_Integer_Slow(Param_Polyhedron *PP, Polyhedron **P,
  * The algorithm is described in "Approximating Ehrhart Polynomials using
  * affine transformations" by B. Meister.
  */
-void Param_Polyhedron_Scale_Integer_Fast(Param_Polyhedron *PP, Polyhedron **P,
+static void Param_Polyhedron_Scale_Integer_Fast(Param_Polyhedron *PP,
+					 Polyhedron **P,
 				         Lattice **Lat,
 					 Value *det, unsigned MaxRays)
 {
