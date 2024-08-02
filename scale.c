@@ -220,9 +220,9 @@ static void Param_Polyhedron_Scale_Integer_Slow(Param_Polyhedron *PP,
     Matrix_Free(T);
 }
 
-/* Scales the parametric polyhedron with constraints *P and vertices PP
+/* Scales the parametric polyhedron with constraints vertices PP
  * such that the number of integer points can be represented by a polynomial.
- * Both *P and the vertices of "PP" are adapted according to the scaling.
+ * The vertices of "PP" are adapted according to the scaling.
  * The scaling factor is returned in *det.
  * The transformation that maps the new coordinates to the original
  * coordinates is returned in *Lat (if Lat != NULL).
@@ -234,7 +234,6 @@ static void Param_Polyhedron_Scale_Integer_Slow(Param_Polyhedron *PP,
  * affine transformations" by B. Meister.
  */
 static void Param_Polyhedron_Scale_Integer_Fast(Param_Polyhedron *PP,
-					 Polyhedron **P,
 				         Lattice **Lat,
 					 Value *det, unsigned MaxRays)
 {
@@ -298,7 +297,7 @@ static void Param_Polyhedron_Scale_Integer_Fast(Param_Polyhedron *PP,
     value_assign(expansion->p[i][i], global_var_lcm);
 
   /* d- apply the variable expansion to the polyhedron */
-  apply_expansion(PP, P, expansion, MaxRays);
+  apply_expansion(PP, NULL, expansion, MaxRays);
 
   if (Lat) {
     Lattice *L = Matrix_Alloc(nb_vars+1, nb_vars+1);
@@ -519,7 +518,7 @@ static void Param_Polyhedron_Scale(Param_Polyhedron *PP, Lattice **L,
 				   Value *det, struct barvinok_options *options)
 {
     if (options->approx->scale_flags & BV_APPROX_SCALE_FAST)
-	Param_Polyhedron_Scale_Integer_Fast(PP, NULL, L, det, options->MaxRays);
+	Param_Polyhedron_Scale_Integer_Fast(PP, L, det, options->MaxRays);
     else
 	Param_Polyhedron_Scale_Integer_Slow(PP, L, det, options->MaxRays);
 }
