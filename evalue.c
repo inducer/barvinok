@@ -3391,7 +3391,7 @@ int evalue_floor2frac(evalue *e)
     return r;
 }
 
-evalue *esum_over_domain_cst(int nvar, Polyhedron *D, Matrix *C)
+static evalue *esum_over_domain_cst(int nvar, Polyhedron *D, Matrix *C)
 {
     evalue *t;
     int nparam = D->Dimension - nvar;
