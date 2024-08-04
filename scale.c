@@ -129,7 +129,7 @@ static void apply_expansion(Param_Polyhedron *PP, Polyhedron **P,
 
 /* Scales the parametric polyhedron with constraints *P and vertices PP
  * such that the number of integer points can be represented by a polynomial.
- * Both *P and P->Vertex are adapted according to the scaling.
+ * Both *P and the vertices of "PP" are adapted according to the scaling.
  * The scaling factor is returned in *det.
  * The transformation that maps the new coordinates to the original
  * coordinates is returned in *Lat (if Lat != NULL).
@@ -224,7 +224,7 @@ static void Param_Polyhedron_Scale_Integer_Slow(Param_Polyhedron *PP,
 
 /* Scales the parametric polyhedron with constraints *P and vertices PP
  * such that the number of integer points can be represented by a polynomial.
- * Both *P and P->Vertex are adapted according to the scaling.
+ * Both *P and the vertices of "PP" are adapted according to the scaling.
  * The scaling factor is returned in *det.
  * The transformation that maps the new coordinates to the original
  * coordinates is returned in *Lat (if Lat != NULL).
