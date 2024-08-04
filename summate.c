@@ -164,6 +164,8 @@ static evalue *sum_base_with_equalities(Polyhedron *P, evalue *E,
 /* The substitutions in sum_step_polynomial may have reintroduced equalities
  * (in particular, one of the floor expressions may be equal to one of
  * the variables), so we need to check for them again.
+ * Similarly, the construction of the Param_Polyhedron may involve
+ * some simplification that exposes one or more equality constraints.
  */
 static evalue *sum_base(Polyhedron *P, evalue *E, unsigned nvar,
 				     struct barvinok_options *options)
@@ -177,6 +179,14 @@ static evalue *sum_base(Polyhedron *P, evalue *E, unsigned nvar,
 
     U = Universe_Polyhedron(P->Dimension - nvar);
     PP = Polyhedron2Param_Polyhedron(P, U, options);
+    if (Param_Polyhedron_Is_Lower_Dimensional(PP)) {
+	P = Param_Polyhedron2Polyhedron(PP, options);
+	Polyhedron_Free(U);
+	Param_Polyhedron_Free(PP);
+	sum = sum_base_with_equalities(P, E, nvar, options);
+	Polyhedron_Free(P);
+	return sum;
+    }
     TC = true_context(P, U, options->MaxRays);
 
     if (options->summation == BV_SUM_EULER)
