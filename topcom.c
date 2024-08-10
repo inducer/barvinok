@@ -3,6 +3,7 @@
 #include <barvinok/options.h>
 #include <unistd.h>
 #include "normalization.h"
+#include "param_util.h"
 #include "topcom.h"
 #include "config.h"
 
