@@ -1,3 +1,9 @@
+version: 0.41.8
+date: Sun Sep  1 12:42:16 PM CEST 2024
+changes:
+    - remove all remaining uses of Omega (and Parker's DFA counting)
+    - support recent versions of clang
+---
 version: 0.41.7
 date: Sat Apr  1 05:26:03 PM CEST 2023
 changes:
